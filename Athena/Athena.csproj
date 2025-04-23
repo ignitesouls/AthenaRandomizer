@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<SelfContained>true</SelfContained>
+		<PublishSingleFile>true</PublishSingleFile>
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\dependencies\Andre\Andre.Formats\Andre.Formats.csproj" />
+	</ItemGroup>
+
+	<!--<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<PlatformTarget>x64</PlatformTarget>
+	</PropertyGroup>-->
+
+	<ItemGroup>
+		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Include="Resources\Vanilla\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Include="Resources\Settings\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\ParamDefs\ItemLotParam.xml" />
+		<EmbeddedResource Include="Resources\ParamDefs\ItemLotParam.xml" />
+		<None Remove="Resources\ParamDefs\ShopLineupParam.xml" />
+		<EmbeddedResource Include="Resources\ParamDefs\ShopLineupParam.xml" />
+		<None Remove="Resources\ParamDefs\CharaInitParam.xml" />
+		<EmbeddedResource Include="Resources\ParamDefs\CharaInitParam.xml" />
+		<None Remove="Resources\ParamDefs\GameSystemCommonParam.xml" />
+		<EmbeddedResource Include="Resources\ParamDefs\GameSystemCommonParam.xml" />
+		<None Remove="Resources\Metadata\WeaponIdToItemLotIdsMap.json" />
+		<EmbeddedResource Include="Resources\Metadata\WeaponIdToItemLotIdsMap.json" />
+	</ItemGroup>
+</Project>
