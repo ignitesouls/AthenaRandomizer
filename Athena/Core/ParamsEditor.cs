@@ -28,6 +28,8 @@ namespace Athena.Core
         private Dictionary<int, int> _idToRowIndexShopLineup;
 
         private Param _charaInit;
+        private Dictionary<int, int> _idToRowIndexCharaInit;
+
         private Param _gameSystemCommon;
 
         private ParamsEditor(string regulationPath)
@@ -59,7 +61,8 @@ namespace Athena.Core
                         }
                     case Constants.CharaInitParam:
                         {
-                            _charaInit = initParam(file, Constants.CharaInitParamDef);
+                            _idToRowIndexCharaInit = new Dictionary<int, int>();
+                            _charaInit = initParam(file, Constants.CharaInitParamDef, _idToRowIndexCharaInit);
                             break;
                         }
                     case Constants.GameSystemCommonParam:
@@ -72,7 +75,7 @@ namespace Athena.Core
             if (_itemLotMap == null || _idToRowIndexItemLotMap == null
                 || _itemLotEnemy == null || _idToRowIndexItemLotEnemy == null
                 || _shopLineup == null || _idToRowIndexShopLineup == null
-                || _charaInit == null
+                || _charaInit == null || _idToRowIndexCharaInit == null
                 || _gameSystemCommon == null)
             {
                 throw new Exception("Failed to read expected params from given regulation path");
@@ -81,11 +84,12 @@ namespace Athena.Core
 
         private Param initParam(BinderFile file, string paramdefName, Dictionary<int, int>? idToRowIndex = null)
         {
-            PARAMDEF paramdef = Resources.GetParamDefByName(paramdefName);
+            PARAMDEF paramdef = ResourceManager.GetParamDefByName(paramdefName);
             Param param = Param.Read(file.Bytes);
             param.ApplyParamdef(paramdef);
             if (idToRowIndex != null)
             {
+                Debug.WriteLine($"Fetching IDs to rowIndex for {paramdefName}");
                 int i = 0;
                 foreach (Param.Row row in param.Rows)
                 {

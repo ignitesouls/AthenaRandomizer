@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    ""
 // @linked    []
-// @version    3.4.2
+// @version    3.5
 // ==/EMEVD==
 
 $Event(0, Default, function() {
@@ -442,6 +442,7 @@ $Event(0, Default, function() {
     InitializeEvent(0, 9943, 0);
     InitializeEvent(0, 9940, 0);
     InitializeEvent(0, 1700, 0);
+    InitializeEvent(0, 1900, 0); // Initialization Function (Ctrl+f "$Event(1900" to go to it)
 });
 
 $Event(50, Default, function() {
@@ -700,6 +701,7 @@ L0:
     InitializeEvent(0, 6910, 0);
     EndEvent();
 });
+
 
 $Event(130, Default, function(X0_4) {
     EndIf(ThisEventSlot());
@@ -2785,6 +2787,82 @@ $Event(1801, Restart, function() {
             && EventFlag(9430));
     SetEventFlagID(9421, ON);
     SetCharacterFaceParamOverride(10000, 1, 80000);
+});
+
+// initialization
+$Event(1900, Default, function() {
+    // Only run once
+    EndIf(EventFlag(1144440010));
+    SetEventFlagID(1144440010, ON);
+    
+    SetEventFlagID(62000, ON); // Allow Map Display
+    SetEventFlagID(62001, ON); // Allow Underground Map Display
+    SetEventFlagID(82001, ON); // Display Underground Map Option
+    SetEventFlagID(82002, ON); // DLC map can be opened
+    
+    SetEventFlagID(4680, ON);  // Allow Leveling Up at Grace
+    SetEventFlagID(4681, ON);  // Melina sets this flag after asking you to take her to the erdtree
+    
+    // initial graces
+    SetEventFlagID(71002, ON); // Castleward Tunnel
+    
+    SetEventFlagID(100, ON); // Story: Start
+    SetEventFlagID(102, ON); // Story: Reached Limgrave
+    SetEventFlagID(104, ON); // Story: Reached Roundtable Hold
+    
+    AwardItemLot(100000); // give torrent whistle
+    
+    // award maps
+    AwardItemLot(1042370200); // Limgrave West
+    SetEventFlagID(62010, ON);
+    AwardItemLot(1044320000); // Weeping Peninsula
+    SetEventFlagID(62011, ON);
+    AwardItemLot(1045370020); // Limgrave East
+    SetEventFlagID(62012, ON);
+    AwardItemLot(1038410200); // Liurnia East
+    SetEventFlagID(62020, ON);
+    AwardItemLot(1037440210); // Liurnia North
+    SetEventFlagID(62021, ON);
+    AwardItemLot(1034480200); // Liurnia West
+    SetEventFlagID(62022, ON);
+    AwardItemLot(1040520500); // Altus Plateau
+    SetEventFlagID(62030, ON);
+    AwardItemLot(1042510500); // Leyndell, Royal Capital
+    SetEventFlagID(62031, ON);
+    AwardItemLot(1036540500); // Mt. Gelmir
+    SetEventFlagID(62032, ON);
+    AwardItemLot(1049370500); // Caelid
+    SetEventFlagID(62040, ON);
+    AwardItemLot(1049400500); // Dragonbarrow
+    SetEventFlagID(62041, ON);
+    AwardItemLot(1049530700); // Mountaintops of the Giants, West
+    SetEventFlagID(62050, ON);
+    AwardItemLot(1052540700); // Mountaintops of the Giants, East
+    SetEventFlagID(62051, ON);
+    AwardItemLot(12010000);   // Ainsel River
+    SetEventFlagID(62060, ON);
+    AwardItemLot(12010010);   // Lake of Rot
+    SetEventFlagID(62061, ON);
+    AwardItemLot(12020060);   // Siofra River
+    SetEventFlagID(62063, ON);
+    AwardItemLot(12050000);   // Mohgwyn Palace
+    SetEventFlagID(62062, ON);
+    AwardItemLot(12030000);   // Deeproot Depths
+    SetEventFlagID(62064, ON);
+    AwardItemLot(1048560700); // Consecrated Snowfield
+    SetEventFlagID(62052, ON);
+    
+    // dlc maps
+    AwardItemLot(2052410600); // Abyss
+    SetEventFlagID(62084, ON);
+    AwardItemLot(2046450710); // Rauh Ruins
+    SetEventFlagID(62083, ON);
+    AwardItemLot(2048370040); // Southern Shore
+    SetEventFlagID(62082, ON);
+    AwardItemLot(2048450500); // Scadu Altus
+    SetEventFlagID(62081, ON);
+    AwardItemLot(2047410900); // Gravesite Plain
+    SetEventFlagID(62080, ON);
 });
 
 $Event(6800, Restart, function(X0_4, X4_4) {

@@ -21,6 +21,7 @@ public partial class Randomizer
     //private Dictionary<int, List<int>> _weaponIdToItemLotIdsEnemy;
 
     private ParamsEditor? _paramsEditor;
+    private SeedManager? _seedManager;
 
     public Randomizer(string mode)
     {
@@ -30,7 +31,7 @@ public partial class Randomizer
         }
         _mode = mode;
         _weaponGroups = _readWeaponGroups();
-        _weaponIdToItemLotIdsMap = Resources.GetWeaponIDToItemLotIdsByName("WeaponIdToItemLotIdsMap");
+        _weaponIdToItemLotIdsMap = ResourceManager.GetWeaponIDToItemLotIdsByName("WeaponIdToItemLotIdsMap");
         Dictionary<int, List<int>>.KeyCollection keys = _weaponIdToItemLotIdsMap.Keys;
         for (int i = 0; i < keys.Count; i++)
         {
@@ -41,6 +42,9 @@ public partial class Randomizer
                 Debug.WriteLine($"element {j}: {itemLotIds[j]}");
             }
         }
+
+        _seedManager = new SeedManager();
+        Debug.WriteLine($"{_seedManager.GetBaseSeed()}");
     }
 
     private List<List<int>> _readWeaponGroups()

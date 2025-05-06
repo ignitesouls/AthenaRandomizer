@@ -13,30 +13,67 @@ namespace Athena.Randomizer
         private void _randomizeDlc()
         {
             _paramsEditor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInDlc);
-            _randomizePerfumeBottlesDlc();
+            _initStartingClasses();
+            _modifyADMFlasks();
             _paramsEditor.WriteToRegulationPath(Constants.RegulationOutDlc);
         }
 
-        private void _randomizePerfumeBottlesDlc()
+        // Set all stats to 10 except vig to 50
+        // Remove all starting gear and spells
+        // Give every class 10 starlight shards to exchange for items
+        private void _initStartingClasses()
         {
             if (_paramsEditor == null)
             {
                 throw new Exception("Failed: _paramsEditor hasn't been initialized");
             }
-
-            List<int> perfumeBottleLocationIDs = new List<int>()
+            for (int i = 0; i < Constants.TotalStartingClasses; i++)
             {
-                16000110,   // Volcano manor
-                31180000,   // Perfumer's Grotto
-                1036510020, // Perfumer's Ruins (near Omenkiller)
-                1039540040, // Shaded Castle
-                1048380010  // Caelid
-            };
-
-            foreach (int itemLotId in perfumeBottleLocationIDs)
-            {
-                _paramsEditor.SetItemLotMapLotItemId(itemLotId, 0, 3520);
+                int charaInitId = Constants.VagabondCharaInitId + i;
+                _paramsEditor.SetInitialRuneLevel(charaInitId, 1);
+                _paramsEditor.SetInitialRunes(charaInitId, 160000);
+                _paramsEditor.SetInitialVigor(charaInitId, 50);
+                _paramsEditor.SetInitialMind(charaInitId, 10);
+                _paramsEditor.SetInitialEndurance(charaInitId, 10);
+                _paramsEditor.SetInitialStrength(charaInitId, 10);
+                _paramsEditor.SetInitialDexterity(charaInitId, 10);
+                _paramsEditor.SetInitialIntelligence(charaInitId, 10);
+                _paramsEditor.SetInitialFaith(charaInitId, 10);
+                _paramsEditor.SetInitialArcane(charaInitId, 10);
+                _paramsEditor.SetInitialEquipWepRight(charaInitId, 0, Constants.ClubItemId);
+                _paramsEditor.SetInitialEquipWepLeft(charaInitId, 0, -1);
+                for (int j = 1; j < 2; j++)
+                {
+                    _paramsEditor.SetInitialEquipWepRight(charaInitId, j, -1);
+                    _paramsEditor.SetInitialEquipWepLeft(charaInitId, j, -1);
+                }
+                _paramsEditor.SetInitialEquipHelm(charaInitId, -1);
+                _paramsEditor.SetInitialEquipTorso(charaInitId, -1);
+                _paramsEditor.SetInitialEquipArm(charaInitId, -1);
+                _paramsEditor.SetInitialEquipLeg(charaInitId, -1);
+                for (int j = 0; j < 4; j++)
+                {
+                    _paramsEditor.SetInitialEquipAmmunition(charaInitId, j, -1, 0);
+                }
+                for (int j = 0; j < 7; j++)
+                {
+                    _paramsEditor.SetInitialEquipSpell(charaInitId, j, -1);
+                }
+                // Starlight Shards
+                _paramsEditor.SetInitialEquipItem(charaInitId, 9, 1290);
+                _paramsEditor.SetInitialEquipItemAmount(charaInitId, 9, 10);
             }
+        }
+
+        private void _modifyADMFlasks()
+        {
+            if (_paramsEditor == null)
+            {
+                throw new Exception("Failed: _paramsEditor hasn't been initialized");
+            }
+            int admId = 2024070;
+            _paramsEditor.SetInitialMaxHpFlasks(admId, 20);
+            _paramsEditor.SetInitialEquipItemAmount(admId, 2, 20);
         }
     }
 }
