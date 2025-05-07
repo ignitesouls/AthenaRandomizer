@@ -11,7 +11,9 @@ debug = false
 #
 # Multiple mods must be separated with commas. For example if you have 3 mods, you will have something like the following:
 # external_dlls = [ "coolmod.dll", "D:\\nicemods\\nicemod.dll", "sosofolder\sosomod.dll" ]
-external_dlls = []
+external_dlls = [
+    ".\\SkipTheIntro\\SkipTheIntro.dll"
+]
 
 # Mod loader configuration
 [extension.mod_loader]

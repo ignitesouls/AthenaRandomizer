@@ -39,6 +39,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="TabWidthConverter.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\ParamDefs\ItemLotParam.xml" />
 		<EmbeddedResource Include="Resources\ParamDefs\ItemLotParam.xml" />
 		<None Remove="Resources\ParamDefs\ShopLineupParam.xml" />
