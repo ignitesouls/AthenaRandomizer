@@ -8,6 +8,14 @@
 // ==/EMEVD==
 
 $Event(0, Default, function() {
+    InitializeEvent(0, 1900, 0); // Initialization Function (Ctrl+f "$Event(1900" to go to it)
+    InitializeEvent(0, 1901, 1144448010, 1056460000, 60120);
+    InitializeEvent(1, 1901, 1144448020, 1056460010, 60130);
+    InitializeEvent(2, 1901, 1144448030, 1056460020, 65610);
+    InitializeEvent(3, 1901, 1144448040, 1056460030, 65640);
+    InitializeEvent(4, 1901, 1144448050, 1056460040, 65660);
+    InitializeEvent(5, 1901, 1144448060, 1056460050, 65680);
+    InitializeEvent(6, 1901, 1144448070, 1056460060, 65720);
     InitializeEvent(0, 701, 0);
     InitializeEvent(0, 707, 0);
     InitializeEvent(0, 705, 0);
@@ -442,7 +450,6 @@ $Event(0, Default, function() {
     InitializeEvent(0, 9943, 0);
     InitializeEvent(0, 9940, 0);
     InitializeEvent(0, 1700, 0);
-    InitializeEvent(0, 1900, 0); // Initialization Function (Ctrl+f "$Event(1900" to go to it)
 });
 
 $Event(50, Default, function() {
@@ -2399,6 +2406,7 @@ L10:
     }
 });
 
+
 $Event(1600, Default, function(X0_4, X4_4, X8_4, X12_4) {
     DisableNetworkSync();
     if (!PlayerIsInOwnWorld()) {
@@ -2804,16 +2812,48 @@ $Event(1900, Default, function() {
     // initial graces
     SetEventFlagID(71190, ON); // Table of Lost Grace
     SetEventFlagID(76806, ON); // Gravesite Hollow
-    // CreateAssetfollowingSFX(2046401951, 100, 6400);
     
     SetEventFlagID(100, ON); // Story: Start
     // SetEventFlagID(102, ON); // Story: Reached Limgrave
     // SetEventFlagID(104, ON); // Story: Reached Roundtable Hold
     AwardItemLot(100000); // give torrent whistle
-    AwardItemLot(1046380300); // give flask of wondrous physick
     // give initial flasks. the rest of the flasks will be given once the talk script detects that the player
     // owns four total flasks
-    AwardItemsIncludingClients(2000);
+    AwardItemLot(2000);
+    AwardItemLot(1046380300); // give flask of wondrous physick
+    RemoveItemFromPlayer(ItemType.Goods, 11002, 1); // remove the crimson tear that comes with physick
+    
+    // give talisman pouches
+    AwardItemLot(10000); // margit talisman pouch
+    AwardItemLot(10050); // enia talisman pouch
+    AwardItemLot(101100); // godfrey talisman pouch
+    
+    // give cracked pots
+    for (let i = 0; i < 20; i++) {
+        SetEventFlagID(66000 + (i*10), ON);   
+    }
+    RemoveItemFromPlayer(ItemType.Goods, 9500, 20);
+    for (let i = 0; i < 20; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 9500, 6001, 1);
+    }
+    // give memory stones
+    for (let i = 0; i < 8; i++) {
+        SetEventFlagID(60400 + (i*10), ON);   
+    }
+    RemoveItemFromPlayer(ItemType.Goods, 10030, 8);
+    for (let i = 0; i < 8; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 10030, 6001, 1);
+    }
+    // give perfume bottles
+    for (let i = 0; i < 10; i++) {
+        SetEventFlagID(66700 + (i*10), ON);   
+    }
+    RemoveItemFromPlayer(ItemType.Goods, 9510, 10);
+    for (let i = 0; i < 10; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 9510, 6001, 1);
+    }
+
+    // AwardItemsIncludingClients(2064400000);
     
     // award maps
     //AwardItemLot(1042370200); // Limgrave West
@@ -2866,6 +2906,17 @@ $Event(1900, Default, function() {
     SetEventFlagID(62081, ON);
     AwardItemLot(2047410900); // Gravesite Plain
     SetEventFlagID(62080, ON);
+});
+
+// activate a flag conditionally upon another flag's activation
+$Event(1901, Restart, function(X0_4, X4_4, X8_4) {
+    // X0_4 - eventflag for this specific event to run only once
+    // X4_4 - eventflag to wait for activation
+    // X8_4 - eventflag to activate
+    EndIf(EventFlag(X0_4));
+    WaitFor(EventFlag(X4_4));
+    SetEventFlagID(X8_4, ON);
+    SetEventFlagID(X0_4, ON);
 });
 
 $Event(6800, Restart, function(X0_4, X4_4) {

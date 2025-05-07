@@ -100,7 +100,25 @@ namespace Athena.Config
         public const int ColIndexCategory = 8;  // there's 8 total [8, 15]
 
         // ShopLineupParam
+        public const int EventFlagForStock = 3;
         public const int TextId = 14;
+        // row IDs for buckets of items
+        // smithing stones
+        public const int DlcShopStonesIdStart = 9001100;
+        public const int DlcShopStonesIdCount = 17;
+        public const uint DlcShopStonesIdBaseEventFlagForStock = 1056440000;
+        // talismans
+        public const int DlcShopTalismansIdStart = 9001200;
+        public const int DlcShopTalismansIdCount = 75;
+        public const uint DlcShopTalismansIdBaseEventFlagForStock = 1056450000;
+        // key items
+        public const int DlcShopKeyItemsIdStart = 9001300;
+        public const int DlcShopKeyItemsIdCount = 39;
+        public const uint DlcShopKeyItemsIdBaseEventFlagForStock = 1056460000;
+        // consumables
+        public const int DlcShopConsumablesIdStart = 9001400;
+        public const int DlcShopConsumablesIdCount = 18;
+        public const uint DlcShopConsumablesIdBaseEventFlagForStock = 1056470000;
 
         // GameSystemCommonParam
         public const int DefaultScadutreeBlessingLevel = 20000100;

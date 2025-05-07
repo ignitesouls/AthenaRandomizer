@@ -13,5 +13,10 @@ namespace Athena.Core
         {
             SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, Constants.TextId, textId);
         }
+
+        public void SetShopLineupEventFlagForStock(int shopLineupId, uint eventFlag)
+        {
+            SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, Constants.EventFlagForStock, eventFlag);
+        }
     }
 }

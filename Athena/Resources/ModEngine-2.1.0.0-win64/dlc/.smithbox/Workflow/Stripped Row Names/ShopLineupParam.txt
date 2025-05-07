@@ -1290,120 +1290,120 @@ Omen Greaves
 [Merchant Millicent - Stones] Somber Smithing Stone [7]
 [Merchant Millicent - Stones] Somber Smithing Stone [8]
 [Merchant Millicent - Stones] Somber Smithing Stone [9]
-[Merchant Millicent - Talismans]
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Talismans]_1
-[Merchant Millicent - Key Items]
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
-[Merchant Millicent - Key Items]_1
+[Merchant Millicent - Talismans] Crimson Amber Medallion +2
+[Merchant Millicent - Talismans] Cerulean Amber Medallion +2
+[Merchant Millicent - Talismans] Viridian Amber Medallion +2
+[Merchant Millicent - Talismans] Great-Jar's Arsenal
+[Merchant Millicent - Talismans] Erdtree's Favor +2
+[Merchant Millicent - Talismans] Silver Scarab
+[Merchant Millicent - Talismans] Gold Scarab
+[Merchant Millicent - Talismans] Moon of Nokstella
+[Merchant Millicent - Talismans] Green Turtle Talisman
+[Merchant Millicent - Talismans] Stalwart Horn Charm +1
+[Merchant Millicent - Talismans] Immunizing Horn Charm +1
+[Merchant Millicent - Talismans] Clarifying Horn Charm +1
+[Merchant Millicent - Talismans] Prince of Death's Cyst
+[Merchant Millicent - Talismans] Mottled Necklace +1
+[Merchant Millicent - Talismans] Bull-Goat's Talisman
+[Merchant Millicent - Talismans] Shard of Alexander
+[Merchant Millicent - Talismans] Magic Scorpion Charm
+[Merchant Millicent - Talismans] Lightning Scorpion Charm
+[Merchant Millicent - Talismans] Fire Scorpion Charm
+[Merchant Millicent - Talismans] Sacred Scorpion Charm
+[Merchant Millicent - Talismans] Red-Feathered Branchsword
+[Merchant Millicent - Talismans] Ritual Sword Talisman
+[Merchant Millicent - Talismans] Spear Talisman
+[Merchant Millicent - Talismans] Hammer Talisman
+[Merchant Millicent - Talismans] Rotten Winged Sword Insignia
+[Merchant Millicent - Talismans] Dagger Talisman
+[Merchant Millicent - Talismans] Arrow's Reach Talisman
+[Merchant Millicent - Talismans] Blue Dancer Charm
+[Merchant Millicent - Talismans] Twinblade Talisman
+[Merchant Millicent - Talismans] Axe Talisman
+[Merchant Millicent - Talismans] Lance Talisman
+[Merchant Millicent - Talismans] Arrow's Sting Talisman
+[Merchant Millicent - Talismans] Lord of Blood's Exultation
+[Merchant Millicent - Talismans] Kindred of Rot's Exultation
+[Merchant Millicent - Talismans] Claw Talisman
+[Merchant Millicent - Talismans] Roar Medallion
+[Merchant Millicent - Talismans] Curved Sword Talisman
+[Merchant Millicent - Talismans] Companion Jar
+[Merchant Millicent - Talismans] Perfumer's Talisman
+[Merchant Millicent - Talismans] Graven-Mass Talisman
+[Merchant Millicent - Talismans] Faithful's Canvas Talisman
+[Merchant Millicent - Talismans] Flock's Canvas Talisman
+[Merchant Millicent - Talismans] Old Lord's Talisman
+[Merchant Millicent - Talismans] Radagon Icon
+[Merchant Millicent - Talismans] Primal Glintstone Blade
+[Merchant Millicent - Talismans] Godfrey Icon
+[Merchant Millicent - Talismans] Dragoncrest Greatshield Talisman
+[Merchant Millicent - Talismans] Spelldrake Talisman +2
+[Merchant Millicent - Talismans] Flamedrake Talisman +2
+[Merchant Millicent - Talismans] Boltdrake Talisman +2
+[Merchant Millicent - Talismans] Haligdrake Talisman +2
+[Merchant Millicent - Talismans] Pearldrake Talisman +2
+[Merchant Millicent - Talismans] Crucible Scale Talisman
+[Merchant Millicent - Talismans] Crucible Feather Talisman
+[Merchant Millicent - Talismans] Blue-Feathered Branchsword
+[Merchant Millicent - Talismans] Ritual Shield Talisman
+[Merchant Millicent - Talismans] Greatshield Talisman
+[Merchant Millicent - Talismans] Crucible Knot Talisman
+[Merchant Millicent - Talismans] Crimson Seed Talisman
+[Merchant Millicent - Talismans] Cerulean Seed Talisman
+[Merchant Millicent - Talismans] Blessed Dew Talisman
+[Merchant Millicent - Talismans] Taker's Cameo
+[Merchant Millicent - Talismans] Godskin Swaddling Cloth
+[Merchant Millicent - Talismans] Assassin's Crimson Dagger
+[Merchant Millicent - Talismans] Assassin's Cerulean Dagger
+[Merchant Millicent - Talismans] Crepus's Vial
+[Merchant Millicent - Talismans] Concealing Veil
+[Merchant Millicent - Talismans] Carian Filigreed Crest
+[Merchant Millicent - Talismans] Longtail Cat Talisman
+[Merchant Millicent - Talismans] Shabriri's Woe
+[Merchant Millicent - Talismans] Daedicar's Woe
+[Merchant Millicent - Talismans] Sacrificial Twig
+[Merchant Millicent - Talismans] Furled Finger's Trick-Mirror
+[Merchant Millicent - Talismans] Host's Trick-Mirror
+[Merchant Millicent - Talismans] Ancestral Spirit's Horn
+[Merchant Millicent - Key Items] Crafting Kit
+[Merchant Millicent - Key Items] Whetstone Knife
+[Merchant Millicent - Key Items] Iron Whetblade
+[Merchant Millicent - Key Items] Red-Hot Whetblade
+[Merchant Millicent - Key Items] Sanctified Whetblade
+[Merchant Millicent - Key Items] Glintstone Whetblade
+[Merchant Millicent - Key Items] Black Whetblade
+[Merchant Millicent - Key Items] Crimsonspill Crystal Tear
+[Merchant Millicent - Key Items] Greenspill Crystal Tear
+[Merchant Millicent - Key Items] Crimson Crystal Tear
+[Merchant Millicent - Key Items] Crimson Crystal Tear
+[Merchant Millicent - Key Items] Cerulean Crystal Tear
+[Merchant Millicent - Key Items] Cerulean Crystal Tear
+[Merchant Millicent - Key Items] Speckled Hardtear
+[Merchant Millicent - Key Items] Crimson Bubbletear
+[Merchant Millicent - Key Items] Opaline Bubbletear
+[Merchant Millicent - Key Items] Crimsonburst Crystal Tear
+[Merchant Millicent - Key Items] Greenburst Crystal Tear
+[Merchant Millicent - Key Items] Opaline Hardtear
+[Merchant Millicent - Key Items] Winged Cracked Tear
+[Merchant Millicent - Key Items] Thorny Cracked Tear
+[Merchant Millicent - Key Items] Spiked Cracked Tear
+[Merchant Millicent - Key Items] Windy Cracked Tear
+[Merchant Millicent - Key Items] Ruptured Crystal Tear
+[Merchant Millicent - Key Items] Ruptured Crystal Tear
+[Merchant Millicent - Key Items] Leaden Hardtear
+[Merchant Millicent - Key Items] Twiggy Cracked Tear
+[Merchant Millicent - Key Items] Crimsonwhorl Bubbletear
+[Merchant Millicent - Key Items] Strength-knot Crystal Tear
+[Merchant Millicent - Key Items] Dexterity-knot Crystal Tear
+[Merchant Millicent - Key Items] Intelligence-knot Crystal Tear
+[Merchant Millicent - Key Items] Faith-knot Crystal Tear
+[Merchant Millicent - Key Items] Cerulean Hidden Tear
+[Merchant Millicent - Key Items] Stonebarb Cracked Tear
+[Merchant Millicent - Key Items] Purifying Crystal Tear
+[Merchant Millicent - Key Items] Flame-Shrouding Cracked Tear
+[Merchant Millicent - Key Items] Magic-Shrouding Cracked Tear
+[Merchant Millicent - Key Items] Lightning-Shrouding Cracked Tear
+[Merchant Millicent - Key Items] Holy-Shrouding Cracked Tear
 [Merchant Millicent - Consumables] Fire Grease
 [Merchant Millicent - Consumables] Lightning Grease
 [Merchant Millicent - Consumables] Magic Grease
