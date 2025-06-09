@@ -80,11 +80,10 @@ $Event(10010031, Default, function() {
     DisableCharacterImmortality(10000);
 });
 
+// warp player to the DLC from chapel
 $Event(10010042, Default, function() {
     EndIf(ThisEventSlot());
     SetThisEventSlot(ON);
-    // SetEventFlagID(9021, ON); // what is this?
-    // WarpPlayer(11, 10, 0, 0, 11102020, 0);
     WarpPlayer(61, 46, 40, 0, 2046402020, 120500);
 });
 

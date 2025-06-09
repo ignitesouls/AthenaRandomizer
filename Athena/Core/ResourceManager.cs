@@ -19,8 +19,8 @@ namespace Athena.Core
     internal class ResourceManager
     {
         /// <summary>
-        /// ParamDef XML files are used by SoulsFormats to parse the data structures stored in 
-        /// Elden Ring's Regulation.bin file. This is used to modify game data, such as the 
+        /// ParamDef XML files are used by SoulsFormats to parse the data structures stored in
+        /// Elden Ring's Regulation.bin file. This is used to modify game data, such as the
         /// items that are awarded at pickups.
         /// </summary>
         public static PARAMDEF GetParamDefByName(string resourceName)

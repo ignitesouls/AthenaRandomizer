@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\dependencies\Andre\Andre.Formats\Andre.Formats.csproj" />
+		<ProjectReference Include="..\dependencies\UniversalReplacementRandomizer\UniversalReplacementRandomizer\UniversalReplacementRandomizer.csproj" />
 	</ItemGroup>
 
 	<!--<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -31,7 +32,17 @@
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
+		<Content Include="Resources\Metadata\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
 		<Content Include="Resources\Settings\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Include="Resources\items\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -49,9 +60,16 @@
 		<EmbeddedResource Include="Resources\ParamDefs\ShopLineupParam.xml" />
 		<None Remove="Resources\ParamDefs\CharaInitParam.xml" />
 		<EmbeddedResource Include="Resources\ParamDefs\CharaInitParam.xml" />
+		<None Remove="Resources\ParamDefs\EquipParamWeapon.xml" />
+		<EmbeddedResource Include="Resources\ParamDefs\EquipParamWeapon.xml" />
 		<None Remove="Resources\ParamDefs\GameSystemCommonParam.xml" />
 		<EmbeddedResource Include="Resources\ParamDefs\GameSystemCommonParam.xml" />
 		<None Remove="Resources\Metadata\WeaponIdToItemLotIdsMap.json" />
 		<EmbeddedResource Include="Resources\Metadata\WeaponIdToItemLotIdsMap.json" />
+		
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CsvHelper" Version="33.1.0" />
 	</ItemGroup>
 </Project>

@@ -45,7 +45,6 @@ $Event(0, Default, function() {
     InitializeEvent(0, 1402, 0);
     InitializeEvent(0, 1403, 0);
     InitializeEvent(0, 1420, 0);
-    InitializeEvent(0, 1070, 0);
     InitializeEvent(0, 1600, 62010, 63010, 1042371690, 1042371691);
     InitializeEvent(1, 1600, 62011, 63011, 1044321690, 1044321691);
     InitializeEvent(2, 1600, 62012, 63012, 1045371690, 1045371691);
@@ -2051,21 +2050,6 @@ L2:
     RestartEvent();
 });
 
-$Event(1070, Restart, function() {
-    DisableNetworkSync();
-    SetSpEffect(10000, 19996);
-    WaitFor(
-        (InArea(10000, 2049412690) && !PlayerInMap(28, 0, 0, 0))
-            || InArea(10000, 2052432690)
-            || InArea(10000, 2050422690));
-    SetSpEffect(10000, 19995);
-    WaitFor(
-        !((InArea(10000, 2049412690) && !PlayerInMap(28, 0, 0, 0))
-            || InArea(10000, 2052432690)
-            || InArea(10000, 2050422690)));
-    RestartEvent();
-});
-
 $Event(1080, Restart, function() {
     EndIf(!PlayerIsInOwnWorld());
     WaitFor(PlayerIsInOwnWorld() && EventFlag(9080));
@@ -2800,34 +2784,38 @@ $Event(1801, Restart, function() {
 // initialization
 $Event(1900, Default, function() {
     // Only run once
-    EndIf(EventFlag(1144440010));
-    SetEventFlagID(1144440010, ON);
+    EndIf(ThisEventSlot());
     
     SetEventFlagID(62000, ON); // Allow Map Display
     SetEventFlagID(82002, ON); // DLC map can be opened
-    SetEventFlagID(11108548, ON); // Roundtable Door is opened
+    // SetEventFlagID(11108548, ON); // Roundtable Door is opened
     
     SetEventFlagID(4680, ON);  // Allow Leveling Up at Grace
     SetEventFlagID(4681, ON);  // Melina sets this flag after asking you to take her to the erdtree
     
     // initial graces
-    SetEventFlagID(71190, ON); // Table of Lost Grace
+    // SetEventFlagID(71190, ON); // Table of Lost Grace
     SetEventFlagID(76806, ON); // Gravesite Hollow
     
     SetEventFlagID(100, ON); // Story: Start
     // SetEventFlagID(102, ON); // Story: Reached Limgrave
     // SetEventFlagID(104, ON); // Story: Reached Roundtable Hold
-    AwardItemLot(100000); // give torrent whistle
-    // give initial flasks. the rest of the flasks will be given once the talk script detects that the player
-    // owns four total flasks
-    AwardItemLot(2000);
-    AwardItemLot(1046380300); // give flask of wondrous physick
-    RemoveItemFromPlayer(ItemType.Goods, 11002, 1); // remove the crimson tear that comes with physick
     
-    // give talisman pouches
-    AwardItemLot(10000); // margit talisman pouch
-    AwardItemLot(10050); // enia talisman pouch
-    AwardItemLot(101100); // godfrey talisman pouch
+    // dlc maps
+    SetEventFlagID(62084, ON); // Abyss
+    SetEventFlagID(62083, ON); // Rauh Ruins
+    SetEventFlagID(62082, ON); // Southern Shore
+    SetEventFlagID(62081, ON); // Scadu Altus
+    SetEventFlagID(62080, ON); // Gravesite Plain
+    
+    // talisman pouches
+    SetEventFlagID(60500, ON);
+    SetEventFlagID(60510, ON);
+    SetEventFlagID(60520, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 10040, 3);
+    for (let i = 0; i < 3; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 10040, 6001, 1);
+    }
     
     // give cracked pots
     for (let i = 0; i < 20; i++) {
@@ -2837,6 +2825,7 @@ $Event(1900, Default, function() {
     for (let i = 0; i < 20; i++) {
         DirectlyGivePlayerItem(ItemType.Goods, 9500, 6001, 1);
     }
+    
     // give memory stones
     for (let i = 0; i < 8; i++) {
         SetEventFlagID(60400 + (i*10), ON);   
@@ -2845,6 +2834,7 @@ $Event(1900, Default, function() {
     for (let i = 0; i < 8; i++) {
         DirectlyGivePlayerItem(ItemType.Goods, 10030, 6001, 1);
     }
+    
     // give perfume bottles
     for (let i = 0; i < 10; i++) {
         SetEventFlagID(66700 + (i*10), ON);   
@@ -2853,60 +2843,39 @@ $Event(1900, Default, function() {
     for (let i = 0; i < 10; i++) {
         DirectlyGivePlayerItem(ItemType.Goods, 9510, 6001, 1);
     }
-
-    // AwardItemsIncludingClients(2064400000);
     
-    // award maps
-    //AwardItemLot(1042370200); // Limgrave West
-    //SetEventFlagID(62010, ON);
-    //AwardItemLot(1044320000); // Weeping Peninsula
-    //SetEventFlagID(62011, ON);
-    //AwardItemLot(1045370020); // Limgrave East
-    //SetEventFlagID(62012, ON);
-    //AwardItemLot(1038410200); // Liurnia East
-    //SetEventFlagID(62020, ON);
-    //AwardItemLot(1037440210); // Liurnia North
-    //SetEventFlagID(62021, ON);
-    //AwardItemLot(1034480200); // Liurnia West
-    //SetEventFlagID(62022, ON);
-    //AwardItemLot(1040520500); // Altus Plateau
-    //SetEventFlagID(62030, ON);
-    //AwardItemLot(1042510500); // Leyndell, Royal Capital
-    //SetEventFlagID(62031, ON);
-    //AwardItemLot(1036540500); // Mt. Gelmir
-    //SetEventFlagID(62032, ON);
-    //AwardItemLot(1049370500); // Caelid
-    //SetEventFlagID(62040, ON);
-    //AwardItemLot(1049400500); // Dragonbarrow
-    //SetEventFlagID(62041, ON);
-    //AwardItemLot(1049530700); // Mountaintops of the Giants, West
-    //SetEventFlagID(62050, ON);
-    //AwardItemLot(1052540700); // Mountaintops of the Giants, East
-    //SetEventFlagID(62051, ON);
-    //AwardItemLot(12010000);   // Ainsel River
-    //SetEventFlagID(62060, ON);
-    //AwardItemLot(12010010);   // Lake of Rot
-    //SetEventFlagID(62061, ON);
-    //AwardItemLot(12020060);   // Siofra River
-    //SetEventFlagID(62063, ON);
-    //AwardItemLot(12050000);   // Mohgwyn Palace
-    //SetEventFlagID(62062, ON);
-    //AwardItemLot(12030000);   // Deeproot Depths
-    //SetEventFlagID(62064, ON);
-    //AwardItemLot(1048560700); // Consecrated Snowfield
-    //SetEventFlagID(62052, ON);
+    // estus flasks
+    SetEventFlagID(60000, ON);
+    for (let i = 0; i <= 25; i++) {
+        RemoveItemFromPlayer(ItemType.Goods, 1000 + i, 14);
+        RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
+    }
+    for (let i = 0; i < 12; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 1025, 6001, 1);
+    }
+    for (let i = 0; i < 2; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 1075, 6001, 1);
+    }
     
-    // dlc maps
-    AwardItemLot(2052410600); // Abyss
-    SetEventFlagID(62084, ON);
-    AwardItemLot(2046450710); // Rauh Ruins
-    SetEventFlagID(62083, ON);
-    AwardItemLot(2048370040); // Southern Shore
-    SetEventFlagID(62082, ON);
-    AwardItemLot(2048450500); // Scadu Altus
-    SetEventFlagID(62081, ON);
-    AwardItemLot(2047410900); // Gravesite Plain
-    SetEventFlagID(62080, ON);
+    // physick flask
+    SetEventFlagID(60020, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 250, 1);
+    DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
+    
+    // steed whistle
+    SetEventFlagID(60100, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 130, 1);
+    DirectlyGivePlayerItem(ItemType.Goods, 130, 6001, 1);
+    
+    // give crafting kit
+    SetEventFlagID(60120, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8500, 6001, 1);
+    
+    // give whetstone knife
+    SetEventFlagID(60130, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8590, 6001, 1);
+    
+    SetThisEventSlot(ON);
 });
 
 // activate a flag conditionally upon another flag's activation

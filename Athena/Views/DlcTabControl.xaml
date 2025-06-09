@@ -23,7 +23,7 @@
         <Button Content="Randomize"
                 Height="40" Width="120"
                 Margin="0,80,0,8"
-                IsEnabled="False"
+                IsEnabled="True"
                 Command="{Binding RandomizeCommand}"
                 />
 

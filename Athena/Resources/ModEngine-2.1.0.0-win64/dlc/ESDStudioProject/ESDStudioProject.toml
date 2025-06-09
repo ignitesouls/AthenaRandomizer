@@ -1,0 +1,7 @@
+title = "ESDStudioProject"
+[project_info]
+name = "ESDStudioProject"
+base_directory = "C:\\Users\\Justin\\source\\repos\\Athena\\Athena\\Resources\\ModEngine-2.1.0.0-win64\\dlc\\ESDStudioProject"
+game_directory = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game"
+mod_directory = "C:\\Users\\Justin\\source\\repos\\Athena\\Athena\\Resources\\ModEngine-2.1.0.0-win64\\dlc"
+game = "er"
