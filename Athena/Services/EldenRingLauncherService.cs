@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// SPDX-License-Identifier: GPL-3.0-only
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Athena.Config;
 
 namespace Athena.Services;

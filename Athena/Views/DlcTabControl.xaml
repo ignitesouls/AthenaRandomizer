@@ -7,28 +7,30 @@
              >
 
     <StackPanel Margin="8" HorizontalAlignment="Center" MaxWidth="400">
-        <TextBlock Text="DLC Equipment and Weapon Randomizer"
+        <TextBlock Text="SCADUBINGO Randomizer"
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"/>
 
-        <TextBlock Text="DLC randomization is coming soon. Right now, only vanilla DLC bingo can be launched. Note that this is an early build and there will be bugs or missing features."
-                   FontSize="12"
-                   TextWrapping="Wrap"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   />
+        <StackPanel Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0,40,0,0">
+            <TextBlock Text="Base Seed:" Margin="0,0,0,2" />
+            <TextBox Text="{Binding BaseSeedInput, UpdateSourceTrigger=PropertyChanged}" Width="120" />
+        </StackPanel>
 
         <Button Content="Randomize"
-                Height="40" Width="120"
-                Margin="0,80,0,8"
-                IsEnabled="True"
-                Command="{Binding RandomizeCommand}"
-                />
+                    Height="40" Width="120"
+                    Margin="0,8,0,0"
+                    IsEnabled="True"
+                    Command="{Binding RandomizeCommand}"
+                    />
 
         <Button Content="Launch Elden Ring"
-                Height="40" Width="120"
-                Command="{Binding LaunchCommand}" />
+                    Height="40" Width="120"
+                    Margin="0,8,0,0"
+                    Command="{Binding LaunchCommand}" />
     </StackPanel>
 </UserControl>

@@ -1,30 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// SPDX-License-Identifier: GPL-3.0-only
+using System.IO;
 
 namespace Athena.Config;
 
 internal class Constants
 {
-    // File or Directory Locations
-    public const string VanillaRegulation = "./Resources/Vanilla/regulation.bin";
-    public const string ModEngineWorkingDirectory = "./Resources/ModEngine-2.1.0.0-win64";
+    // Mod Configuration
+    public static string ModEngineWorkingDirectory = Path.Combine("Resources", "ModEngine-2.1.0.0-win64");
+    public static string RegulationBase = Path.Combine("Resources", "Regulation");
     
-    public const string LaunchEldenRingBase = "launchmod_base.bat";
-    public const string LaunchEldenRingDlc = "launchmod_dlc.bat";
-    public const string LaunchEldenRingBaseDlc = "launchmod_basedlc.bat";
-    
-    public const string RegulationInBase = VanillaRegulation;
-    public const string RegulationInDlc = $"{ModEngineWorkingDirectory}/dlc/regulation.bin";
-    public const string RegulationInBaseDlc = VanillaRegulation;
-    
-    public const string RegulationOutBase = $"{ModEngineWorkingDirectory}/base/regulation.bin";
-    public const string RegulationOutDlc = $"{ModEngineWorkingDirectory}/dlc/regulation.bin";
-    public const string RegulationOutBaseDlc = $"{ModEngineWorkingDirectory}/basedlc/regulation.bin";
+    public static string VanillaRegulation = Path.Combine(RegulationBase, "vanilla", "regulation.bin");
+    public static string RegulationInBase = VanillaRegulation;
+    public static string RegulationInBaseDlc = VanillaRegulation;
+    public static string RegulationInDlc = Path.Combine(RegulationBase, "dlc", "regulation.bin");
 
-    public const string MapFolderDlc = $"{ModEngineWorkingDirectory}/dlc/map/MapStudio";
+    public static string RegulationOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "regulation.bin");
+    public static string RegulationOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "regulation.bin");
+    public static string RegulationOutDlc = Path.Combine(ModEngineWorkingDirectory, "dlc", "regulation.bin");
+    
+    public static string MapFolderDlc = Path.Combine(ModEngineWorkingDirectory, "dlc", "map", "MapStudio");
 
-    public const string MetadataWeaponIdToItemLotIdsMap = "./Resources/Metadata/WeaponIdToItemLotIdsMap.json";
+    // Launch Configuration
+    public static string LaunchEldenRingBase = "launchmod_base.bat";
+    public static string LaunchEldenRingBaseDlc = "launchmod_basedlc.bat";
+    public static string LaunchEldenRingDlc = "launchmod_dlc.bat";
+    
+    // Metadata
+    public static string RandomizationGroups = Path.Combine("Resources", "RandomizationGroups");
+    public static string RandomizationGroupsBase = Path.Combine(RandomizationGroups, "base");
+    public static string RandomizationGroupsBaseDlc = Path.Combine(RandomizationGroups, "basedlc");
+    public static string RandomizationGroupsDlc = Path.Combine(RandomizationGroups, "dlc");
+
+    public static string GameData = Path.Combine("Resources", "GameData");
+
+    public static string Misc = Path.Combine("Resources", "Misc");
 }

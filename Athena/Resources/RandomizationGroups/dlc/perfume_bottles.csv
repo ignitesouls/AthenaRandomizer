@@ -1,0 +1,6 @@
+WeaponClass,Name,IsRemembrance,IsSomber,WeaponID
+Perfume Bottle,Firespark Perfume Bottle,FALSE,FALSE,61500000
+Perfume Bottle,Lightning Perfume Bottle,FALSE,FALSE,61530000
+Perfume Bottle,Chilling Perfume Bottle,FALSE,FALSE,61510000
+Perfume Bottle,Frenzyflame Perfume Bottle,FALSE,FALSE,61520000
+Perfume Bottle,Deadly Poison Perfume Bottle,FALSE,TRUE,61540000

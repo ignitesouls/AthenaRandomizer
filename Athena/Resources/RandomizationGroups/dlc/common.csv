@@ -1,0 +1,74 @@
+WeaponClass,Name,IsRemembrance,IsSomber,WeaponID
+Dagger,Fire Knight's Shortsword,FALSE,FALSE,1510000
+Dagger,Main-gauche,FALSE,FALSE,1500000
+Throwing Blade,Smithscript Dagger,FALSE,FALSE,63500000
+Straight Sword,Velvet Sword of St. Trina,FALSE,TRUE,2510000
+Light Greatsword,Milady,FALSE,FALSE,67500000
+Light Greatsword,Leda's Sword,FALSE,TRUE,67510000
+Light Greatsword,Rellana's Twin Blades,TRUE,TRUE,67520000
+Greatsword,Lizard Greatsword,FALSE,FALSE,3520000
+Greatsword,Greatsword of Solitude,FALSE,TRUE,3550000
+Greatsword,Greatsword of Damnation,TRUE,TRUE,3510000
+Colossal Sword,Fire Knight's Greatsword,FALSE,FALSE,4520000
+Colossal Sword,Moonrithyll's Knight Sword,FALSE,TRUE,4540000
+Colossal Sword,Ancient Meteoric Ore Greatsword,FALSE,TRUE,4500000
+Colossal Sword,Greatsword of Radahn (Lord),TRUE,TRUE,4530000
+Colossal Sword,Greatsword of Radahn (Light),TRUE,TRUE,4550000
+Thrusting Sword,Carian Sorcery Sword,FALSE,FALSE,2530000
+Heavy Thrusting Sword,Queelign's Greatsword,FALSE,FALSE,6500000
+Heavy Thrusting Sword,Sword Lance,TRUE,FALSE,3500000
+Curved Sword,Spirit Sword,FALSE,TRUE,7500000
+Curved Sword,Falx,FALSE,TRUE,7510000
+Curved Sword,Dancing Blade of Ranah,FALSE,TRUE,7520000
+Curved Sword,Horned Warrior's Sword,FALSE,TRUE,7530000
+Curved Greatsword,Freyja's Greatsword,FALSE,FALSE,8510000
+Curved Greatsword,Horned Warrior's Greatsword,FALSE,TRUE,8520000
+Backhand Blade,Backhand Blade - Blind Spot,FALSE,FALSE,4409058
+Backhand Blade,Smithscript Cirque,FALSE,FALSE,64510000
+Backhand Blade,Curseblade's Cirque,FALSE,TRUE,64520000
+Katana,Sword of Night,FALSE,TRUE,9500000
+Katana,Star-Lined Sword,FALSE,TRUE,2520000
+Great Katana,Great Katana - Overhead Stance,FALSE,FALSE,4411061
+Great Katana,Dragon-Hunter's Great Katana,FALSE,TRUE,66510000
+Great Katana,Rakshasa's Great Katana,FALSE,TRUE,66520000
+Twinblade,Black Steel Twinblade,FALSE,FALSE,10510000
+Twinblade,Euporia,FALSE,TRUE,10500000
+Axe,Forked-Tongue Hatchet,FALSE,FALSE,14540000
+Axe,Messmer Soldier's Axe,FALSE,FALSE,14520000
+Axe,Smithscript Axe,FALSE,FALSE,14500000
+Axe,Death Knight's Twin Axes,FALSE,TRUE,14510000
+Greataxe,Bonny Butchering Knife,FALSE,TRUE,15510000
+Greataxe,Death Knight's Longhaft Axe,FALSE,TRUE,15500000
+Greataxe,Putrescence Cleaver,TRUE,TRUE,8500000
+Hammer,Flowerstone Gavel,FALSE,TRUE,11500000
+Flail,Serpent Flail,FALSE,TRUE,13500000
+Great Hammer,Black Steel Greathammer,FALSE,FALSE,12520000
+Great Hammer,Smithscript Greathammer,FALSE,FALSE,12500000
+Colossal Weapon,Bloodfiend's Arm,FALSE,FALSE,12530000
+Colossal Weapon,Anvil Hammer,FALSE,TRUE,12510000
+Colossal Weapon,Devonia's Hammer,FALSE,TRUE,23500000
+Colossal Weapon,Shadow Sunflower Blossom,TRUE,TRUE,23510000
+Colossal Weapon,Gazing Finger,TRUE,TRUE,23520000
+Spear,Swift Spear,FALSE,FALSE,16520000
+Spear,Bloodfiend's Fork,FALSE,FALSE,16540000
+Spear,Smithscript Spear,FALSE,FALSE,16500000
+Great Spear,Messmer Soldier's Spear,FALSE,FALSE,17510000
+Great Spear,Barbed Staff-Spear,FALSE,TRUE,17520000
+Great Spear,Bloodfiend's Sacred Spear,FALSE,TRUE,16550000
+Great Spear,Spear of the Impaler,TRUE,TRUE,17500000
+Halberd,Spirit Glaive,FALSE,TRUE,18500000
+Halberd,Poleblade of the Bud,TRUE,TRUE,18510000
+Reaper,Obsidian Lamina,FALSE,TRUE,19500000
+Whip,Tooth Whip,FALSE,TRUE,20500000
+Fist,Pata,FALSE,FALSE,21510000
+Fist,Poisoned Hand,FALSE,TRUE,21520000
+Fist,Madding Hand,FALSE,TRUE,21530000
+Fist,Thiollier's Hidden Needle,FALSE,TRUE,21530000
+Fist,Golem Fist,FALSE,FALSE,21540000
+Hand-to-Hand,Dryleaf Arts - Palm Blast,FALSE,FALSE,4401055
+Hand-to-Hand,Dane's Footwork,FALSE,FALSE,60510000
+Claw,Claws of Night,FALSE,TRUE,22500000
+Beast Claw,Beast Claw - Savage Claws,FALSE,FALSE,4407062
+Beast Claw,Red Bear's Claw,FALSE,TRUE,68510000
+Thrusting Shield,Dueling Shield,FALSE,FALSE,62500000
+Thrusting Shield,Carian Thrusting Shield,FALSE,FALSE,62510000
