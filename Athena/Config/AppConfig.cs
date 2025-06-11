@@ -9,5 +9,6 @@ namespace Athena.Config;
 public class AppConfig
 {
     public int? LastUsedSeed { get; set; }
+    public int? LastRandomizedSeed { get; set; }
 }
 

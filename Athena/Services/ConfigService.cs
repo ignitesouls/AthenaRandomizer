@@ -11,7 +11,7 @@ namespace Athena.Services;
 
 public static class ConfigService
 {
-    private static readonly string ConfigPath = Path.Combine(AppContext.BaseDirectory, "appconfig.json");
+    private static readonly string ConfigPath = Path.Combine(Constants.Misc, "appconfig.json");
 
     public static AppConfig Load()
     {

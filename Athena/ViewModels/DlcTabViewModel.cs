@@ -4,6 +4,7 @@ using Athena.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -32,6 +33,20 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
         }
     }
 
+    private int? _randomizedSeed;
+    public int? RandomizedSeed
+    {
+        get => _randomizedSeed;
+        set
+        {
+            if (_randomizedSeed != value)
+            {
+                _randomizedSeed = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     private string? _baseSeedInput;
     public string? BaseSeedInput
     {
@@ -41,6 +56,7 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
             if (_baseSeedInput != value)
             {
                 _baseSeedInput = value;
+                BaseSeed = int.TryParse(BaseSeedInput, out int parsed) ? parsed : null;
                 OnPropertyChanged();
             }
         }
@@ -55,7 +71,9 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
     public DlcTabViewModel()
     {
         _config = ConfigService.Load();
+        BaseSeed = _config.LastUsedSeed;
         BaseSeedInput = _config.LastUsedSeed?.ToString();
+        RandomizedSeed = _config.LastRandomizedSeed;
 
         _randomizerService = new DlcRandomizerService();
         _launcherService = new EldenRingLauncherService();
@@ -64,13 +82,22 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
             ParsedBaseSeed,
             newSeed =>
             {
+                Debug.WriteLine($"baseSeed: {newSeed}");
                 BaseSeed = newSeed;
                 BaseSeedInput = newSeed.ToString();
                 _config.LastUsedSeed = newSeed;
                 ConfigService.Save(_config);
-            }
-            ));
-        LaunchCommand = new RelayCommand(() => _launcherService.LaunchEldenRing(LaunchMode.DLC));
+            },
+            newRandomizedSeed =>
+            {
+                Debug.WriteLine($"randomizedSeed: {newRandomizedSeed}");
+                RandomizedSeed = newRandomizedSeed;
+                _config.LastRandomizedSeed = newRandomizedSeed;
+                ConfigService.Save(_config);
+            }));
+        LaunchCommand = new RelayCommand(
+            () => _launcherService.LaunchEldenRing(LaunchMode.DLC),
+            () => (BaseSeed == RandomizedSeed) && (BaseSeed != null));
     }
 
     // Add checkboxes and binding properties here if needed...

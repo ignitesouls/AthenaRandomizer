@@ -10,7 +10,7 @@ namespace Athena.Services;
 
 public class DlcRandomizerService
 {
-    public void RandomizeDlc(int? baseSeed, Action<int?> updateSeedCallback)
+    public void RandomizeDlc(int? baseSeed, Action<int?> updateSeedCallback, Action<int?> updateRandomizedFinishedCallback)
     {
         var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInDlc);
 
@@ -46,8 +46,7 @@ public class DlcRandomizerService
         RandomizeGroups(editor, urr);
 
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
-        
-        Debug.WriteLine("DONE");
+        updateRandomizedFinishedCallback(urr.GetBaseSeed());
     }
 
     private void InitStartingClasses(ParamsEditor editor)
