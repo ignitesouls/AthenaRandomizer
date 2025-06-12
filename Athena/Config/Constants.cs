@@ -13,6 +13,7 @@ internal class Constants
     public static string RegulationInBase = VanillaRegulation;
     public static string RegulationInBaseDlc = VanillaRegulation;
     public static string RegulationInDlc = Path.Combine(RegulationBase, "dlc", "regulation.bin");
+    //public static string RegulationInDlc = Path.Combine(ModEngineWorkingDirectory, "dlc", "regulation.bin");
 
     public static string RegulationOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "regulation.bin");
     public static string RegulationOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "regulation.bin");

@@ -32,9 +32,9 @@ $Event(50, Default, function() {
 });
 
 $Event(2046400742, Default, function() {
-    EndIf(EventFlag(1144440111));
-    SetEventFlagID(1144440111, ON);
+    EndIf(ThisEventSlot());
     SetPlayerRespawnPoint(2046402020);
+    SetThisEventSlot(ON);
 });
 
 $Event(2046400700, Restart, function(eventFlagId, eventFlagId2) {

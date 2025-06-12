@@ -2791,7 +2791,7 @@ $Event(1900, Default, function() {
     // SetEventFlagID(11108548, ON); // Roundtable Door is opened
     
     SetEventFlagID(4680, ON);  // Allow Leveling Up at Grace
-    SetEventFlagID(4681, ON);  // Melina sets this flag after asking you to take her to the erdtree
+    SetEventFlagID(4681, ON);  // This flag is set after accepting to take Melina to the erdtree. Not sure what it does.
     
     // initial graces
     // SetEventFlagID(71190, ON); // Table of Lost Grace
@@ -2874,6 +2874,14 @@ $Event(1900, Default, function() {
     // give whetstone knife
     SetEventFlagID(60130, ON);
     DirectlyGivePlayerItem(ItemType.Goods, 8590, 6001, 1);
+    
+    // give lantern
+    DirectlyGivePlayerItem(ItemType.Goods, 2070, 6001, 1);
+    
+    // give starlight shards
+    for (let i = 0; i < 10; i++ ) {
+        DirectlyGivePlayerItem(ItemType.Goods, 1290, 6001, 1);
+    }
     
     SetThisEventSlot(ON);
 });

@@ -64,6 +64,20 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
 
     public int? ParsedBaseSeed =>
         int.TryParse(BaseSeedInput, out int parsed) ? parsed : null;
+
+    //private bool _isRunning = false;
+    //public bool IsRunning
+    //{
+    //    get => _isRunning;
+    //    set
+    //    {
+    //        if (_isRunning != value)
+    //        {
+    //            _isRunning = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+    //}
     
     public ICommand RandomizeCommand { get; }
     public ICommand LaunchCommand { get; }
@@ -80,6 +94,10 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
 
         RandomizeCommand = new RelayCommand(() => _randomizerService.RandomizeDlc(
             ParsedBaseSeed,
+            //newIsRunning =>
+            //{
+            //    IsRunning = newIsRunning;
+            //},
             newSeed =>
             {
                 Debug.WriteLine($"baseSeed: {newSeed}");
@@ -94,7 +112,8 @@ public class DlcTabViewModel : ModeTabViewModelBase, INotifyPropertyChanged
                 RandomizedSeed = newRandomizedSeed;
                 _config.LastRandomizedSeed = newRandomizedSeed;
                 ConfigService.Save(_config);
-            }));
+            }),
+            () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null)));
         LaunchCommand = new RelayCommand(
             () => _launcherService.LaunchEldenRing(LaunchMode.DLC),
             () => (BaseSeed == RandomizedSeed) && (BaseSeed != null));

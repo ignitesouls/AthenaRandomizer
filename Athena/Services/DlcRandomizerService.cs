@@ -10,35 +10,21 @@ namespace Athena.Services;
 
 public class DlcRandomizerService
 {
-    public void RandomizeDlc(int? baseSeed, Action<int?> updateSeedCallback, Action<int?> updateRandomizedFinishedCallback)
+    public void RandomizeDlc(int? baseSeed,
+                             //Action<bool>? updateIsRunningCallback,
+                             Action<int?>? updateSeedCallback,
+                             Action<int?>? updateRandomizedFinishedCallback)
     {
+        //updateIsRunningCallback?.Invoke(true);
+
         var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInDlc);
-
-        //List<Weapon> weapons = CsvReaderUtils.Read<Weapon>($"{Constants.GameData}/AllWeapons.csv");
-        //List<int> weaponIds = new();
-        //foreach (Weapon weapon in weapons)
-        //{
-        //    weaponIds.Add(weapon.WeaponID);
-        //}
-        //editor.GenerateMappingWeaponIdsToItemLot(weaponIds);
-
-        //List<CustomWeapon> customWeapons = CsvReaderUtils.Read<CustomWeapon>($"{Constants.GameData}/AllCustomWeapons.csv");
-        //List<int> customWeaponIds = new();
-        //foreach (CustomWeapon customWeapon in customWeapons)
-        //{
-        //    customWeaponIds.Add(customWeapon.WeaponID);
-        //}
-        //editor.GenerateMappingWeaponIdsToItemLot(weaponIds, customWeapons: true);
-
-        //List<int> allWeaponIds = weaponIds.Concat(customWeaponIds).ToList();
-        //editor.GenerateMappingWeaponIdsToItemLot(allWeaponIds);
-
-        //editor.GenerateMappingWeaponIdsToShopLineup(allWeaponIds);
+        
+        //GenerateMetadata(editor);
 
         var urr = new ReplacementRandomizer(baseSeed);
         if (baseSeed == null)
         {
-            updateSeedCallback(urr.GetBaseSeed());
+            updateSeedCallback?.Invoke(urr.GetBaseSeed());
         }
 
         InitStartingClasses(editor);
@@ -46,7 +32,28 @@ public class DlcRandomizerService
         RandomizeGroups(editor, urr);
 
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
-        updateRandomizedFinishedCallback(urr.GetBaseSeed());
+
+        updateRandomizedFinishedCallback?.Invoke(urr.GetBaseSeed());
+        //updateIsRunningCallback?.Invoke(false);
+    }
+
+    private void GenerateMetadata(ParamsEditor editor)
+    {
+        List<Weapon> weapons = CsvReaderUtils.Read<Weapon>($"{Constants.GameData}/AllWeapons.csv");
+        List<int> weaponIds = new();
+        foreach (Weapon weapon in weapons)
+        {
+            weaponIds.Add(weapon.WeaponID);
+        }
+        List<CustomWeapon> customWeapons = CsvReaderUtils.Read<CustomWeapon>($"{Constants.GameData}/AllCustomWeapons.csv");
+        List<int> customWeaponIds = new();
+        foreach (CustomWeapon customWeapon in customWeapons)
+        {
+            customWeaponIds.Add(customWeapon.WeaponID);
+        }
+        List<int> allWeaponIds = weaponIds.Concat(customWeaponIds).ToList();
+        editor.GenerateMappingWeaponIdsToItemLot(allWeaponIds);
+        editor.GenerateMappingWeaponIdsToShopLineup(allWeaponIds);
     }
 
     private void InitStartingClasses(ParamsEditor editor)
@@ -106,9 +113,10 @@ public class DlcRandomizerService
             editor.SetInitialEquipWepLeft(charaInitId, 0, GlintstoneStaffItemId);
             editor.SetInitialEquipWepLeft(charaInitId, 1, FingerSealItemId);
 
+            // NOTE: I moved this to the event file instead.
             // give starlight shards
-            editor.SetInitialEquipItem(charaInitId, 9, 1290);
-            editor.SetInitialEquipItemAmount(charaInitId, 9, 10);
+            //editor.SetInitialEquipItem(charaInitId, 9, 1290);
+            //editor.SetInitialEquipItemAmount(charaInitId, 9, 10);
         }
     }
 
@@ -222,73 +230,33 @@ public class DlcRandomizerService
         
         // Setup the Starlight Shards shop.
         byte starlightShardCostType = 2;
-        List<string> ignoreTypes = new List<string> { "Whetblade", "Upgrade Stone", "Ash of War" };
+        short starlightWeaponSellPrice = 1;
+        int starlightWeaponCost = 5;
+        int currentCustomWeaponId = 9600069;
         currentShopLineupId = 9200000;
         currentEventFlagID = 1056457000;
-        for (int i = 0; i < shopItems.Count; i++)
-        {
-            string itemType = shopItems[i].Type;
-            if (ignoreTypes.Contains(itemType))
-            {
-                continue;
-            }
-            int shopLineupId = currentShopLineupId++;
-            string name = $"[Merchant Millicent - Starlight Shop - {shopItems[i].Type}] {shopItems[i].Name}";
-            int equipID = shopItems[i].ID;
-            byte equipType = shopItems[i].EquipType;
-            short sellQuantity = shopItems[i].SellQuantity;
-            uint eventFlagForQuantity;
-            if (shopItems[i].EventFlagID == null)
-            {
-                eventFlagForQuantity = currentEventFlagID;
-                currentEventFlagID += eventFlagStepSize;
-            }
-            else
-            {
-                eventFlagForQuantity = (uint)shopItems[i].EventFlagID!;
-            }
-            int sellPrice = 1;
-            if (shopItems[i].Type == "Talisman")
-            {
-                if (shopItems[i].Cost > 40000)
-                {
-                    sellPrice = 3;
-                }
-                else if (shopItems[i].Cost > 20000)
-                {
-                    sellPrice = 2;
-                }
-            }
-            editor.CreateNewShopLineupRow(shopLineupId, name);
-            editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, equipType);
-            editor.SetShopLineupCostType(shopLineupId, starlightShardCostType);
-            editor.SetShopLineupSellPrice(shopLineupId, sellPrice);
-            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
-            editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
-        }
 
         // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
-        // common variables
-        int starlightWeaponCost = 5;
-        short starlightWeaponSellPrice = 1;
-
         // The Starlight Shards shop shares weapons from the common pool (there can be duplicates)
         List<WeaponGroup> commonGroup = CsvReaderUtils.Read<WeaponGroup>($"{Constants.RandomizationGroupsDlc}/common.csv");
         List<int> targets = new() { 0, 1, 2 };
         List<int> replacements = new();
+
         for (int i = 0; i < commonGroup.Count; i++)
         {
             replacements.Add(commonGroup[i].WeaponID);
         }
+
         RandomizationGroup starlightShop = new(targets, replacements);
+
         urr.AddGroup("starlightShop", starlightShop);
+
         Dictionary<int, int> starlightShopReplacementsMapping = urr.RandomizeGroup("starlightShop");
 
         // Generate new shop rows and upgrade the weapon to its proper level (24 or 9, somber depending)
         Dictionary<int, Weapon> allWeapons = CsvReaderUtils.GetAllWeapons();
         Dictionary<int, CustomWeapon> allCustomWeapons = CsvReaderUtils.GetAllCustomWeapons();
-        int currentCustomWeaponId = 9600069;
+
         for (int i = 0; i < targets.Count; i++)
         {
             int shopLineupId = currentShopLineupId++;
@@ -298,7 +266,7 @@ public class DlcRandomizerService
             int equipID;
             byte equipType;
             string weaponName;
-            
+
             // Handle custom weapons differently
             if (allCustomWeapons.ContainsKey(replacementEquipID))
             {
@@ -318,7 +286,8 @@ public class DlcRandomizerService
                 editor.SetEquipCustomWeaponGemId(currentCustomWeaponId, gemID);
                 editor.SetEquipCustomWeaponReinforceLevel(currentCustomWeaponId, reinforceLevel);
                 currentCustomWeaponId += 2; // increment by 2 so it never ends in 0
-            } else
+            }
+            else
             {
                 weaponName = allWeapons[replacementEquipID].Name;
                 equipID = replacementEquipID;
@@ -336,6 +305,93 @@ public class DlcRandomizerService
             editor.SetShopLineupSellPrice(shopLineupId, starlightWeaponCost);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellPrice);
+            editor.SetShopLineupMenuTextId(shopLineupId, 508000);
+            //editor.SetShopLineupMenuIconId(shopLineupId, 0);
+        }
+
+        // Now do physick tears and talismans
+        List<ShopItem> physickTears = new();
+        List<ShopItem> talismans = new();
+        for (int i = 0; i < shopItems.Count; i++)
+        {
+            if (shopItems[i].Type == "Physick Tear")
+            {
+                physickTears.Add(shopItems[i]);
+            } else if (shopItems[i].Type == "Talisman")
+            {
+                talismans.Add(shopItems[i]);
+            } else
+            {
+                continue;
+            }
+        }
+        
+        currentShopLineupId = 9201000; // tears shop
+        foreach (ShopItem item in physickTears)
+        {
+            string itemType = item.Type;
+            int shopLineupId = currentShopLineupId++;
+            string name = $"[Merchant Millicent - Starlight Shop - {item.Type}] {item.Name}";
+            int equipID = item.ID;
+            byte equipType = item.EquipType;
+            short sellQuantity = item.SellQuantity;
+            uint eventFlagForQuantity;
+            if (item.EventFlagID == null)
+            {
+                eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+            }
+            else
+            {
+                eventFlagForQuantity = (uint)item.EventFlagID!;
+            }
+            int sellPrice = 1;
+            editor.CreateNewShopLineupRow(shopLineupId, name);
+            editor.SetShopLineupEquipId(shopLineupId, equipID);
+            editor.SetShopLineupEquipType(shopLineupId, equipType);
+            editor.SetShopLineupCostType(shopLineupId, starlightShardCostType);
+            editor.SetShopLineupSellPrice(shopLineupId, sellPrice);
+            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+            editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
+            editor.SetShopLineupMenuTextId(shopLineupId, 508000);
+        }
+
+        currentShopLineupId = 9202000; // talismans shop
+        foreach (ShopItem item in talismans)
+        {
+            string itemType = item.Type;
+            int shopLineupId = currentShopLineupId++;
+            string name = $"[Merchant Millicent - Starlight Shop - {item.Type}] {item.Name}";
+            int equipID = item.ID;
+            byte equipType = item.EquipType;
+            short sellQuantity = item.SellQuantity;
+            uint eventFlagForQuantity;
+            if (item.EventFlagID == null)
+            {
+                eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+            }
+            else
+            {
+                eventFlagForQuantity = (uint)item.EventFlagID!;
+            }
+            int sellPrice = 1;
+            if (item.Cost > 40000)
+            {
+                sellPrice = 3;
+            }
+            else if (item.Cost > 20000)
+            {
+                sellPrice = 2;
+            }
+            editor.CreateNewShopLineupRow(shopLineupId, name);
+            editor.SetShopLineupEquipId(shopLineupId, equipID);
+            editor.SetShopLineupEquipType(shopLineupId, equipType);
+            editor.SetShopLineupCostType(shopLineupId, starlightShardCostType);
+            editor.SetShopLineupSellPrice(shopLineupId, sellPrice);
+            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+            editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
+            editor.SetShopLineupMenuTextId(shopLineupId, 508000);
         }
     }
     

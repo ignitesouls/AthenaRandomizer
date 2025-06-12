@@ -16,7 +16,7 @@ Colossal Sword,Greatsword of Radahn (Lord),TRUE,TRUE,4530000
 Colossal Sword,Greatsword of Radahn (Light),TRUE,TRUE,4550000
 Thrusting Sword,Carian Sorcery Sword,FALSE,FALSE,2530000
 Heavy Thrusting Sword,Queelign's Greatsword,FALSE,FALSE,6500000
-Heavy Thrusting Sword,Sword Lance,TRUE,FALSE,3500000
+Heavy Thrusting Sword,Sword Lance (Spinning Gravity Thrust),TRUE,FALSE,4400039
 Curved Sword,Spirit Sword,FALSE,TRUE,7500000
 Curved Sword,Falx,FALSE,TRUE,7510000
 Curved Sword,Dancing Blade of Ranah,FALSE,TRUE,7520000
@@ -70,5 +70,5 @@ Hand-to-Hand,Dane's Footwork,FALSE,FALSE,60510000
 Claw,Claws of Night,FALSE,TRUE,22500000
 Beast Claw,Beast Claw - Savage Claws,FALSE,FALSE,4407062
 Beast Claw,Red Bear's Claw,FALSE,TRUE,68510000
-Thrusting Shield,Dueling Shield,FALSE,FALSE,62500000
+Thrusting Shield,Dueling Shield - Shield Strike,FALSE,FALSE,4800057
 Thrusting Shield,Carian Thrusting Shield,FALSE,FALSE,62510000
