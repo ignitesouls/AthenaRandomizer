@@ -1,0 +1,7 @@
+WeaponClass,Name,IsRemembrance,IsSomber,IsCustomWeapon,WeaponID
+Light Bow,Bone Bow,FALSE,FALSE,FALSE,40500000
+Bow,Ansbach's Longbow,FALSE,TRUE,FALSE,41510000
+Greatbow,Igon's Greatbow - Igon's Great Hunt,FALSE,FALSE,TRUE,4548045
+Crossbow,Repeating Crossbow,FALSE,TRUE,FALSE,43500000
+Crossbow,Spread Crossbow,FALSE,FALSE,FALSE,43510000
+Ballista,Rabbath's Cannon,FALSE,TRUE,FALSE,44500000

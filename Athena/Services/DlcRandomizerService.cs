@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
 using Athena.Config;
 using Athena.Utilities;
-using DotNext.Collections.Generic;
+using Athena.Models;
 using EldenRingParamsEditor;
 using System.Diagnostics;
 using UniversalReplacementRandomizer;
@@ -11,45 +11,52 @@ namespace Athena.Services;
 public class DlcRandomizerService
 {
     public void RandomizeDlc(int? baseSeed,
-                             //Action<bool>? updateIsRunningCallback,
                              Action<int?>? updateSeedCallback,
                              Action<int?>? updateRandomizedFinishedCallback)
     {
-        //updateIsRunningCallback?.Invoke(true);
-
+#if DEBUG
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
+#endif
         var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInDlc);
-        
         //GenerateMetadata(editor);
 
-        var urr = new ReplacementRandomizer(baseSeed);
+        var urr = new ReplacementRandomizerMN("dlc", baseSeed);
         if (baseSeed == null)
         {
             updateSeedCallback?.Invoke(urr.GetBaseSeed());
         }
-
+        
         InitStartingClasses(editor);
-        InitDlcShop(editor, urr);
-        RandomizeGroups(editor, urr);
+        InitDlcShopMN(editor, urr);
+
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/commonModel.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/bows_crossbowsModel.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/perfume_bottlesModel.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/shieldsModel.csv");
 
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
 
+#if DEBUG
+        stopwatch.Stop();
+        Debug.WriteLine($"Time taken to randomize: {stopwatch.Elapsed}");
+#endif
         updateRandomizedFinishedCallback?.Invoke(urr.GetBaseSeed());
-        //updateIsRunningCallback?.Invoke(false);
     }
 
     private void GenerateMetadata(ParamsEditor editor)
     {
-        List<Weapon> weapons = CsvReaderUtils.Read<Weapon>($"{Constants.GameData}/AllWeapons.csv");
+        List<GameItemModel> weapons = CsvReaderUtils.Read<GameItemModel>($"{Constants.GameData}/AllWeaponsModel.csv");
         List<int> weaponIds = new();
-        foreach (Weapon weapon in weapons)
+        foreach (GameItemModel weapon in weapons)
         {
-            weaponIds.Add(weapon.WeaponID);
+            weaponIds.Add(weapon.ID);
         }
-        List<CustomWeapon> customWeapons = CsvReaderUtils.Read<CustomWeapon>($"{Constants.GameData}/AllCustomWeapons.csv");
+        List<CustomWeaponModel> customWeapons = CsvReaderUtils.Read<CustomWeaponModel>($"{Constants.GameData}/AllCustomWeaponsModel.csv");
         List<int> customWeaponIds = new();
-        foreach (CustomWeapon customWeapon in customWeapons)
+        foreach (CustomWeaponModel customWeapon in customWeapons)
         {
-            customWeaponIds.Add(customWeapon.WeaponID);
+            customWeaponIds.Add(customWeapon.ID);
         }
         List<int> allWeaponIds = weaponIds.Concat(customWeaponIds).ToList();
         editor.GenerateMappingWeaponIdsToItemLot(allWeaponIds);
@@ -120,9 +127,9 @@ public class DlcRandomizerService
         }
     }
 
-    private void InitDlcShop(ParamsEditor editor, ReplacementRandomizer urr)
+    private void InitDlcShopMN(ParamsEditor editor, ReplacementRandomizerMN urr)
     {
-        List<ShopItem> shopItems = CsvReaderUtils.Read<ShopItem>($"{Constants.Misc}/DlcMerchantMillicentShopItems.csv");
+        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/DlcMerchantMillicentShopItems.csv");
 
         // Setup the Runes shop.
         int currentShopLineupId = 9100000;
@@ -238,80 +245,61 @@ public class DlcRandomizerService
 
         // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
         // The Starlight Shards shop shares weapons from the common pool (there can be duplicates)
-        List<WeaponGroup> commonGroup = CsvReaderUtils.Read<WeaponGroup>($"{Constants.RandomizationGroupsDlc}/common.csv");
-        List<int> targets = new() { 0, 1, 2 };
-        List<int> replacements = new();
-
-        for (int i = 0; i < commonGroup.Count; i++)
-        {
-            replacements.Add(commonGroup[i].WeaponID);
-        }
-
-        RandomizationGroup starlightShop = new(targets, replacements);
-
+        List<GameItemModel> commonGroup = CsvReaderUtils.Read<GameItemModel>($"{Constants.RandomizationGroupsDlc}/commonModel.csv");
+        RandomizationGroupMN starlightShop = new(3, commonGroup.Count);
         urr.AddGroup("starlightShop", starlightShop);
+        int[] replacementIndexes = urr.RandomizeGroup("starlightShop");
 
-        Dictionary<int, int> starlightShopReplacementsMapping = urr.RandomizeGroup("starlightShop");
-
-        // Generate new shop rows and upgrade the weapon to its proper level (24 or 9, somber depending)
-        Dictionary<int, Weapon> allWeapons = CsvReaderUtils.GetAllWeapons();
-        Dictionary<int, CustomWeapon> allCustomWeapons = CsvReaderUtils.GetAllCustomWeapons();
-
-        for (int i = 0; i < targets.Count; i++)
+        for (int i = 0; i < replacementIndexes.Length; i++)
         {
             int shopLineupId = currentShopLineupId++;
             uint eventFlagForQuantity = currentEventFlagID;
             currentEventFlagID += eventFlagStepSize;
-            int replacementEquipID = starlightShopReplacementsMapping[targets[i]];
-            int equipID;
-            byte equipType;
-            string weaponName;
 
-            // Handle custom weapons differently
-            if (allCustomWeapons.ContainsKey(replacementEquipID))
+            GameItemModel weapon = commonGroup[replacementIndexes[i]];
+            int replacementEquipID = weapon.ID;
+            int equipID = weapon.ID;
+
+            // Set reinforce level differently depending on if the weapon is custom or not
+            if (weapon.EquipType == 5)
             {
                 Debug.WriteLine("Custom weapon detected in shop");
-                weaponName = allCustomWeapons[replacementEquipID].Name;
                 equipID = currentCustomWeaponId;
-                equipType = 5; // custom weapon
+
                 int baseEquipID = editor.GetEquipCustomWeaponBaseWeaponId(replacementEquipID);
                 int gemID = editor.GetEquipCustomWeaponGemId(replacementEquipID);
+                int materialId = editor.GetEquipWeaponMaterialSetId(baseEquipID);
+                byte reinforceLevel = materialId == 2200 ? (byte)9 : (byte)24;
 
-                // check if somber or smithing, upgrade accordingly
-                int upgradeStoneType = editor.GetEquipWeaponMaterialSetId(baseEquipID);
-                byte reinforceLevel = upgradeStoneType == 0 ? (byte)24 : (byte)9;
-
-                editor.CreateNewEquipCustomWeaponRow(currentCustomWeaponId, allCustomWeapons[replacementEquipID].Name);
+                // Create a new CustomWeapon with the appropriate reinforceLevel
+                editor.CreateNewEquipCustomWeaponRow(currentCustomWeaponId, weapon.Name);
                 editor.SetEquipCustomWeaponBaseWeaponId(currentCustomWeaponId, baseEquipID);
                 editor.SetEquipCustomWeaponGemId(currentCustomWeaponId, gemID);
                 editor.SetEquipCustomWeaponReinforceLevel(currentCustomWeaponId, reinforceLevel);
+
                 currentCustomWeaponId += 2; // increment by 2 so it never ends in 0
             }
             else
             {
-                weaponName = allWeapons[replacementEquipID].Name;
-                equipID = replacementEquipID;
-                equipType = 0;
-                // check if somber or smithing, upgrade accordingly
-                int upgradeStoneType = editor.GetEquipWeaponMaterialSetId(equipID);
-                equipID = upgradeStoneType == 0 ? equipID + 24 : equipID + 9;
+                // Otherwise, the reinforceLevel is just added to the weaponID
+                int materialId = editor.GetEquipWeaponMaterialSetId(equipID);
+                equipID = materialId == 2200 ? equipID + 9 : equipID + 24;
             }
-
-            string name = $"[Merchant Millicent - Starlight Shop - Weapon] {weaponName}";
+            
+            string name = $"[Merchant Millicent - Starlight Shop - Weapon] {weapon.Name}";
             editor.CreateNewShopLineupRow(shopLineupId, name);
             editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, equipType);
+            editor.SetShopLineupEquipType(shopLineupId, weapon.EquipType);
             editor.SetShopLineupCostType(shopLineupId, starlightShardCostType);
             editor.SetShopLineupSellPrice(shopLineupId, starlightWeaponCost);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellPrice);
             editor.SetShopLineupMenuTextId(shopLineupId, 508000);
-            //editor.SetShopLineupMenuIconId(shopLineupId, 0);
         }
 
         // Now do physick tears and talismans
-        List<ShopItem> physickTears = new();
-        List<ShopItem> talismans = new();
+        List<ShopItemModel> physickTears = new();
+        List<ShopItemModel> talismans = new();
         for (int i = 0; i < shopItems.Count; i++)
         {
             if (shopItems[i].Type == "Physick Tear")
@@ -320,14 +308,11 @@ public class DlcRandomizerService
             } else if (shopItems[i].Type == "Talisman")
             {
                 talismans.Add(shopItems[i]);
-            } else
-            {
-                continue;
             }
         }
         
         currentShopLineupId = 9201000; // tears shop
-        foreach (ShopItem item in physickTears)
+        foreach (ShopItemModel item in physickTears)
         {
             string itemType = item.Type;
             int shopLineupId = currentShopLineupId++;
@@ -357,7 +342,7 @@ public class DlcRandomizerService
         }
 
         currentShopLineupId = 9202000; // talismans shop
-        foreach (ShopItem item in talismans)
+        foreach (ShopItemModel item in talismans)
         {
             string itemType = item.Type;
             int shopLineupId = currentShopLineupId++;
@@ -392,211 +377,6 @@ public class DlcRandomizerService
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
             editor.SetShopLineupMenuTextId(shopLineupId, 508000);
-        }
-    }
-    
-    private void RandomizeGroups(ParamsEditor editor, ReplacementRandomizer urr)
-    {
-        // for now, I will explicitly read the data, but I'd like to generalize it based on the contents of the RandomizationGroups directory
-        RandomizationGroup common = RandomizationGroupUtils.LoadFromCSVs($"{Constants.RandomizationGroupsDlc}/common.csv");
-        RandomizationGroup bowsCrossbows = RandomizationGroupUtils.LoadFromCSVs($"{Constants.RandomizationGroupsDlc}/bows_crossbows.csv");
-        RandomizationGroup perfumeBottles = RandomizationGroupUtils.LoadFromCSVs($"{Constants.RandomizationGroupsDlc}/perfume_bottles.csv");
-        RandomizationGroup shield = RandomizationGroupUtils.LoadFromCSVs($"{Constants.RandomizationGroupsDlc}/shields.csv");
-
-        // read in the params metadata
-        Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = ParamsEditor.GetWeaponIdsToItemLotMap();
-        
-        Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = ParamsEditor.GetWeaponIdsToItemLotEnemy();
-
-        Dictionary<int, List<int>> weaponIdsToShopLineup = ParamsEditor.GetWeaponIdsToShopLineup();
-
-        Dictionary<int, CustomWeapon> allCustomWeapons = CsvReaderUtils.GetAllCustomWeapons();
-
-        // reuse variable for all randomizing
-        List<ItemLotEntry>? locations;
-        List<int>? shopLocations;
-        int category;
-        byte equipType;
-
-        // Randomize common weapon pool
-        urr.AddGroup("common", common);
-        Dictionary<int, int> commonReplacementsMapping = urr.RandomizeGroup("common");
-        // do replacements
-        foreach ((int target, int replacement) in commonReplacementsMapping)
-        {
-            // decide category
-            category = allCustomWeapons.ContainsKey(replacement) ? 6 : 2;
-            equipType = allCustomWeapons.ContainsKey(replacement) ? (byte)5 : (byte)0;
-
-            // replace world pickups
-            if (weaponIdsToItemLotMap.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        
-                        editor.SetItemLotMapLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotMapCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace enemy drops
-            if (weaponIdsToItemLotEnemy.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotEnemyLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotEnemyCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace shop items
-            if (weaponIdsToShopLineup.TryGetValue(target, out shopLocations)) 
-            {
-                foreach (int shopLineupId in shopLocations)
-                {
-                    editor.SetShopLineupEquipId(shopLineupId, replacement);
-                    editor.SetShopLineupEquipType(shopLineupId, equipType);
-                }
-            }
-        }
-
-        // Randomize bows and crossbows
-        urr.AddGroup("bowsCrossbows", bowsCrossbows);
-        Dictionary<int, int> bowsCrossbowsReplacementsMapping = urr.RandomizeGroup("bowsCrossbows");
-        // do replacements
-        foreach ((int target, int replacement) in bowsCrossbowsReplacementsMapping)
-        {
-            // decide category
-            category = allCustomWeapons.ContainsKey(replacement) ? 6 : 2;
-            equipType = allCustomWeapons.ContainsKey(replacement) ? (byte)5 : (byte)0;
-
-            // replace world pickups
-            if (weaponIdsToItemLotMap.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotMapLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotMapCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace enemy drops
-            if (weaponIdsToItemLotEnemy.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotEnemyLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotEnemyCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace shop items
-            if (weaponIdsToShopLineup.TryGetValue(target, out shopLocations))
-            {
-                foreach (int shopLineupId in shopLocations)
-                {
-                    editor.SetShopLineupEquipId(shopLineupId, replacement);
-                    editor.SetShopLineupEquipType(shopLineupId, equipType);
-                }
-            }
-        }
-
-        // Randomize perfume bottles
-        urr.AddGroup("perfumeBottles", perfumeBottles);
-        Dictionary<int, int> perfumeBottlesReplacementsMapping = urr.RandomizeGroup("perfumeBottles");
-        // do replacements
-        foreach ((int target, int replacement) in perfumeBottlesReplacementsMapping)
-        {
-            // decide category
-            category = allCustomWeapons.ContainsKey(replacement) ? 6 : 2;
-            equipType = allCustomWeapons.ContainsKey(replacement) ? (byte)5 : (byte)0;
-
-            // replace world pickups
-            if (weaponIdsToItemLotMap.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotMapLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotMapCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace enemy drops
-            if (weaponIdsToItemLotEnemy.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotEnemyLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotEnemyCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace shop items
-            if (weaponIdsToShopLineup.TryGetValue(target, out shopLocations))
-            {
-                foreach (int shopLineupId in shopLocations)
-                {
-                    editor.SetShopLineupEquipId(shopLineupId, replacement);
-                    editor.SetShopLineupEquipType(shopLineupId, equipType);
-                }
-            }
-        }
-
-        // Randomize shields
-        urr.AddGroup("shields", shield);
-        Dictionary<int, int> shieldsReplacementsMapping = urr.RandomizeGroup("shields");
-        // do replacements
-        foreach ((int target, int replacement) in shieldsReplacementsMapping)
-        {
-            // decide category
-            category = allCustomWeapons.ContainsKey(replacement) ? 6 : 2;
-            equipType = allCustomWeapons.ContainsKey(replacement) ? (byte)5 : (byte)0;
-
-            // replace world pickups
-            if (weaponIdsToItemLotMap.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotMapLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotMapCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace enemy drops
-            if (weaponIdsToItemLotEnemy.TryGetValue(target, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotEnemyLotItemId(location.ID, itemSlot, replacement);
-                        editor.SetItemLotEnemyCategory(location.ID, itemSlot, category);
-                    }
-                }
-            }
-            // replace shop items
-            if (weaponIdsToShopLineup.TryGetValue(target, out shopLocations))
-            {
-                foreach (int shopLineupId in shopLocations)
-                {
-                    editor.SetShopLineupEquipId(shopLineupId, replacement);
-                    editor.SetShopLineupEquipType(shopLineupId, equipType);
-                }
-            }
         }
     }
 }

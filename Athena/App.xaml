@@ -1,4 +1,5 @@
-﻿<Application x:Class="Athena.App"
+﻿<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<Application x:Class="Athena.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Athena"

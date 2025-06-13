@@ -4,52 +4,9 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using CsvHelper;
 using Athena.Config;
+using Athena.Models;
 
 namespace Athena.Utilities;
-
-public class ShopItem
-{
-    public required string Name { get; set; }
-    public required string Type { get; set; }
-    public int Cost { get; set; }
-    public required string ParamType { get; set; }
-    public byte EquipType { get; set; }
-    public int ID { get; set; }
-    public uint? EventFlagID { get; set; }
-    public short SellQuantity { get; set; }
-}
-
-public class WeaponGroup
-{
-    public required string WeaponClass { get; set; }
-    public required string Name { get; set; }
-    public bool IsRemembrance { get; set; }
-    public bool IsSomber { get; set; }
-    public int WeaponID { get; set; }
-}
-
-public class ArmorSet
-{
-    public required string Name { get; set; }
-    public int? HelmID { get; set; }
-    public int? TorsoID { get; set; }
-    public int? GauntletsID { get; set; }
-    public int? GreavesID { get; set; }
-}
-
-public class Weapon
-{
-    public required string Name { get; set; }
-    public int WeaponID { get; set; }
-}
-
-public class CustomWeapon
-{
-    public required string Name { get; set; }
-    public int WeaponID { get; set; }
-    public int GemID { get; set; }
-    public byte ReinforceLevel { get; set; }
-}
 
 public class CsvReaderUtils
 {
