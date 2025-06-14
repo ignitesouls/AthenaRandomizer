@@ -1,9 +1,9 @@
-WeaponClass,Name,IsRemembrance,IsSomber,WeaponID
-Small Shield,Smithscript Shield,FALSE,FALSE,30510000
-Small Shield,Shield of Night,FALSE,TRUE,21550000
-Medium Shield,Messmer Soldier Shield,FALSE,FALSE,31500000
-Medium Shield,Wolf Crest Shield,FALSE,FALSE,31510000
-Medium Shield,Serpent Crest Shield,FALSE,FALSE,31520000
-Medium Shield,Golden Lion Shield,FALSE,TRUE,31530000
-Greatshield,Black Steel Greatshield,FALSE,FALSE,32500000
-Greatshield,Verdigris Greatshield,FALSE,TRUE,32520000
+ID,Name,EquipType,Category
+30510000,Smithscript Shield,0,2
+21550000,Shield of Night,0,2
+31500000,Messmer Soldier Shield,0,2
+31510000,Wolf Crest Shield,0,2
+31520000,Serpent Crest Shield,0,2
+31530000,Golden Lion Shield,0,2
+32500000,Black Steel Greatshield,0,2
+32520000,Verdigris Greatshield,0,2

@@ -38,34 +38,8 @@ public record ShopItemModel(int ID,
                             uint? EventFlagID,
                             short SellQuantity): INamedItem;
 
-public record ShopItem(string Name,
-                       string Type,
-                       int Cost,
-                       string ParamType,
-                       byte EquipType,
-                       int ID,
-                       uint? EventFlagID,
-                       short SellQuantity);
-
-public record WeaponGroup(string WeaponClass,
-                          string Name,
-                          bool IsRemembrance,
-                          bool IsSomber,
-                          int WeaponID);
-
-public record WeaponGroupMN(string WeaponClass,
-                            string Name,
-                            bool IsRemembrance,
-                            bool IsSomber,
-                            bool IsCustomWeapon,
-                            int WeaponID);
-
-public record ArmorSet(string Name,
-                       int? HelmID,
-                       int? TorsoID,
-                       int? GauntletsID,
-                       int? GreavesID);
-
-public record Weapon(string Name, int WeaponID);
-
-public record CustomWeapon(string Name, int WeaponID, int GemID, byte ReinforceLevel);
+public record ArmorSetModel(string Name,
+                            int? HelmID,
+                            int? TorsoID,
+                            int? GauntletsID,
+                            int? GreavesID);

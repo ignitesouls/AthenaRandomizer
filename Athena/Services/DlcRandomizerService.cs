@@ -10,61 +10,42 @@ namespace Athena.Services;
 
 public class DlcRandomizerService
 {
+    private const string SeedManagerPrefix = "dlc";
+    private const int StarlightShopMenuTextId = 508000;
+
     public void RandomizeDlc(int? baseSeed,
                              Action<int?>? updateSeedCallback,
                              Action<int?>? updateRandomizedFinishedCallback)
     {
-#if DEBUG
-        Stopwatch stopwatch = new();
-        stopwatch.Start();
-#endif
-        var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInDlc);
-        //GenerateMetadata(editor);
+        using DebugTimer _ = new DebugTimer("RandomizeDlc");
 
-        var urr = new ReplacementRandomizerMN("dlc", baseSeed);
+        var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInDlc);
+        
+        //MetadataUtils.GenerateWeaponsMappings(editor);
+
+        var urr = new OptimizedReplacementRandomizer(SeedManagerPrefix, baseSeed);
         if (baseSeed == null)
         {
             updateSeedCallback?.Invoke(urr.GetBaseSeed());
         }
         
         InitStartingClasses(editor);
-        InitDlcShopMN(editor, urr);
+        InitDlcShop(editor, urr);
 
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/commonModel.csv");
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/bows_crossbowsModel.csv");
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/perfume_bottlesModel.csv");
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/shieldsModel.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/common.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/bows_crossbows.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/perfume_bottles.csv");
+        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/shields.csv");
 
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
 
-#if DEBUG
-        stopwatch.Stop();
-        Debug.WriteLine($"Time taken to randomize: {stopwatch.Elapsed}");
-#endif
         updateRandomizedFinishedCallback?.Invoke(urr.GetBaseSeed());
     }
-
-    private void GenerateMetadata(ParamsEditor editor)
-    {
-        List<GameItemModel> weapons = CsvReaderUtils.Read<GameItemModel>($"{Constants.GameData}/AllWeaponsModel.csv");
-        List<int> weaponIds = new();
-        foreach (GameItemModel weapon in weapons)
-        {
-            weaponIds.Add(weapon.ID);
-        }
-        List<CustomWeaponModel> customWeapons = CsvReaderUtils.Read<CustomWeaponModel>($"{Constants.GameData}/AllCustomWeaponsModel.csv");
-        List<int> customWeaponIds = new();
-        foreach (CustomWeaponModel customWeapon in customWeapons)
-        {
-            customWeaponIds.Add(customWeapon.ID);
-        }
-        List<int> allWeaponIds = weaponIds.Concat(customWeaponIds).ToList();
-        editor.GenerateMappingWeaponIdsToItemLot(allWeaponIds);
-        editor.GenerateMappingWeaponIdsToShopLineup(allWeaponIds);
-    }
-
+    
     private void InitStartingClasses(ParamsEditor editor)
     {
+        using DebugTimer _ = new DebugTimer("InitStartingClasses");
+
         int NumberOfStartingRunes = 100000;
 
         int ClubItemId = 11010000;
@@ -73,6 +54,7 @@ public class DlcRandomizerService
         for (int i = 0; i < ParamsEditor.TotalStartingClasses; i++)
         {
             int charaInitId = ParamsEditor.VagabondCharaInitId + i;
+
             // reset all stats
             editor.SetInitialRuneLevel(charaInitId, 1);
             editor.SetInitialVigor(charaInitId, 50);
@@ -119,16 +101,13 @@ public class DlcRandomizerService
             editor.SetInitialEquipWepRight(charaInitId, 0, ClubItemId);
             editor.SetInitialEquipWepLeft(charaInitId, 0, GlintstoneStaffItemId);
             editor.SetInitialEquipWepLeft(charaInitId, 1, FingerSealItemId);
-
-            // NOTE: I moved this to the event file instead.
-            // give starlight shards
-            //editor.SetInitialEquipItem(charaInitId, 9, 1290);
-            //editor.SetInitialEquipItemAmount(charaInitId, 9, 10);
         }
     }
 
-    private void InitDlcShopMN(ParamsEditor editor, ReplacementRandomizerMN urr)
+    private void InitDlcShop(ParamsEditor editor, OptimizedReplacementRandomizer urr)
     {
+        using DebugTimer _ = new DebugTimer("InitDlcShop");
+
         List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/DlcMerchantMillicentShopItems.csv");
 
         // Setup the Runes shop.
@@ -162,23 +141,20 @@ public class DlcRandomizerService
         }
 
         // Setup the randomized armor set in the runes shop.
-        SeedManager seedManager = urr.GetSeedManager();
-        Random rng = seedManager.GetRandomByKey("millicentArmor");
+        List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>($"{Constants.RandomizationGroupsDlc}/armor_sets.csv");
+        int baseSeed = urr.GetBaseSeed();
+        SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed);
+        Random rng = seedManager.GetRandomByKey("armor_sets.csv");
+        ArmorSetModel armor = armorGroup[rng.Next(armorGroup.Count)];
 
-        // The armor sets are rows in a CSV. Choose one by using the RNG to select a random index
-        List<ArmorSet> armorGroup = CsvReaderUtils.Read<ArmorSet>($"{Constants.RandomizationGroupsDlc}/armor_sets.csv");
-        int chosenSet = rng.Next(armorGroup.Count);
-        ArmorSet armor = armorGroup[chosenSet];
-
-        // Set some common variable(s) here
-        byte equipTypeProtector = 1;
+        byte armorEquipType = 1;
         short armorSellQuantity = 1;
         int helmSellPrice = 3000;
         int torsoSellPrice = 4500;
         int gauntletsSellPrice = 3000;
         int greavesSellPrice = 3000;
-
-        if (armor.HelmID != null) // Not all sets have 4 armor pieces, so we'll need to check before creating a new shop entry
+        
+        if (armor.HelmID != null)
         {
             int shopLineupId = currentShopLineupId++;
             string name = $"[Merchant Millicent - Armor] {armor.Name} Helm";
@@ -187,12 +163,12 @@ public class DlcRandomizerService
             currentEventFlagID += eventFlagStepSize;
             editor.CreateNewShopLineupRow(shopLineupId, name);
             editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, equipTypeProtector);
+            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
             editor.SetShopLineupSellPrice(shopLineupId, helmSellPrice);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
         }
-        if (armor.TorsoID != null) // Not all sets have 4 armor pieces, so we'll need to check before creating a new shop entry
+        if (armor.TorsoID != null)
         {
             int shopLineupId = currentShopLineupId++;
             string name = $"[Merchant Millicent - Armor] {armor.Name} Torso";
@@ -201,12 +177,12 @@ public class DlcRandomizerService
             currentEventFlagID += eventFlagStepSize;
             editor.CreateNewShopLineupRow(shopLineupId, name);
             editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, equipTypeProtector);
+            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
             editor.SetShopLineupSellPrice(shopLineupId, torsoSellPrice);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
         }
-        if (armor.GauntletsID != null) // Not all sets have 4 armor pieces, so we'll need to check before creating a new shop entry
+        if (armor.GauntletsID != null)
         {
             int shopLineupId = currentShopLineupId++;
             string name = $"[Merchant Millicent - Armor] {armor.Name} Gauntlets";
@@ -215,12 +191,12 @@ public class DlcRandomizerService
             currentEventFlagID += eventFlagStepSize;
             editor.CreateNewShopLineupRow(shopLineupId, name);
             editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, equipTypeProtector);
+            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
             editor.SetShopLineupSellPrice(shopLineupId, gauntletsSellPrice);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
         }
-        if (armor.GreavesID != null) // Not all sets have 4 armor pieces, so we'll need to check before creating a new shop entry
+        if (armor.GreavesID != null)
         {
             int shopLineupId = currentShopLineupId++;
             string name = $"[Merchant Millicent - Armor] {armor.Name} Greaves";
@@ -229,7 +205,7 @@ public class DlcRandomizerService
             currentEventFlagID += eventFlagStepSize;
             editor.CreateNewShopLineupRow(shopLineupId, name);
             editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, equipTypeProtector);
+            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
             editor.SetShopLineupSellPrice(shopLineupId, greavesSellPrice);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
@@ -245,8 +221,8 @@ public class DlcRandomizerService
 
         // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
         // The Starlight Shards shop shares weapons from the common pool (there can be duplicates)
-        List<GameItemModel> commonGroup = CsvReaderUtils.Read<GameItemModel>($"{Constants.RandomizationGroupsDlc}/commonModel.csv");
-        RandomizationGroupMN starlightShop = new(3, commonGroup.Count);
+        List<GameItemModel> common = CsvReaderUtils.Read<GameItemModel>($"{Constants.RandomizationGroupsDlc}/common.csv");
+        OptimizedRandomizationGroup starlightShop = new(3, common.Count);
         urr.AddGroup("starlightShop", starlightShop);
         int[] replacementIndexes = urr.RandomizeGroup("starlightShop");
 
@@ -256,7 +232,7 @@ public class DlcRandomizerService
             uint eventFlagForQuantity = currentEventFlagID;
             currentEventFlagID += eventFlagStepSize;
 
-            GameItemModel weapon = commonGroup[replacementIndexes[i]];
+            GameItemModel weapon = common[replacementIndexes[i]];
             int replacementEquipID = weapon.ID;
             int equipID = weapon.ID;
 
@@ -281,7 +257,7 @@ public class DlcRandomizerService
             }
             else
             {
-                // Otherwise, the reinforceLevel is just added to the weaponID
+                // For standard weapons, the reinforceLevel is just added to the weaponID
                 int materialId = editor.GetEquipWeaponMaterialSetId(equipID);
                 equipID = materialId == 2200 ? equipID + 9 : equipID + 24;
             }
@@ -294,10 +270,9 @@ public class DlcRandomizerService
             editor.SetShopLineupSellPrice(shopLineupId, starlightWeaponCost);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellPrice);
-            editor.SetShopLineupMenuTextId(shopLineupId, 508000);
+            editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
         }
-
-        // Now do physick tears and talismans
+        
         List<ShopItemModel> physickTears = new();
         List<ShopItemModel> talismans = new();
         for (int i = 0; i < shopItems.Count; i++)
@@ -311,7 +286,7 @@ public class DlcRandomizerService
             }
         }
         
-        currentShopLineupId = 9201000; // tears shop
+        currentShopLineupId = 9201000;
         foreach (ShopItemModel item in physickTears)
         {
             string itemType = item.Type;
@@ -338,10 +313,10 @@ public class DlcRandomizerService
             editor.SetShopLineupSellPrice(shopLineupId, sellPrice);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
-            editor.SetShopLineupMenuTextId(shopLineupId, 508000);
+            editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
         }
 
-        currentShopLineupId = 9202000; // talismans shop
+        currentShopLineupId = 9202000;
         foreach (ShopItemModel item in talismans)
         {
             string itemType = item.Type;
@@ -376,7 +351,7 @@ public class DlcRandomizerService
             editor.SetShopLineupSellPrice(shopLineupId, sellPrice);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
-            editor.SetShopLineupMenuTextId(shopLineupId, 508000);
+            editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
         }
     }
 }
