@@ -1,38 +1,40 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
 using Athena.Models;
 using EldenRingParamsEditor;
-using UniversalReplacementRandomizer;
 using System.IO;
+using UniversalReplacementRandomizer;
 
 namespace Athena.Utilities;
 
-internal class ReplacementUtils
+internal struct ReplacementGroup<T> where T : IGameItem
 {
-    public static void RandomizeAndReplace<T>(ParamsEditor editor,
-                                              OptimizedReplacementRandomizer urr,
-                                              string groupFilePath)
-        where T : IGameItem
+    public List<T> Targets { get; }
+    public List<T> Replacements { get; }
+
+    public ReplacementGroup(string directoryPath)
     {
-        // The file must exist
-        if (!File.Exists(groupFilePath))
+        if (!File.Exists(Path.Combine(directoryPath, "targets.csv")))
         {
-            throw new FileNotFoundException($"Could not find file {groupFilePath}");
+            throw new FileNotFoundException("targets.csv is required in group directory.");
         }
 
-        // The string for this group will be the file name
-        string fileName = Path.GetFileName(groupFilePath);
+        Targets = CsvReaderUtils.Read<T>(Path.Combine(directoryPath, "targets.csv"));
 
-        // Randomize the group
-        List<T> group = CsvReaderUtils.Read<T>(groupFilePath);
-        OptimizedRandomizationGroup randoGroup = new(group.Count, group.Count);
-        urr.AddGroup(fileName, randoGroup);
-        int[] replacementIndexes = urr.RandomizeGroup(fileName);
-
-        // Now apply replacements
-        ApplyReplacements(editor, replacementIndexes, group);
+        string replacementsPath = Path.Combine(directoryPath, "replacements.csv");
+        if (File.Exists(replacementsPath))
+        {
+            Replacements = CsvReaderUtils.Read<T>(replacementsPath);
+        }
+        else
+        {
+            Replacements = new List<T>(Targets); // fallback: self-replacement
+        }
     }
+}
 
-    public static void ApplyReplacements<T>(ParamsEditor editor, int[] replacementIndexes, List<T> groupList)
+internal class ReplacementUtils
+{
+    public static void ApplyReplacements<T>(ParamsEditor editor, int[] replacementIndexes, List<T> targets, List<T> replacements)
         where T : IGameItem
     {
         List<ItemLotEntry>? locations;
@@ -40,8 +42,8 @@ internal class ReplacementUtils
 
         for (int i = 0; i < replacementIndexes.Length; i++)
         {
-            T target = groupList[i];
-            T replacement = groupList[replacementIndexes[i]];
+            T target = targets[i];
+            T replacement = replacements[replacementIndexes[i]];
 
             // replace world pickups
             Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
@@ -81,6 +83,68 @@ internal class ReplacementUtils
                     editor.SetShopLineupEquipType(shopLineupId, replacement.EquipType);
                 }
             }
+        }
+    }
+
+    public static void RandomizeAndReplaceFile<T>(ParamsEditor editor,
+                                                  OptimizedReplacementRandomizer urr,
+                                                  string groupFilePath)
+        where T : IGameItem
+    {
+        // The file must exist
+        if (!File.Exists(groupFilePath))
+        {
+            throw new FileNotFoundException($"Could not find file {groupFilePath}");
+        }
+
+        // The string for this group will be the file name
+        string fileName = Path.GetFileName(groupFilePath);
+
+        // Randomize the group
+        List<T> group = CsvReaderUtils.Read<T>(groupFilePath);
+        OptimizedRandomizationGroup randoGroup = new(group.Count, group.Count);
+        urr.AddGroup(fileName, randoGroup);
+        int[] replacementIndexes = urr.RandomizeGroup(fileName);
+
+        // Now apply replacements
+        ApplyReplacements(editor, replacementIndexes, group, group);
+    }
+
+    public static void RandomizeAndReplaceDir<T>(ParamsEditor editor,
+                                                 OptimizedReplacementRandomizer urr,
+                                                 string groupDirectoryPath)
+    where T : IGameItem
+    {
+        if (!Directory.Exists(groupDirectoryPath))
+        {
+            throw new DirectoryNotFoundException($"Could not find group directory: {groupDirectoryPath}");
+        }
+
+        string groupName = Path.GetFileName(Path.TrimEndingDirectorySeparator(groupDirectoryPath));
+
+        var group = new ReplacementGroup<T>(groupDirectoryPath);
+        var randoGroup = new OptimizedRandomizationGroup(group.Targets.Count, group.Replacements.Count);
+        urr.AddGroup(groupName, randoGroup);
+
+        int[] replacementIndexes = urr.RandomizeGroup(groupName);
+        ApplyReplacements(editor, replacementIndexes, group.Targets, group.Replacements);
+    }
+
+    public static void Randomize<T>(ParamsEditor editor,
+                                    OptimizedReplacementRandomizer urr,
+                                    string rootDir)
+        where T : IGameItem
+    {
+        (List<string> files, List<string> directories) = CsvDirectoryUtils.GetCsvStructure(rootDir);
+
+        foreach (var file in files)
+        {
+            RandomizeAndReplaceFile<GameItemModel>(editor, urr, file);
+        }
+
+        foreach (var directory in directories)
+        {
+            RandomizeAndReplaceDir<GameItemModel>(editor, urr, directory);
         }
     }
 }

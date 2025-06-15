@@ -14,8 +14,8 @@ public class DlcRandomizerService
     private const int StarlightShopMenuTextId = 508000;
 
     public void RandomizeDlc(int? baseSeed,
-                             Action<int?>? updateSeedCallback,
-                             Action<int?>? updateRandomizedFinishedCallback)
+                             Action<int?>? updateBaseSeedCallback,
+                             Action<int?>? updateRandomizedSeedCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeDlc");
 
@@ -26,20 +26,16 @@ public class DlcRandomizerService
         var urr = new OptimizedReplacementRandomizer(SeedManagerPrefix, baseSeed);
         if (baseSeed == null)
         {
-            updateSeedCallback?.Invoke(urr.GetBaseSeed());
+            updateBaseSeedCallback?.Invoke(urr.GetBaseSeed());
         }
         
         InitStartingClasses(editor);
         InitDlcShop(editor, urr);
-
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/common.csv");
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/bows_crossbows.csv");
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/perfume_bottles.csv");
-        ReplacementUtils.RandomizeAndReplace<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsDlc}/shields.csv");
+        ReplacementUtils.Randomize<GameItemModel>(editor, urr, Constants.RandomizationGroupsDlc);
 
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
 
-        updateRandomizedFinishedCallback?.Invoke(urr.GetBaseSeed());
+        updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
     }
     
     private void InitStartingClasses(ParamsEditor editor)
@@ -108,7 +104,7 @@ public class DlcRandomizerService
     {
         using DebugTimer _ = new DebugTimer("InitDlcShop");
 
-        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/DlcMerchantMillicentShopItems.csv");
+        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/dlc/MerchantMillicentShopItems.csv");
 
         // Setup the Runes shop.
         int currentShopLineupId = 9100000;
@@ -141,7 +137,7 @@ public class DlcRandomizerService
         }
 
         // Setup the randomized armor set in the runes shop.
-        List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>($"{Constants.RandomizationGroupsDlc}/armor_sets.csv");
+        List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>($"{Constants.Misc}/dlc/armor_sets.csv");
         int baseSeed = urr.GetBaseSeed();
         SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed);
         Random rng = seedManager.GetRandomByKey("armor_sets.csv");

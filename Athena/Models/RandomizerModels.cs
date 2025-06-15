@@ -1,19 +1,21 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
+using Athena.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Athena.Models;
 
-interface INamedItem
+public interface INamedItem
 {
     int ID { get; }
     string Name { get; }
 }
 
-interface IGameItem: INamedItem
+public interface IGameItem: INamedItem
 {
     byte EquipType { get; }
     int Category { get; }

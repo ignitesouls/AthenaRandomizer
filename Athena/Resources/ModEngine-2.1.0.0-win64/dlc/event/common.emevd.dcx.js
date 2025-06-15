@@ -8,7 +8,6 @@
 // ==/EMEVD==
 
 $Event(0, Default, function() {
-    InitializeEvent(0, 1900, 0); // Initialization Function (Ctrl+f "$Event(1900" to go to it)
     InitializeEvent(0, 1901, 1144448010, 1056460000, 60120);
     InitializeEvent(1, 1901, 1144448020, 1056460010, 60130);
     InitializeEvent(2, 1901, 1144448030, 1056460020, 65610);
@@ -2779,111 +2778,6 @@ $Event(1801, Restart, function() {
             && EventFlag(9430));
     SetEventFlagID(9421, ON);
     SetCharacterFaceParamOverride(10000, 1, 80000);
-});
-
-// initialization
-$Event(1900, Default, function() {
-    // Only run once
-    EndIf(ThisEventSlot());
-    
-    SetEventFlagID(62000, ON); // Allow Map Display
-    SetEventFlagID(82002, ON); // DLC map can be opened
-    // SetEventFlagID(11108548, ON); // Roundtable Door is opened
-    
-    SetEventFlagID(4680, ON);  // Allow Leveling Up at Grace
-    SetEventFlagID(4681, ON);  // This flag is set after accepting to take Melina to the erdtree. Not sure what it does.
-    
-    // initial graces
-    // SetEventFlagID(71190, ON); // Table of Lost Grace
-    SetEventFlagID(76806, ON); // Gravesite Hollow
-    
-    SetEventFlagID(100, ON); // Story: Start
-    // SetEventFlagID(102, ON); // Story: Reached Limgrave
-    // SetEventFlagID(104, ON); // Story: Reached Roundtable Hold
-    
-    // dlc maps
-    SetEventFlagID(62084, ON); // Abyss
-    SetEventFlagID(62083, ON); // Rauh Ruins
-    SetEventFlagID(62082, ON); // Southern Shore
-    SetEventFlagID(62081, ON); // Scadu Altus
-    SetEventFlagID(62080, ON); // Gravesite Plain
-    
-    // talisman pouches
-    SetEventFlagID(60500, ON);
-    SetEventFlagID(60510, ON);
-    SetEventFlagID(60520, ON);
-    RemoveItemFromPlayer(ItemType.Goods, 10040, 3);
-    for (let i = 0; i < 3; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 10040, 6001, 1);
-    }
-    
-    // give cracked pots
-    for (let i = 0; i < 20; i++) {
-        SetEventFlagID(66000 + (i*10), ON);   
-    }
-    RemoveItemFromPlayer(ItemType.Goods, 9500, 20);
-    for (let i = 0; i < 20; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 9500, 6001, 1);
-    }
-    
-    // give memory stones
-    for (let i = 0; i < 8; i++) {
-        SetEventFlagID(60400 + (i*10), ON);   
-    }
-    RemoveItemFromPlayer(ItemType.Goods, 10030, 8);
-    for (let i = 0; i < 8; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 10030, 6001, 1);
-    }
-    
-    // give perfume bottles
-    for (let i = 0; i < 10; i++) {
-        SetEventFlagID(66700 + (i*10), ON);   
-    }
-    RemoveItemFromPlayer(ItemType.Goods, 9510, 10);
-    for (let i = 0; i < 10; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 9510, 6001, 1);
-    }
-    
-    // estus flasks
-    SetEventFlagID(60000, ON);
-    for (let i = 0; i <= 25; i++) {
-        RemoveItemFromPlayer(ItemType.Goods, 1000 + i, 14);
-        RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
-    }
-    for (let i = 0; i < 12; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1025, 6001, 1);
-    }
-    for (let i = 0; i < 2; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1075, 6001, 1);
-    }
-    
-    // physick flask
-    SetEventFlagID(60020, ON);
-    RemoveItemFromPlayer(ItemType.Goods, 250, 1);
-    DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
-    
-    // steed whistle
-    SetEventFlagID(60100, ON);
-    RemoveItemFromPlayer(ItemType.Goods, 130, 1);
-    DirectlyGivePlayerItem(ItemType.Goods, 130, 6001, 1);
-    
-    // give crafting kit
-    SetEventFlagID(60120, ON);
-    DirectlyGivePlayerItem(ItemType.Goods, 8500, 6001, 1);
-    
-    // give whetstone knife
-    SetEventFlagID(60130, ON);
-    DirectlyGivePlayerItem(ItemType.Goods, 8590, 6001, 1);
-    
-    // give lantern
-    DirectlyGivePlayerItem(ItemType.Goods, 2070, 6001, 1);
-    
-    // give starlight shards
-    for (let i = 0; i < 10; i++ ) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1290, 6001, 1);
-    }
-    
-    SetThisEventSlot(ON);
 });
 
 // activate a flag conditionally upon another flag's activation
