@@ -45,3 +45,15 @@ public record ArmorSetModel(string Name,
                             int? TorsoID,
                             int? GauntletsID,
                             int? GreavesID);
+
+public record StatAllocationModel(string? ClassName,
+                                  int Vigor,
+                                  int Mind,
+                                  int Endurance,
+                                  int Strength,
+                                  int Dexterity,
+                                  int Intelligence,
+                                  int Faith,
+                                  int Arcane);
+
+public record WeaponModel(string WeaponClass, int ID, string Name, byte EquipType, int Category, int WepType): IGameItem;

@@ -13,17 +13,17 @@ public class MainWindowViewModel : INotifyPropertyChanged
 {
     public ObservableCollection<ModeTabViewModelBase> ModeTabs { get; } = new()
     {
-        new BaseGameTabViewModel
+        new TabViewModelBase
         {
             Title = "Base Game", 
             Description = "Base Game" 
         },
-        new BaseGameDlcTabViewModel 
+        new TabViewModelBaseDlc 
         { 
             Title = "Base Game + DLC", 
             Description = "Base Game + DLC" 
         },
-        new DlcTabViewModel 
+        new TabViewModelDlc 
         { 
             Title = "DLC", 
             Description = "DLC" 
@@ -47,10 +47,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public MainWindowViewModel()
     {
         // default tab
-        SelectedTab = ModeTabs[2];
+        _selectedTab = ModeTabs[2];
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
     protected void OnPropertyChanged(string name) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }

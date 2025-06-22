@@ -30,4 +30,16 @@ public class MetadataUtils
         editor.GenerateMappingWeaponIdsToItemLot(allWeaponIds);
         editor.GenerateMappingWeaponIdsToShopLineup(allWeaponIds);
     }
+
+    public static void GenerateSpellsMappings(ParamsEditor editor)
+    {
+        List<GameItemModel> spells = CsvReaderUtils.Read<GameItemModel>($"{Constants.GameData}/AllSpells.csv");
+        List<int> allSpellIds = new();
+        foreach (GameItemModel spell in spells)
+        {
+            allSpellIds.Add(spell.ID);
+        }
+        editor.GenerateMappingGoodsIdsToItemLot(allSpellIds);
+        editor.GenerateMappingGoodsIdsToShopLineup(allSpellIds);
+    }
 }

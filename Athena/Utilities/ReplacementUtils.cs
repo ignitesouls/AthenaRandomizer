@@ -2,6 +2,7 @@
 using Athena.Models;
 using EldenRingParamsEditor;
 using System.IO;
+using System.Diagnostics;
 using UniversalReplacementRandomizer;
 
 namespace Athena.Utilities;
@@ -32,63 +33,35 @@ internal struct ReplacementGroup<T> where T : IGameItem
     }
 }
 
-internal class ReplacementUtils
+internal partial class ReplacementUtils
 {
-    public static void ApplyReplacements<T>(ParamsEditor editor, int[] replacementIndexes, List<T> targets, List<T> replacements)
+    public static void Randomize<T>(ParamsEditor editor,
+                                    OptimizedReplacementRandomizer urr,
+                                    string rootDir,
+                                    Dictionary<int, List<ItemLotEntry>> itemLotMapLocations,
+                                    Dictionary<int, List<ItemLotEntry>> itemLotEnemyLocations,
+                                    Dictionary<int, List<int>> shopLineupLocations)
         where T : IGameItem
     {
-        List<ItemLotEntry>? locations;
-        List<int>? shopLocations;
+        (List<string> files, List<string> directories) = CsvDirectoryUtils.GetCsvStructure(rootDir);
 
-        for (int i = 0; i < replacementIndexes.Length; i++)
+        foreach (var file in files)
         {
-            T target = targets[i];
-            T replacement = replacements[replacementIndexes[i]];
+            RandomizeAndReplaceFile<GameItemModel>(editor, urr, file, itemLotMapLocations, itemLotEnemyLocations, shopLineupLocations);
+        }
 
-            // replace world pickups
-            Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
-            if (weaponIdsToItemLotMap.TryGetValue(target.ID, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotMapLotItemId(location.ID, itemSlot, replacement.ID);
-                        editor.SetItemLotMapCategory(location.ID, itemSlot, replacement.Category);
-                    }
-                }
-            }
-
-            // replace enemy drops
-            Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
-            if (weaponIdsToItemLotEnemy.TryGetValue(target.ID, out locations))
-            {
-                foreach (ItemLotEntry location in locations)
-                {
-                    foreach (int itemSlot in location.LotItems)
-                    {
-                        editor.SetItemLotEnemyLotItemId(location.ID, itemSlot, replacement.ID);
-                        editor.SetItemLotEnemyCategory(location.ID, itemSlot, replacement.Category);
-                    }
-                }
-            }
-
-            // replace shop items
-            Dictionary<int, List<int>> weaponIdsToShopLineup = editor.GetWeaponIdsToShopLineup();
-            if (weaponIdsToShopLineup.TryGetValue(target.ID, out shopLocations))
-            {
-                foreach (int shopLineupId in shopLocations)
-                {
-                    editor.SetShopLineupEquipId(shopLineupId, replacement.ID);
-                    editor.SetShopLineupEquipType(shopLineupId, replacement.EquipType);
-                }
-            }
+        foreach (var directory in directories)
+        {
+            RandomizeAndReplaceDir<GameItemModel>(editor, urr, directory, itemLotMapLocations, itemLotEnemyLocations, shopLineupLocations);
         }
     }
 
     public static void RandomizeAndReplaceFile<T>(ParamsEditor editor,
                                                   OptimizedReplacementRandomizer urr,
-                                                  string groupFilePath)
+                                                  string groupFilePath,
+                                                  Dictionary<int, List<ItemLotEntry>> itemLotMapLocations,
+                                                  Dictionary<int, List<ItemLotEntry>> itemLotEnemyLocations,
+                                                  Dictionary<int, List<int>> shopLineupLocations)
         where T : IGameItem
     {
         // The file must exist
@@ -107,12 +80,15 @@ internal class ReplacementUtils
         int[] replacementIndexes = urr.RandomizeGroup(fileName);
 
         // Now apply replacements
-        ApplyReplacements(editor, replacementIndexes, group, group);
+        ApplyReplacements(editor, replacementIndexes, group, group, itemLotMapLocations, itemLotEnemyLocations, shopLineupLocations);
     }
 
     public static void RandomizeAndReplaceDir<T>(ParamsEditor editor,
                                                  OptimizedReplacementRandomizer urr,
-                                                 string groupDirectoryPath)
+                                                 string groupDirectoryPath,
+                                                 Dictionary<int, List<ItemLotEntry>> itemLotMapLocations,
+                                                 Dictionary<int, List<ItemLotEntry>> itemLotEnemyLocations,
+                                                 Dictionary<int, List<int>> shopLineupLocations)
     where T : IGameItem
     {
         if (!Directory.Exists(groupDirectoryPath))
@@ -127,24 +103,31 @@ internal class ReplacementUtils
         urr.AddGroup(groupName, randoGroup);
 
         int[] replacementIndexes = urr.RandomizeGroup(groupName);
-        ApplyReplacements(editor, replacementIndexes, group.Targets, group.Replacements);
+        ApplyReplacements(editor, replacementIndexes, group.Targets, group.Replacements, itemLotMapLocations, itemLotEnemyLocations, shopLineupLocations);
     }
 
-    public static void Randomize<T>(ParamsEditor editor,
-                                    OptimizedReplacementRandomizer urr,
-                                    string rootDir)
+    public static void ApplyReplacements<T>(ParamsEditor editor,
+                                            int[] replacementIndexes,
+                                            List<T> targets,
+                                            List<T> replacements,
+                                            Dictionary<int, List<ItemLotEntry>> itemLotMapLocations,
+                                            Dictionary<int, List<ItemLotEntry>> itemLotEnemyLocations,
+                                            Dictionary<int, List<int>> shopLineupLocations)
         where T : IGameItem
     {
-        (List<string> files, List<string> directories) = CsvDirectoryUtils.GetCsvStructure(rootDir);
-
-        foreach (var file in files)
+        for (int i = 0; i < replacementIndexes.Length; i++)
         {
-            RandomizeAndReplaceFile<GameItemModel>(editor, urr, file);
-        }
+            T target = targets[i];
+            T replacement = replacements[replacementIndexes[i]];
 
-        foreach (var directory in directories)
-        {
-            RandomizeAndReplaceDir<GameItemModel>(editor, urr, directory);
+            // replace world pickups
+            ApplyItemLotMapReplacement(editor, target, replacement, itemLotMapLocations);
+
+            // replace enemy pickups
+            ApplyItemLotEnemyReplacement(editor, target, replacement, itemLotEnemyLocations);
+
+            // replace shop pickups
+            ApplyShopLineupReplacement(editor, target, replacement, shopLineupLocations);
         }
     }
 }

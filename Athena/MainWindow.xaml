@@ -10,14 +10,14 @@
         WindowStyle="SingleBorderWindow"
         >
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModels:BaseGameTabViewModel}">
-            <views:BaseGameTabControl />
+        <DataTemplate DataType="{x:Type viewModels:TabViewModelBase}">
+            <views:TabControlBase />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:BaseGameDlcTabViewModel}">
-            <views:BaseGameDlcTabControl />
+        <DataTemplate DataType="{x:Type viewModels:TabViewModelBaseDlc}">
+            <views:TabControlBaseDlc />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:DlcTabViewModel}">
-            <views:DlcTabControl />
+        <DataTemplate DataType="{x:Type viewModels:TabViewModelDlc}">
+            <views:TabControlDlc />
         </DataTemplate>
     </Window.Resources>
 
@@ -37,6 +37,12 @@
                     </Style.Triggers>
                 </Style>
             </TabControl.ItemContainerStyle>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding}" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
 
             <TabControl.ItemTemplate>
                 <DataTemplate>

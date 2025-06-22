@@ -8,7 +8,17 @@ internal class Constants
     // Mod Configuration
     public static string ModEngineWorkingDirectory = Path.Combine("Resources", "ModEngine-2.1.0.0-win64");
     public static string RegulationBase = Path.Combine("Resources", "Regulation");
-    
+
+    public static string MenuBndDirectory = Path.Combine("Resources", "Bnd");
+    public static string MenuBndVanilla = Path.Combine(MenuBndDirectory, "vanilla", "menu_dlc02.msgbnd.dcx");
+    public static string MenuBndInBase = MenuBndVanilla;
+    public static string MenuBndInBaseDlc = MenuBndVanilla;
+
+    public static string MenuBndOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "msg", "engus", "menu_dlc02.msgbnd.dcx");
+    public static string MenuBndOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "msg", "engus", "menu_dlc02.msgbnd.dcx");
+
+    //public static string MenuBndBase = Path.Combine(MenuBndDirectory, "base", "menu_dlc02.msgbnd.dcx");
+
     public static string VanillaRegulation = Path.Combine(RegulationBase, "vanilla", "regulation.bin");
     public static string RegulationInBase = VanillaRegulation;
     public static string RegulationInBaseDlc = VanillaRegulation;
@@ -35,4 +45,7 @@ internal class Constants
     public static string GameData = Path.Combine("Resources", "GameData");
 
     public static string Misc = Path.Combine("Resources", "Misc");
+
+    public static readonly int GlintstoneStaffItemId = 33000000;
+    public static readonly int FingerSealItemId = 34000000;
 }
