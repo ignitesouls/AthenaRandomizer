@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyName>AthenaRandomizer</AssemblyName>
+		<AssemblyName>Athena Randomizer v0.4.0</AssemblyName>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<SelfContained>true</SelfContained>

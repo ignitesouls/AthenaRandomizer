@@ -1,4 +1,4 @@
-<img src="./Athena/Resources/Assets/ATHENARANDOMIZER.png" alt="The Goddess Athena presiding over the ATHENA RANDOMIZER text" width="300" height="300">
+<img src="./Athena/Resources/Assets/ATHENARANDOMIZER.png" alt="The Goddess Athena presiding over the ATHENA RANDOMIZER text" width="450" height="450">
 
 ## 🏛️ Lore Description
 > ATHENA RANDOMIZER — She Who Shuffles the Battlefield
@@ -21,17 +21,35 @@
 
 Athena’s influence is currently divided into three distinct domains:
 
-| Domain             | Status         | Description |
-|--------------------|----------------|-------------|
-| **Base Game**      | 🛠️ Under Construction | Full randomizer for only the base game of Elden Ring |
+| Domain             | Status              | Description |
+|--------------------|---------------------|-------------|
+| **Base Game**      | ✅ Alpha Available   | Full randomizer for the base game of Elden Ring |
 | **Base Game + DLC**| 🛠️ Under Construction | Unified experience randomizing all content, meant for 2v2 matches |
-| **DLC**            | ✅ Alpha Available     | Active domain used in SCADUBINGO DLC competitive league |
+| **DLC**            | ✅ Alpha Available   | Active domain used in SCADUBINGO DLC competitive league |
+
+---
+
+## 🌿 Base Game Mode: Overview
+
+The **Base Game mode** introduces chaos to the familiar routes of Limgrave, Liurnia, and beyond.
+
+Features include:
+
+- 🧠 **Uniformly-distributed randomization** of weapons, sorceries, incantations, shops, and remembrance rewards
+- ⚗️ **Perfume Bottles** now join the chaotic item pool
+- 🗺️ **All map fragments** are granted at the start of your journey
+- 🕯️ **Lantern** is also provided from the beginning
+- 🌅 **Grace near Varre’s church** added to ease the Mohg questline
+- 🪨 **Smithing stones** cost 2 per level — balanced and predictable
+- 💧 **Flask upgrade confirmations** removed for faster flow
+
+This domain supports seed-based determinism for consistent races, practice, and match-based scenarios.
 
 ---
 
 ## 🎮 DLC Mode: Overview
 
-The **DLC mode** is currently the only active domain and is under **active alpha development**. Despite its early stage, it is **continually battle-tested and used by the SCADUBINGO community** to host competitive randomized Elden Ring DLC bingo matches.
+The **DLC mode** is under **active alpha development**. Despite its early stage, it is **continually battle-tested and used by the SCADUBINGO community** to host competitive randomized Elden Ring DLC bingo matches.
 
 The DLC mode includes:
 
