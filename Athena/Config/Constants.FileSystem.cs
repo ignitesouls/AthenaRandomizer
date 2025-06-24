@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Athena.Config;
 
-internal class Constants
+internal partial class Constants
 {
     // Mod Configuration
     public static string ModEngineWorkingDirectory = Path.Combine("Resources", "ModEngine-2.1.0.0-win64");
@@ -20,7 +20,8 @@ internal class Constants
     //public static string MenuBndBase = Path.Combine(MenuBndDirectory, "base", "menu_dlc02.msgbnd.dcx");
 
     public static string VanillaRegulation = Path.Combine(RegulationBase, "vanilla", "regulation.bin");
-    public static string RegulationInBase = VanillaRegulation;
+    //public static string RegulationInBase = VanillaRegulation;
+    public static string RegulationInBase = Path.Combine(RegulationBase, "base", "regulation.bin");
     public static string RegulationInBaseDlc = VanillaRegulation;
     public static string RegulationInDlc = Path.Combine(RegulationBase, "dlc", "regulation.bin");
     //public static string RegulationInDlc = Path.Combine(ModEngineWorkingDirectory, "dlc", "regulation.bin");
@@ -45,7 +46,4 @@ internal class Constants
     public static string GameData = Path.Combine("Resources", "GameData");
 
     public static string Misc = Path.Combine("Resources", "Misc");
-
-    public static readonly int GlintstoneStaffItemId = 33000000;
-    public static readonly int FingerSealItemId = 34000000;
 }

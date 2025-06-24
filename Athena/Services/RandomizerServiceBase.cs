@@ -3,7 +3,6 @@ using Athena.Config;
 using Athena.Models;
 using Athena.Utilities;
 using EldenRingParamsEditor;
-using SoulsFormats;
 using System.Diagnostics;
 using System.IO;
 using UniversalReplacementRandomizer;
@@ -30,8 +29,16 @@ public class RandomizerServiceBase
             updateBaseSeedCallback?.Invoke(urr.GetBaseSeed());
         }
 
+        // Generate stats and starting equipment
         RandomizeStartingClassesBase(editor, menuBndEditor, urr);
-        RandomizeWeaponsBase(editor, urr);
+
+        // Randomize weapons, spells, and incantations
+        RandomizeAllGroupsBase(editor, urr);
+
+        // Override the base remembrances for better square accessibility
+        RandomizeRemembrancesWithWeaponsOnly(editor, urr);
+
+        // Randomize the perfume bottles
         RandomizePerfumeBottles(editor, urr);
 
         editor.WriteToRegulationPath(Constants.RegulationOutBase);
@@ -39,7 +46,7 @@ public class RandomizerServiceBase
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
     }
-
+    
     private void RandomizeStartingClassesBase(ParamsEditor editor, MenuBndEditorService menuBndEditor, OptimizedReplacementRandomizer urr)
     {
         using DebugTimer _ = new DebugTimer("RandomizeStartingClassesBase");
@@ -97,7 +104,7 @@ public class RandomizerServiceBase
         }
     }
 
-    public void RandomizeWeaponsBase(ParamsEditor editor, OptimizedReplacementRandomizer urr)
+    public void RandomizeAllGroupsBase(ParamsEditor editor, OptimizedReplacementRandomizer urr)
     {
         var weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
         var weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
@@ -120,8 +127,7 @@ public class RandomizerServiceBase
                                                             urr,
                                                             $"{Constants.RandomizationGroupsBase}/chance_weapons",
                                                             weaponIdsToItemLotEnemy);
-
-
+        
         // guaranteed and map weapons (randomized within classes)
         ReplacementUtils.Randomize<GameItemModel>(editor,
                                                   urr,
@@ -155,16 +161,85 @@ public class RandomizerServiceBase
                                                                        weaponIdsToShopLineup);
     }
 
+    private void RandomizeRemembrancesWithWeaponsOnly(ParamsEditor editor, OptimizedReplacementRandomizer urr)
+    {
+        // We put only weapon checks at the following remembrances, because they are the only realistic checks in a game of
+        // base game bingo, and we want the remembrance boss with remembrance weapon square to be more accessible.
+        List<int> targetRemembrances = new List<int>() {
+            101900, 101901, // Godrick
+            101902, 101903, // Starscourge Radahn
+            101904, 101905, // Morgott
+            101906, 101907, // Rykard
+            101910, 101911, // Mohg
+            101918, 101919, // Rennala
+            101924, 101925, // Regal Ancestor Spirit
+        };
+
+        List<int> remembranceWeapons = new List<int>() {
+            4550000,  // Greatsword of Radahn (Light)
+            4530000,  // Greatsword of Radahn (Lord)
+            4020000,  // Maliketh's Black Blade
+            4050000,  // Starscourge Greatsword
+            23050000, // Axe of Godfrey
+            23520000, // Gazing Finger
+            23510000, // Shadow Sunflower Blossom
+            8100000,  // Morgott's Cursed Sword
+            21060000, // Grafted Dragon
+            13030000, // Bastard's Stars
+            17010000, // Mohgwyn's Sacred Spear
+            17500000, // Spear of the Impaler
+            15040000, // Axe of Godrick
+            8500000,  // Putrescence Cleaver
+            15110000, // Winged Greathorn
+            42000000, // Lion Greatbow
+            3140000,  // Blasphemous Blade
+            3510000,  // Greatsword of Damnation
+            3100000,  // Sacred Relic Sword
+            18510000, // Poleblade of the Bud
+            11150000, // Marika's Hammer
+            6040000,  // Dragon King's Cragblade
+            4400039,  // Sword Lance (Spinning Gravity Thrust)
+            9020000,  // Hand of Malenia
+            67520000, // Rellana's Twin Blades
+            20060000, // Giant's Red Braid
+        };
+
+        OptimizedRandomizationGroup remembranceWeaponsGroup = new(targetRemembrances.Count, remembranceWeapons.Count);
+        urr.AddGroup("override_remembrance_weapons", remembranceWeaponsGroup);
+        int[] replacementIndexes = urr.RandomizeGroup("override_remembrance_weapons");
+
+        // Apply replacements
+        for (int i = 0; i < targetRemembrances.Count; i++)
+        {
+            int target = targetRemembrances[i];
+            int replacement = remembranceWeapons[replacementIndexes[i]];
+            editor.SetShopLineupEquipId(target, replacement);
+            // Quick hack for the only weapon with an ash of war: Sword Lance
+            editor.SetShopLineupEquipType(target, replacement == 4400039 ? Constants.EquipTypeCustomWeapon : Constants.EquipTypeWeapon);
+        }
+    }
+
     private void RandomizePerfumeBottles(ParamsEditor editor, OptimizedReplacementRandomizer urr)
     {
-        List<int> validLocationIDs = new List<int>()
+        // Locations to remove perfume bottles (key items)
+        List<int> perfumeBottlesToRemove = new List<int>()
         {
-           16000110, // Volcano manor
-           31180000, // Perfumer's Grotto
-           1036510020, // Perfumer's Ruins (near Omenkiller)
-           1039540040, // Shaded Castle
-           // 1048380010 // Caelid
+            11000130,   // Leyndell chest
+            11000470,   // Leyndell path to grand lift
+            1036520070, // Perfumer's Ruins (on ledge)
+            1039510000, // Altus by omen
+            1048380010  // Caelid
         };
+        int goldTingedReplacement = 20830;
+
+        // Remove key item perfume bottles from 5 locations (place gold-tinged excrement instead)
+        for (int i = 0; i < perfumeBottlesToRemove.Count; i++)
+        {
+            editor.SetItemLotMapLotItemId(perfumeBottlesToRemove[i], 0, goldTingedReplacement);
+            editor.SetItemLotMapCategory(perfumeBottlesToRemove[i], 0, Constants.CategoryGoods);
+        }
+        
+        // The perfume bottles to randomize
         List<int> perfumeBottleIDs = new List<int>()
         {
             61500000, // Firespark
@@ -173,5 +248,29 @@ public class RandomizerServiceBase
             61530000, // Lightning
             61540000, // Deadly Poison
         };
+        OptimizedRandomizationGroup perfumeBottlesGroup = new(perfumeBottleIDs.Count, perfumeBottleIDs.Count);
+        urr.AddGroup("override_perfume_bottles", perfumeBottlesGroup);
+        int[] replacementIndexes = urr.RandomizeGroup("override_perfume_bottles");
+
+        // Locations to exchange perfume bottles (key items) with perfume bottles (weapons)
+        List<int> targetItemLotPerfumeBottles = new List<int>()
+        {
+           16000110,   // Volcano manor
+           31180000,   // Perfumer's Grotto
+           1036510020, // Perfumer's Ruins (near Omenkiller)
+           1039540040, // Shaded Castle
+        };
+
+        // Place randomly chosen perfume bottles at the four item lot locations
+        for (int i = 0; i < targetItemLotPerfumeBottles.Count; i++)
+        {
+            editor.SetItemLotMapLotItemId(perfumeBottlesToRemove[i], 0, perfumeBottleIDs[replacementIndexes[i]]);
+            editor.SetItemLotMapCategory(perfumeBottlesToRemove[i], 0, Constants.CategoryWeapon);
+        }
+
+        // Place the final bottle at the altus merchant
+        int targetShopLineupPerfumeBottle = 100725;
+        editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes.Length - 1]);
+        editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeWeapon);
     }
 }

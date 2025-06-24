@@ -266,6 +266,7 @@
 [Liurnia of the Lakes] Ranni's Chamber
 [Moonlight Altar] Cathedral of Manus Celes
 [Liurnia of the Lakes] Folly on the Lake
+[Liurnia of the Lakes] Church of the Bloodrose
 [Liurnia of the Lakes] South Raya Lucaria Gate
 [Liurnia of the Lakes] Main Academy Gate
 [Liurnia of the Lakes] East Gate Bridge Trestle
