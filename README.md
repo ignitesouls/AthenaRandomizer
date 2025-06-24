@@ -1,4 +1,6 @@
-<img src="./Athena/Resources/Assets/ATHENARANDOMIZER.png" alt="The Goddess Athena presiding over the ATHENA RANDOMIZER text" width="450" height="450">
+<div align="center">
+  <img src="./Athena/Resources/Assets/ATHENARANDOMIZER.png" alt="The Goddess Athena presiding over the ATHENA RANDOMIZER text" width="300" height="300">
+</div>
 
 ## 🏛️ Lore Description
 > ATHENA RANDOMIZER — She Who Shuffles the Battlefield
