@@ -82,10 +82,8 @@ $Event(10010031, Default, function() {
 
 $Event(10010042, Default, function() {
     EndIf(ThisEventSlot());
-    SetThisEventSlot(ON);
-    AwardItemsIncludingClients(2000);
-    // SetEventFlagID(9021, ON); // what is this?
     WarpPlayer(11, 10, 0, 0, 11102020, 0);
+    SetThisEventSlot(ON);
 });
 
 $Event(10012500, Restart, function() {

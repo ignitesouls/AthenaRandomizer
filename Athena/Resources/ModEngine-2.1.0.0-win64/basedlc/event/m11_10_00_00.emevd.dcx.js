@@ -86,6 +86,7 @@ $Event(0, Default, function() {
     $InitializeEvent(0, 11102651, 710700, 1700, 9125, 69250);
     $InitializeEvent(0, 11102650, 710720, 1720, 9128, 69280);
     $InitializeEvent(0, 11102652, 710780, 1780, 9132, 69320);
+    $InitializeEvent(0, 11100042); // initialize spawn point in roundtable hold
 });
 
 // プリコンストラクタ -- preconstructor
@@ -117,7 +118,6 @@ $Event(50, Default, function() {
     $InitializeEvent(0, 11002548);
     $InitializeEvent(0, 11100680);
     $InitializeEvent(0, 11102100);
-    $InitializeEvent(0, 11100042); // initialize spawn point in roundtable hold
 });
 
 // 初回拠点訪問 -- First base visit
@@ -145,11 +145,91 @@ $Event(11100031, Default, function() {
     SetEventFlagID(121, ON);
 });
 
-// first time entering roundtable - force spawn point set
+// initialization
 $Event(11100042, Default, function() {
-    EndIf(EventFlag(1144440000));
-    SetEventFlagID(1144440000, ON);
+    EndIf(ThisEventSlot());
+    // Fix the initial spawn point (or else memory of grace or dying to alberich will take the player to chapel)
     SetPlayerRespawnPoint(11102020);
+    
+    const initialFlags = [
+        // Story related flags
+        100,      // Story Start
+        102,      // Reached Limgrave
+        104,      // Reached Roundtable Hold
+        
+        // Tutorial flags
+        18000020, // Tutorial is completed
+        101,      // Set within the tutorial event
+        9021,     // Set within the tutorial event
+        
+        // Map Related Flags
+        62000, // Allow Map Display
+        62001, // Allow Underground Map Display
+        82001, // Show underground
+        82002, // Show DLC Map
+        
+        // MAPS - This lets player see the map in these regions
+        62010, // Limgrave, West
+        62011, // Weeping Peninsula
+        62012, // Limgrave, East
+        62022, // Liurnia, West
+        62021, // Liurnia, North
+        62020, // Liurnia, East
+        62031, // Leyndell, Royal Capital
+        62030, // Altus Plateur
+        62032, // Mt. Gelmir
+        62041, // Dragonbarrow
+        62040, // Caelid
+        62052, // Mountaintops of the Giants, North
+        62051, // Mountaintops of the Giants, East
+        62050, // Mountaintops of the Giants, West
+        62063, // Siofra River
+        62062, // Mohgwyn Palace
+        62061, // Lake of Rot
+        62060, // Ainsel River
+        62064, // Deeprooth Depths
+        62103, // Stormfoot Catacombs
+        62102, // Fringefolk Hero's Cave
+        
+        // GRACES - Players can warp to these graces
+        76154, // Weeping - Ailing Village Outskirts
+        71801, // Limgrave - Stranded Graveyard
+        76111, // Limgrave - Gatefront
+        76413, // Caelid - Inner Aeonia
+        76203, // Liurnia - Scenic Isle
+        76225, // Liurnia - Ruined Labyrinth
+        
+    ];
+    
+    // Set all of the above flags
+    for (let i = 0; i < initialFlags.length; i++) {
+        SetEventFlagID(initialFlags[i], ON);   
+    }
+    
+    // estus flasks
+    SetEventFlagID(60000, ON);
+    for (let i = 0; i <= 25; i++) {
+        RemoveItemFromPlayer(ItemType.Goods, 1000 + i, 14);
+        RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
+    }
+    for (let i = 0; i < 3; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 1001, 6001, 1);
+    }
+    DirectlyGivePlayerItem(ItemType.Goods, 1051, 6001, 1);
+    
+    // steed whistle
+    SetEventFlagID(60100, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 130, 1);
+    DirectlyGivePlayerItem(ItemType.Goods, 130, 6001, 1);
+    
+    // whetstone knife
+    SetEventFlagID(60130, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8590, 6001, 1);
+    
+    // lantern
+    DirectlyGivePlayerItem(ItemType.Goods, 2070, 6001, 1);
+    
+    SetThisEventSlot(ON);
 });
 
 // 炎上時の変化 -- Changes during a fire
@@ -1362,5 +1442,3 @@ $Event(11100797, Default, function() {
     SetEventFlagID(11109785, ON);
     EndEvent();
 });
-
-
