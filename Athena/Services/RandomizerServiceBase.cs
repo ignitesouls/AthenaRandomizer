@@ -159,6 +159,9 @@ public class RandomizerServiceBase
                                                                        urr,
                                                                        $"{Constants.RandomizationGroupsBase}/shop_weapons",
                                                                        weaponIdsToShopLineup);
+
+        // swap the solo tree sentinel's halberd with the duo's greatshield
+        SwapTreeSentinelDrops(editor);
     }
 
     private void RandomizeRemembrancesWithWeaponsOnly(ParamsEditor editor, OptimizedReplacementRandomizer urr)
@@ -272,5 +275,17 @@ public class RandomizerServiceBase
         int targetShopLineupPerfumeBottle = 100725;
         editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes.Length - 1]);
         editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeWeapon);
+    }
+
+    public void SwapTreeSentinelDrops(ParamsEditor editor)
+    {
+        int soloItemLotId = 30100;
+        int duoItemLotId = 30335;
+
+        int halberdId = editor.GetItemLotMapLotItemId(soloItemLotId, 0);
+        int greatshieldId = editor.GetItemLotMapLotItemId(duoItemLotId, 0);
+
+        editor.SetItemLotMapLotItemId(soloItemLotId, 0, greatshieldId);
+        editor.SetItemLotMapLotItemId(duoItemLotId, 0, halberdId);
     }
 }

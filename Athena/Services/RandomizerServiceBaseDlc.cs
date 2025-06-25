@@ -3,7 +3,6 @@ using Athena.Config;
 using Athena.Models;
 using Athena.Utilities;
 using EldenRingParamsEditor;
-using SoulsFormats;
 using System.Diagnostics;
 using System.IO;
 using UniversalReplacementRandomizer;
@@ -16,8 +15,8 @@ public class RandomizerServiceBaseDlc
     RandomizerServiceStartingClass randomizerServiceStartingClass = new();
 
     public void RandomizeBaseDlc(int? baseSeed,
-                                Action<int?>? updateBaseSeedCallback,
-                                Action<int?>? updateRandomizedSeedCallback)
+                                 Action<int?>? updateBaseSeedCallback,
+                                 Action<int?>? updateRandomizedSeedCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeBaseDlc");
 
@@ -30,8 +29,11 @@ public class RandomizerServiceBaseDlc
             updateBaseSeedCallback?.Invoke(urr.GetBaseSeed());
         }
 
+        // Generate stats and starting equipment
         RandomizeStartingClassesBaseDlc(editor, menuBndEditor, urr);
-        //ReplacementUtils.RandomizeWeapons<GameItemModel>(editor, urr, $"{Constants.RandomizationGroupsBaseDlc}/guaranteed_weapons");
+
+        // Randomize weapons, spells, and incantations
+        RandomizeAllGroupsBaseDlc(editor, urr);
 
         editor.WriteToRegulationPath(Constants.RegulationOutBaseDlc);
         menuBndEditor.WriteToMenuBndFilePath(Constants.MenuBndOutBaseDlc);
@@ -92,7 +94,75 @@ public class RandomizerServiceBaseDlc
                 classDescription += $", Finger Seal, {incantation.Name}";
             }
 
+            // give 10k starting runes
+            editor.SetInitialRunes(charaInitId, 10_000);
+
             menuBndEditor.SetClassDescription(i, classDescription);
         }
+    }
+
+    public void RandomizeAllGroupsBaseDlc(ParamsEditor editor, OptimizedReplacementRandomizer urr)
+    {
+        var weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
+        var weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
+        var weaponIdsToShopLineup = editor.GetWeaponIdsToShopLineup();
+
+        var goodsIdsToItemLotMap = editor.GetGoodsIdsToItemLotMap();
+        var goodsIdsToItemLotEnemy = editor.GetGoodsIdsToItemLotEnemy();
+        var goodsIdsToShopLineup = editor.GetGoodsIdsToShopLineup();
+
+        // incantations, dragon communion incantations, sorceries
+        ReplacementUtils.Randomize<GameItemModel>(editor,
+                                                  urr,
+                                                  $"{Constants.RandomizationGroupsBaseDlc}/spells",
+                                                  goodsIdsToItemLotMap,
+                                                  goodsIdsToItemLotEnemy,
+                                                  goodsIdsToShopLineup);
+
+        // chance weapons (randomized within classes)
+        ReplacementUtils.RandomizeItemLotEnemy<WeaponModel>(editor,
+                                                            urr,
+                                                            $"{Constants.RandomizationGroupsBaseDlc}/chance_weapons",
+                                                            weaponIdsToItemLotEnemy);
+
+        // guaranteed and map weapons (randomized within classes)
+        ReplacementUtils.Randomize<GameItemModel>(editor,
+                                                  urr,
+                                                  $"{Constants.RandomizationGroupsBaseDlc}/map_guaranteed_weapons",
+                                                  weaponIdsToItemLotMap,
+                                                  weaponIdsToItemLotEnemy,
+                                                  weaponIdsToShopLineup);
+
+        // perfume bottles
+        ReplacementUtils.Randomize<GameItemModel>(editor,
+                                                  urr,
+                                                  $"{Constants.RandomizationGroupsBaseDlc}/perfume_bottles",
+                                                  weaponIdsToItemLotMap,
+                                                  weaponIdsToItemLotEnemy,
+                                                  weaponIdsToShopLineup);
+
+        // remembrance weapons
+        ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
+                                                                       urr,
+                                                                       $"{Constants.RandomizationGroupsBaseDlc}/remembrances/weapons.csv",
+                                                                       weaponIdsToShopLineup);
+
+        // remembrance sorceries
+        ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
+                                                                       urr,
+                                                                       $"{Constants.RandomizationGroupsBaseDlc}/remembrances/sorceries.csv",
+                                                                       goodsIdsToShopLineup);
+
+        // remembrance incantations
+        ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
+                                                                       urr,
+                                                                       $"{Constants.RandomizationGroupsBaseDlc}/remembrances/incantations.csv",
+                                                                       goodsIdsToShopLineup);
+
+        // shop weapons
+        ReplacementUtils.RandomizeAndReplaceShopLineupDir<WeaponModel>(editor,
+                                                                       urr,
+                                                                       $"{Constants.RandomizationGroupsBaseDlc}/shop_weapons",
+                                                                       weaponIdsToShopLineup);
     }
 }

@@ -47,7 +47,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public MainWindowViewModel()
     {
         // default tab
-        _selectedTab = ModeTabs[2];
+        _selectedTab = ModeTabs[0];
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
