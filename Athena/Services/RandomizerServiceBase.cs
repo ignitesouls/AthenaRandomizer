@@ -267,8 +267,8 @@ public class RandomizerServiceBase
         // Place randomly chosen perfume bottles at the four item lot locations
         for (int i = 0; i < targetItemLotPerfumeBottles.Count; i++)
         {
-            editor.SetItemLotMapLotItemId(perfumeBottlesToRemove[i], 0, perfumeBottleIDs[replacementIndexes[i]]);
-            editor.SetItemLotMapCategory(perfumeBottlesToRemove[i], 0, Constants.CategoryWeapon);
+            editor.SetItemLotMapLotItemId(targetItemLotPerfumeBottles[i], 0, perfumeBottleIDs[replacementIndexes[i]]);
+            editor.SetItemLotMapCategory(targetItemLotPerfumeBottles[i], 0, Constants.CategoryWeapon);
         }
 
         // Place the final bottle at the altus merchant

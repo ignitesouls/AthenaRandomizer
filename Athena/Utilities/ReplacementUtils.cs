@@ -70,14 +70,19 @@ internal partial class ReplacementUtils
             throw new FileNotFoundException($"Could not find file {groupFilePath}");
         }
 
-        // The string for this group will be the file name
+        // The group key is the directory name + file name
         string fileName = Path.GetFileName(groupFilePath);
+        string dirName = Path.GetFileName(Path.GetDirectoryName(groupFilePath) ?? "");
+        string groupKey = dirName + "/" + fileName;
+#if DEBUG
+        Debug.WriteLine($"groupKey: {groupKey}");
+#endif
 
         // Randomize the group
         List<T> group = CsvReaderUtils.Read<T>(groupFilePath);
         OptimizedRandomizationGroup randoGroup = new(group.Count, group.Count);
-        urr.AddGroup(fileName, randoGroup);
-        int[] replacementIndexes = urr.RandomizeGroup(fileName);
+        urr.AddGroup(groupKey, randoGroup);
+        int[] replacementIndexes = urr.RandomizeGroup(groupKey);
 
         // Now apply replacements
         ApplyReplacements(editor, replacementIndexes, group, group, itemLotMapLocations, itemLotEnemyLocations, shopLineupLocations);
@@ -97,12 +102,21 @@ internal partial class ReplacementUtils
         }
 
         string groupName = Path.GetFileName(Path.TrimEndingDirectorySeparator(groupDirectoryPath));
+        string dirName = Path.GetFileName(Path.GetDirectoryName(groupDirectoryPath)!);
+
+        //string groupKey = Path.GetFileName(Directory.GetParent(groupName)!.FullName) + "/" + groupName;
+        string groupKey = dirName + "/" + groupName;
+
+#if DEBUG
+        Debug.WriteLine($"groupKey: {groupKey}");
+#endif
 
         var group = new ReplacementGroup<T>(groupDirectoryPath);
         var randoGroup = new OptimizedRandomizationGroup(group.Targets.Count, group.Replacements.Count);
-        urr.AddGroup(groupName, randoGroup);
+        urr.AddGroup(groupKey, randoGroup);
 
-        int[] replacementIndexes = urr.RandomizeGroup(groupName);
+        int[] replacementIndexes = urr.RandomizeGroup(groupKey);
+        
         ApplyReplacements(editor, replacementIndexes, group.Targets, group.Replacements, itemLotMapLocations, itemLotEnemyLocations, shopLineupLocations);
     }
 

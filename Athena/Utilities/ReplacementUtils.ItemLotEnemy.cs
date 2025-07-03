@@ -1,6 +1,7 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
 using Athena.Models;
 using EldenRingParamsEditor;
+using System.Diagnostics;
 using System.IO;
 using UniversalReplacementRandomizer;
 
@@ -39,14 +40,19 @@ internal partial class ReplacementUtils
             throw new FileNotFoundException($"Could not find file {groupFilePath}");
         }
 
-        // The string for this group will be the file name
-        string fileName = Path.GetFullPath(groupFilePath);
+        // The group key is the directory name + file name
+        string fileName = Path.GetFileName(groupFilePath);
+        string dirName = Path.GetFileName(Path.GetDirectoryName(groupFilePath) ?? "");
+        string groupKey = dirName + "/" + fileName;
+#if DEBUG
+        Debug.WriteLine($"groupKey: {groupKey}");
+#endif
 
         // Randomize the group
         List<T> group = CsvReaderUtils.Read<T>(groupFilePath);
         OptimizedRandomizationGroup randoGroup = new(group.Count, group.Count);
-        urr.AddGroup(fileName, randoGroup);
-        int[] replacementIndexes = urr.RandomizeGroup(fileName);
+        urr.AddGroup(groupKey, randoGroup);
+        int[] replacementIndexes = urr.RandomizeGroup(groupKey);
 
         // Now apply replacements
         ApplyItemLotEnemyReplacements(editor, replacementIndexes, group, group, itemLotEnemyLocations);
@@ -63,13 +69,22 @@ internal partial class ReplacementUtils
             throw new DirectoryNotFoundException($"Could not find group directory: {groupDirectoryPath}");
         }
 
-        string groupName = Path.GetFullPath(Path.TrimEndingDirectorySeparator(groupDirectoryPath));
+        string groupName = Path.GetFileName(Path.TrimEndingDirectorySeparator(groupDirectoryPath));
+        string dirName = Path.GetFileName(Path.GetDirectoryName(groupDirectoryPath)!);
+
+        //string groupKey = Path.GetFileName(Directory.GetParent(groupName)!.FullName) + "/" + groupName;
+        string groupKey = dirName + "/" + groupName;
+
+#if DEBUG
+        Debug.WriteLine($"groupKey: {groupKey}");
+#endif
 
         var group = new ReplacementGroup<T>(groupDirectoryPath);
         var randoGroup = new OptimizedRandomizationGroup(group.Targets.Count, group.Replacements.Count);
-        urr.AddGroup(groupName, randoGroup);
+        urr.AddGroup(groupKey, randoGroup);
 
-        int[] replacementIndexes = urr.RandomizeGroup(groupName);
+        int[] replacementIndexes = urr.RandomizeGroup(groupKey);
+
         ApplyItemLotEnemyReplacements(editor, replacementIndexes, group.Targets, group.Replacements, itemLotEnemyLocations);
     }
 

@@ -35,6 +35,12 @@ public class RandomizerServiceBaseDlc
         // Randomize weapons, spells, and incantations
         RandomizeAllGroupsBaseDlc(editor, urr);
 
+        // Remove roundtable fist check, change Seluvis's Potion to Magic Scorpion Charm, Sentry Torch at Altus merchant
+        OverrideDropsBaseDlc(editor);
+
+        // Initialize the Talisman Shop
+        InitBaseDlcShop(editor);
+
         editor.WriteToRegulationPath(Constants.RegulationOutBaseDlc);
         menuBndEditor.WriteToMenuBndFilePath(Constants.MenuBndOutBaseDlc);
 
@@ -133,14 +139,6 @@ public class RandomizerServiceBaseDlc
                                                   weaponIdsToItemLotEnemy,
                                                   weaponIdsToShopLineup);
 
-        // perfume bottles
-        ReplacementUtils.Randomize<GameItemModel>(editor,
-                                                  urr,
-                                                  $"{Constants.RandomizationGroupsBaseDlc}/perfume_bottles",
-                                                  weaponIdsToItemLotMap,
-                                                  weaponIdsToItemLotEnemy,
-                                                  weaponIdsToShopLineup);
-
         // remembrance weapons
         ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
                                                                        urr,
@@ -164,5 +162,70 @@ public class RandomizerServiceBaseDlc
                                                                        urr,
                                                                        $"{Constants.RandomizationGroupsBaseDlc}/shop_weapons",
                                                                        weaponIdsToShopLineup);
+
+        // override perfume bottles
+        ReplacementUtils.Randomize<GameItemModel>(editor,
+                                                  urr,
+                                                  $"{Constants.RandomizationGroupsBaseDlc}/perfume_bottles",
+                                                  weaponIdsToItemLotMap,
+                                                  weaponIdsToItemLotEnemy,
+                                                  weaponIdsToShopLineup);
+    }
+
+    public void OverrideDropsBaseDlc(ParamsEditor editor)
+    {
+        // Remove fist check in roundtable
+        int cipherPataId = 11100000;
+        editor.SetItemLotMapLotItemId(cipherPataId, 0, 0);
+        editor.SetItemLotMapCategory(cipherPataId, 0, 0);
+
+        // Change Seluvis's Potion to Magic Scorpion Charm
+        int seluvisPotionId = 101400;
+        int magicScorpionCharmId = 2000;
+        byte talismanCategory = 4;
+        editor.SetItemLotMapLotItemId(seluvisPotionId, 0, magicScorpionCharmId);
+        editor.SetItemLotMapCategory(seluvisPotionId, 0, talismanCategory);
+
+        // Remove Somber Ancient Dragon Smithing Stone from Mohgwyn
+        int mohgwynSomberStone = 12050900;
+        editor.SetItemLotMapLotItemId(mohgwynSomberStone, 0, 0);
+        editor.SetItemLotMapCategory(mohgwynSomberStone, 0, 0);
+    }
+
+    private void InitBaseDlcShop(ParamsEditor editor)
+    {
+        using DebugTimer _ = new DebugTimer("InitBaseDlcShop");
+
+        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/basedlc/shop_talismans.csv");
+
+        // Setup the Runes shop.
+        int currentShopLineupId = 9300000;
+        uint currentEventFlagID = 1056448000;
+        uint eventFlagStepSize = 10;
+        for (int i = 0; i < shopItems.Count; i++)
+        {
+            int shopLineupId = currentShopLineupId++;
+            string name = $"[Bernie Bingo - {shopItems[i].Type}] {shopItems[i].Name}";
+            int equipID = shopItems[i].ID;
+            byte equipType = shopItems[i].EquipType;
+            int sellPrice = shopItems[i].Cost;
+            short sellQuantity = shopItems[i].SellQuantity;
+            uint eventFlagForQuantity;
+            if (shopItems[i].EventFlagID == null)
+            {
+                eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+            }
+            else
+            {
+                eventFlagForQuantity = (uint)shopItems[i].EventFlagID!;
+            }
+            editor.CreateNewShopLineupRow(shopLineupId, name);
+            editor.SetShopLineupEquipId(shopLineupId, equipID);
+            editor.SetShopLineupEquipType(shopLineupId, equipType);
+            editor.SetShopLineupSellPrice(shopLineupId, sellPrice);
+            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+            editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
+        }
     }
 }

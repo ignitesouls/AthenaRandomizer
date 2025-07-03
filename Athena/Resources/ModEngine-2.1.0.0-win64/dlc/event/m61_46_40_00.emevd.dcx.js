@@ -34,30 +34,42 @@ $Event(2046400600, Default, function() {
     EndIf(ThisEventSlot());
     
     // The default respawn point is Chapel of Anticipation. This line changes it to Gravesite Hollow.
-    // Otherwise, if a player dies without touching a grace, they will be locked out of the DLC.
     SetPlayerRespawnPoint(2046402020);
     
-    SetEventFlagID(62000, ON); // Allow Map Display
-    SetEventFlagID(82002, ON); // DLC map can be opened
-    // SetEventFlagID(11108548, ON); // Roundtable Door is opened
+    const initialFlags = [
+        // STORY FLAGS
+        100, // Story: Start
+        //102, // Story: Reached Limgrave
+        //104, // Story: Reached Roundtable Hold
+        4680, // Allow Leveling Up at Grace
+        4681, // Accepted Melina's Request to take her to the Erdtree. Prevents her from appearing at Gatefront area graces
+        //11108548, // Roundtable Door is opened
+        
+        // MAP RELATED
+        62000, // Allow Map Display
+        82002, // DLC map can be opened
+        
+        // Initial Graces
+        //71190, // Roundtable Hold
+        76806, // Gravesite Hollow
+        
+        // MAPS
+        62084, // Abyss
+        62083, // Rauh Ruins
+        62082, // Southern Shore
+        62081, // Scadu Altus
+        62080, // Gravesite Plain
+        
+        // MAP ICONS (DLC only)
+        62811, 62806, 62843, 62809, 62815, 62812, 62805, 62810, 62813, 62814, 62807, 62830, 62831, 62842,
+        62841, 62808, 62826, 62825, 62855, 62827, 62840, 62844, 62865, 62920, 62921, 62950, 62904, 62905,
+        62900, 62901, 62902, 62903, 62907, 62931, 62932, 62909, 62910, 62962, 62960, 62970, 62961, 62906,
+        62911, 62908, 62912, 62941, 62942
+    ];
     
-    SetEventFlagID(4680, ON);  // Allow Leveling Up at Grace
-    SetEventFlagID(4681, ON);  // This flag is set after accepting to take Melina to the erdtree. Not sure what it does.
-    
-    // initial graces
-    // SetEventFlagID(71190, ON); // Table of Lost Grace
-    SetEventFlagID(76806, ON); // Gravesite Hollow
-    
-    SetEventFlagID(100, ON); // Story: Start
-    // SetEventFlagID(102, ON); // Story: Reached Limgrave
-    // SetEventFlagID(104, ON); // Story: Reached Roundtable Hold
-    
-    // dlc maps
-    SetEventFlagID(62084, ON); // Abyss
-    SetEventFlagID(62083, ON); // Rauh Ruins
-    SetEventFlagID(62082, ON); // Southern Shore
-    SetEventFlagID(62081, ON); // Scadu Altus
-    SetEventFlagID(62080, ON); // Gravesite Plain
+    for (let i = 0; i < initialFlags.length; i++) {
+        SetEventFlagID(initialFlags[i], ON);
+    }
     
     // talisman pouches
     SetEventFlagID(60500, ON);

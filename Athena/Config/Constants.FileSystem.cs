@@ -12,19 +12,15 @@ internal partial class Constants
     public static string MenuBndDirectory = Path.Combine("Resources", "Bnd");
     public static string MenuBndVanilla = Path.Combine(MenuBndDirectory, "vanilla", "menu_dlc02.msgbnd.dcx");
     public static string MenuBndInBase = MenuBndVanilla;
-    public static string MenuBndInBaseDlc = MenuBndVanilla;
+    public static string MenuBndInBaseDlc = Path.Combine(MenuBndDirectory, "basedlc", "menu_dlc02.msgbnd.dcx");
 
     public static string MenuBndOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "msg", "engus", "menu_dlc02.msgbnd.dcx");
     public static string MenuBndOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "msg", "engus", "menu_dlc02.msgbnd.dcx");
 
-    //public static string MenuBndBase = Path.Combine(MenuBndDirectory, "base", "menu_dlc02.msgbnd.dcx");
-
     public static string VanillaRegulation = Path.Combine(RegulationBase, "vanilla", "regulation.bin");
-    //public static string RegulationInBase = VanillaRegulation;
     public static string RegulationInBase = Path.Combine(RegulationBase, "base", "regulation.bin");
-    public static string RegulationInBaseDlc = VanillaRegulation;
+    public static string RegulationInBaseDlc = Path.Combine(RegulationBase, "basedlc", "regulation.bin");
     public static string RegulationInDlc = Path.Combine(RegulationBase, "dlc", "regulation.bin");
-    //public static string RegulationInDlc = Path.Combine(ModEngineWorkingDirectory, "dlc", "regulation.bin");
 
     public static string RegulationOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "regulation.bin");
     public static string RegulationOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "regulation.bin");

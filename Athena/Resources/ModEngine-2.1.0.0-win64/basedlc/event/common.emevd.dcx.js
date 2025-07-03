@@ -37,7 +37,6 @@ $Event(0, Default, function() {
     InitializeEvent(0, 1402, 0);
     InitializeEvent(0, 1403, 0);
     InitializeEvent(0, 1420, 0);
-    InitializeEvent(0, 1070, 0);
     InitializeEvent(0, 1600, 62010, 63010, 1042371690, 1042371691);
     InitializeEvent(1, 1600, 62011, 63011, 1044321690, 1044321691);
     InitializeEvent(2, 1600, 62012, 63012, 1045371690, 1045371691);
@@ -442,6 +441,10 @@ $Event(0, Default, function() {
     InitializeEvent(0, 9943, 0);
     InitializeEvent(0, 9940, 0);
     InitializeEvent(0, 1700, 0);
+    InitializeEvent(0, 11100084, 0);
+    InitializeEvent(0, 11100085, 0);
+    InitializeEvent(0, 11100086, 0);
+    InitializeEvent(0, 11100087, 0);
 });
 
 $Event(50, Default, function() {
@@ -701,6 +704,111 @@ L0:
     EndEvent();
 });
 
+// Unlock post-Altus graces (when Altus is reached)
+$Event(11100084, Default, function() {
+    EndIf(ThisEventSlot());
+    // 9410 is one of the event flags for activating the teleporter at Impassable Great Bridge
+    // I tested by grabbing the first graces along the 3 ways into Altus, and it activated when 
+    // I touched the grace, so I think it's fine. Gameplay may reveal a flaw in this event flag!
+    WaitFor(EventFlag(9410));
+    
+    const progressiveGracesTier1 = [
+        //        Area            - Grace Name
+        //        ----              ----------
+        76303, // Altus           - Altus Highway Junction
+        76353, // Mt. Gelmir      - Road of Iniquity
+        76551, // Consecrated     - Inner Consecrated Snowfield
+        76521, // Mountaintops    - Snow Valley Ruins Overlook
+        76356, // Mt. Gelmir      - Craftsman's Shack
+        71234, // Deeproot Depths - Nameless Eternal City
+        // 71250, // Mohgwyn         - Cocoon of the Empyrean
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Some mid game graces were unlocked
+    DisplayGenericDialog(30068, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+// Unlock War-Dead Catacombs grace (when Radahn is defeated)
+$Event(11100085, Default, function() {
+    EndIf(ThisEventSlot());
+    // 9130 is the event flag for "Defeated Starscourge Radahn"
+    WaitFor(EventFlag(9130));
+    
+    const progressiveGracesTier1 = [
+        //        Area             - Grace Name
+        //        ----               ----------
+        73016, // Caelid           - Wardead Catacombs
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Some DLC graces were unlocked, and War-Dead catacombs grace was unlocked
+    DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+// Unlock DLC graces (when Radahn or Elemer is defeated, or 2 of any shard bearers)
+$Event(11100086, Default, function() {
+    EndIf(ThisEventSlot());
+    // 9130 is the event flag for "Defeated Starscourge Radahn"
+    // 9182 is the event flag for "Defeated Elemer of the Briar"
+    // 182 is the event flag for "Acquired 2 Great Runes"
+    WaitFor(EventFlag(9130) || EventFlag(9182) || EventFlag(182));
+    
+    const progressiveGracesTier1 = [
+        //        Area             - Grace Name
+        //        ----               ----------
+        76801, // Gravesite Plain  - Scorched Ruins
+        76841, // Consecrated      - Charo's Hidden Grave
+        72801, // Midra's Manse    - Manse Hall
+        76835, // Cerulean Coast   - Cerulean Coast Cross
+        76913, // Rauh Base        - Temple Town Ruins
+        76940, // Ancient Rauh     - Viaduct Minor Tower
+        76902, // Scadu Altus      - Moorth Ruins
+        76916, // Scadu Altus      - Castle Watering Hole
+        76905, // Scadu Altus      - Church District Highroad
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Some DLC graces were unlocked
+    DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+// Unlock deeper DLC graces (when Ancient Dragon-Man is defeated)
+$Event(11100087, Default, function() {
+    EndIf(ThisEventSlot());
+    // 43010800 is the event flag for "Defeated Starscourge Radahn"
+    WaitFor(EventFlag(43010800));
+    
+    const progressiveGracesTier1 = [
+        //        Area         - Grace Name
+        //        ----           ----------
+        76852, // Jagged Peak  - Jagged Peak Summit
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Jagged Peak Summit grace was unlocked
+    DisplayGenericDialog(30072, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
 
 $Event(130, Default, function(X0_4) {
     EndIf(ThisEventSlot());
@@ -2040,21 +2148,6 @@ $Event(1050, Restart, function() {
 L2:
     SetSpEffect(20000, 503316);
     WaitFixedTimeSeconds(0.1);
-    RestartEvent();
-});
-
-$Event(1070, Restart, function() {
-    DisableNetworkSync();
-    SetSpEffect(10000, 19996);
-    WaitFor(
-        (InArea(10000, 2049412690) && !PlayerInMap(28, 0, 0, 0))
-            || InArea(10000, 2052432690)
-            || InArea(10000, 2050422690));
-    SetSpEffect(10000, 19995);
-    WaitFor(
-        !((InArea(10000, 2049412690) && !PlayerInMap(28, 0, 0, 0))
-            || InArea(10000, 2052432690)
-            || InArea(10000, 2050422690)));
     RestartEvent();
 });
 
