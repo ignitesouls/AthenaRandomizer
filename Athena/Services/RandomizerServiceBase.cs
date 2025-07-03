@@ -248,7 +248,6 @@ public class RandomizerServiceBase
             61500000, // Firespark
             61510000, // Chilling Mist
             61520000, // Frenzy Flame
-            61530000, // Lightning
             61540000, // Deadly Poison
         };
         OptimizedRandomizationGroup perfumeBottlesGroup = new(perfumeBottleIDs.Count, perfumeBottleIDs.Count);
@@ -259,7 +258,7 @@ public class RandomizerServiceBase
         List<int> targetItemLotPerfumeBottles = new List<int>()
         {
            16000110,   // Volcano manor
-           31180000,   // Perfumer's Grotto
+           // 31180000,   // Perfumer's Grotto
            1036510020, // Perfumer's Ruins (near Omenkiller)
            1039540040, // Shaded Castle
         };
@@ -273,7 +272,7 @@ public class RandomizerServiceBase
 
         // Place the final bottle at the altus merchant
         int targetShopLineupPerfumeBottle = 100725;
-        editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes.Length - 1]);
+        editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes[replacementIndexes.Length - 1]]);
         editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeWeapon);
     }
 
