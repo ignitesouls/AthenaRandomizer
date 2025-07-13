@@ -8,6 +8,12 @@ using UniversalReplacementRandomizer;
 
 namespace Athena.Services;
 
+public enum DlcMode
+{
+    Default,
+    Moonwalk
+}
+
 public class RandomizerServiceDlc
 {
     private const string SeedManagerPrefix = "dlc";
@@ -17,8 +23,10 @@ public class RandomizerServiceDlc
     RandomizerServiceStartingClass.ClassStatAllocation startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
 
     public void RandomizeDlc(int? baseSeed,
+                             DlcMode mode,
                              Action<int?>? updateBaseSeedCallback,
-                             Action<int?>? updateRandomizedSeedCallback)
+                             Action<int?>? updateRandomizedSeedCallback,
+                             Action<DlcMode?>? updateRandomizedModeDlcCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeDlc");
         //SimulationUtils.SimulateDlcToFile(10_000);
@@ -28,42 +36,83 @@ public class RandomizerServiceDlc
         //MetadataUtils.GenerateWeaponsMappings(editor);
         //MetadataUtils.GenerateSpellsMappings(editor);
 
-        var urr = new OptimizedReplacementRandomizer(SeedManagerPrefix, baseSeed);
+        string seedManagerPrefix;
+        string randomizationGroupsDirPath;
+
+        switch (mode)
+        {
+            case DlcMode.Moonwalk:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_moonwalk";
+                    randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/moonwalk";
+                    break;
+                }
+            default:
+                {
+                    seedManagerPrefix = SeedManagerPrefix;
+                    randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/default";
+                    break;
+                }
+        }
+
+        var urr = new OptimizedReplacementRandomizer(seedManagerPrefix, baseSeed);
         if (baseSeed == null)
         {
             updateBaseSeedCallback?.Invoke(urr.GetBaseSeed());
         }
 
-        InitStartingClassesDlc(editor);
+        InitStartingClassesDlc(editor, mode);
 
-        InitDlcShop(editor, urr);
+        InitDlcShop(editor, urr, mode);
         
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
         Dictionary<int, List<int>> weaponIdsToShopLineup = editor.GetWeaponIdsToShopLineup();
-        
+
         ReplacementUtils.Randomize<GameItemModel>(editor,
                                                   urr,
-                                                  Constants.RandomizationGroupsDlc,
+                                                  randomizationGroupsDirPath,
                                                   weaponIdsToItemLotMap,
                                                   weaponIdsToItemLotEnemy,
                                                   weaponIdsToShopLineup);
 
+        // Equip Millicent's Armor
+        EquipMillicentsArmor(editor, mode);
+
+        // Disable Upgrading the default club
+        DisableUpgradingClub(editor);
+
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
+        updateRandomizedModeDlcCallback?.Invoke(mode);
     }
     
-    private void InitStartingClassesDlc(ParamsEditor editor)
+    private void InitStartingClassesDlc(ParamsEditor editor, DlcMode mode = DlcMode.Default)
     {
         using DebugTimer _ = new DebugTimer("InitStartingClassesDlc");
 
         int NumberOfStartingRunes = 100_000;
 
         int ClubItemId = 11010000;
-        int GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
+        int GlintstoneStaffItemId;
         int FingerSealItemId = Constants.FingerSealItemId + 25;
 
+        switch (mode)
+        {
+            case DlcMode.Moonwalk:
+                {
+                    // Custom Carian Sorcery Sword (has no ash of war, does 0 damage with regular attacks)
+                    GlintstoneStaffItemId = 70000000 + 25;
+                    break;
+                }
+            default:
+                {
+                    GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
+                    break;
+                }
+        }
+        
         for (int i = 0; i < ParamsEditor.TotalStartingClasses; i++)
         {
             int charaInitId = ParamsEditor.VagabondCharaInitId + i;
@@ -80,6 +129,12 @@ public class RandomizerServiceDlc
             editor.SetInitialEquipWepLeft(charaInitId, 0, GlintstoneStaffItemId);
             editor.SetInitialEquipWepLeft(charaInitId, 1, FingerSealItemId);
 
+            if (mode == DlcMode.Moonwalk)
+            {
+                // Give initial sorceries/incantations
+                editor.SetInitialEquipSpell(charaInitId, 0, 4431);
+            }
+
             // initial runes and flasks
             editor.SetInitialRunes(charaInitId, NumberOfStartingRunes);
             editor.SetInitialMaxHpFlasks(charaInitId, 12);
@@ -87,11 +142,31 @@ public class RandomizerServiceDlc
         }
     }
 
-    private void InitDlcShop(ParamsEditor editor, OptimizedReplacementRandomizer urr)
+    private void InitDlcShop(ParamsEditor editor, OptimizedReplacementRandomizer urr, DlcMode mode = DlcMode.Default)
     {
         using DebugTimer _ = new DebugTimer("InitDlcShop");
 
-        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/dlc/shop_items.csv");
+        string shopItemsFilePath = $"{Constants.Misc}/dlc/shop_items.csv";
+        string shopArmorSetsFilePath;
+        string shopWeaponsFilePath;
+
+        switch (mode)
+        {
+            case DlcMode.Moonwalk:
+                {
+                    shopArmorSetsFilePath = $"{Constants.Misc}/dlc/moonwalk/shop_armor_sets.csv";
+                    shopWeaponsFilePath = $"{Constants.Misc}/dlc/moonwalk/shop_weapons.csv";
+                    break;
+                }
+            default:
+                {
+                    shopArmorSetsFilePath = $"{Constants.Misc}/dlc/default/shop_armor_sets.csv";
+                    shopWeaponsFilePath = $"{Constants.Misc}/dlc/default/shop_weapons.csv";
+                    break;
+                }
+        }
+
+        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>(shopItemsFilePath);
 
         // Setup the Runes shop.
         int currentShopLineupId = 9100000;
@@ -124,7 +199,7 @@ public class RandomizerServiceDlc
         }
 
         // Setup the randomized armor set in the runes shop.
-        List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>($"{Constants.Misc}/dlc/shop_armor_sets.csv");
+        List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>(shopArmorSetsFilePath);
         int baseSeed = urr.GetBaseSeed();
         SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed);
         Random rng = seedManager.GetRandomByKey("armor_sets.csv");
@@ -204,7 +279,7 @@ public class RandomizerServiceDlc
 
         // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
         // The Starlight Shards shop shares weapons from the common pool (there can be duplicates)
-        List<GameItemModel> common = CsvReaderUtils.Read<GameItemModel>($"{Constants.Misc}/dlc/shop_weapons.csv");
+        List<GameItemModel> common = CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
         OptimizedRandomizationGroup merchantMillicentWeapons = new(3, common.Count);
         urr.AddGroup("merchantMillicentWeapons", merchantMillicentWeapons);
         int[] replacementIndexes = urr.RandomizeGroup("merchantMillicentWeapons");
@@ -338,5 +413,51 @@ public class RandomizerServiceDlc
             editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
             editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
         }
+    }
+
+    public void DisableUpgradingClub(ParamsEditor editor)
+    {
+        int ClubItemId = 11010000;
+
+        editor.SetEquipWeaponIsCustom(ClubItemId, 0);
+        editor.SetEquipWeaponMaterialSetId(ClubItemId, 0);
+        editor.SetEquipWeaponReinforceTypeId(ClubItemId, 3000);
+        editor.SetEquipWeaponReinforceShopCategory(ClubItemId, 0);
+    }
+
+    public void EquipMillicentsArmor(ParamsEditor editor, DlcMode mode = DlcMode.Default)
+    {
+        int merchantMillicentCharaInitId = 23489;
+        int helmId;
+        int torsoId;
+        int armId;
+        int legId;
+
+        switch (mode)
+        {
+            case DlcMode.Moonwalk:
+                {
+                    // Snow Witch Set
+                    helmId = 1010000;
+                    torsoId = 1010100;
+                    armId = -1;
+                    legId = 1010300;
+                    break;
+                }
+            default:
+                {
+                    // Millicent's Set (including custom missing arm)
+                    helmId = -1;
+                    torsoId = 1971100;
+                    armId = 1971200;
+                    legId = 1950300;
+                    break;
+                }
+        }
+
+        editor.SetInitialEquipHelm(merchantMillicentCharaInitId, helmId);
+        editor.SetInitialEquipTorso(merchantMillicentCharaInitId, torsoId);
+        editor.SetInitialEquipArm(merchantMillicentCharaInitId, armId);
+        editor.SetInitialEquipLeg(merchantMillicentCharaInitId, legId);
     }
 }

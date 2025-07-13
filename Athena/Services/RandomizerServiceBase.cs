@@ -35,11 +35,17 @@ public class RandomizerServiceBase
         // Randomize weapons, spells, and incantations
         RandomizeAllGroupsBase(editor, urr);
 
+        // swap the solo tree sentinel's halberd with the tree sentinel duo's greatshield
+        SwapTreeSentinelDrops(editor);
+
         // Override the base remembrances for better square accessibility
         RandomizeRemembrancesWithWeaponsOnly(editor, urr);
 
         // Randomize the perfume bottles
         RandomizePerfumeBottles(editor, urr);
+
+        // Disable upgrading Serpent-Hunter
+        DisableSerpentHunter(editor);
 
         editor.WriteToRegulationPath(Constants.RegulationOutBase);
         menuBndEditor.WriteToMenuBndFilePath(Constants.MenuBndOutBase);
@@ -159,9 +165,6 @@ public class RandomizerServiceBase
                                                                        urr,
                                                                        $"{Constants.RandomizationGroupsBase}/shop_weapons",
                                                                        weaponIdsToShopLineup);
-
-        // swap the solo tree sentinel's halberd with the duo's greatshield
-        SwapTreeSentinelDrops(editor);
     }
 
     private void RandomizeRemembrancesWithWeaponsOnly(ParamsEditor editor, OptimizedReplacementRandomizer urr)
@@ -229,9 +232,10 @@ public class RandomizerServiceBase
         {
             11000130,   // Leyndell chest
             11000470,   // Leyndell path to grand lift
+            31180000,   // Perfumer's Grotto
             1036520070, // Perfumer's Ruins (on ledge)
             1039510000, // Altus by omen
-            1048380010  // Caelid
+            1048380010, // Caelid
         };
         int goldTingedReplacement = 20830;
 
@@ -241,7 +245,12 @@ public class RandomizerServiceBase
             editor.SetItemLotMapLotItemId(perfumeBottlesToRemove[i], 0, goldTingedReplacement);
             editor.SetItemLotMapCategory(perfumeBottlesToRemove[i], 0, Constants.CategoryGoods);
         }
-        
+
+        // Remove the merchant perfume bottle
+        int targetShopLineupPerfumeBottle = 100725;
+        editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, goldTingedReplacement);
+        editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeGoods);
+
         // The perfume bottles to randomize
         List<int> perfumeBottleIDs = new List<int>()
         {
@@ -250,18 +259,20 @@ public class RandomizerServiceBase
             61520000, // Frenzy Flame
             61540000, // Deadly Poison
         };
-        OptimizedRandomizationGroup perfumeBottlesGroup = new(perfumeBottleIDs.Count, perfumeBottleIDs.Count);
-        urr.AddGroup("override_perfume_bottles", perfumeBottlesGroup);
-        int[] replacementIndexes = urr.RandomizeGroup("override_perfume_bottles");
 
         // Locations to exchange perfume bottles (key items) with perfume bottles (weapons)
         List<int> targetItemLotPerfumeBottles = new List<int>()
         {
-           16000110,   // Volcano manor
-           // 31180000,   // Perfumer's Grotto
            1036510020, // Perfumer's Ruins (near Omenkiller)
+           31180000,   // Perfumer's Grotto
+           16000110,   // Volcano manor
            1039540040, // Shaded Castle
         };
+
+        // Create the randomization indexes
+        OptimizedRandomizationGroup perfumeBottlesGroup = new(perfumeBottleIDs.Count, perfumeBottleIDs.Count);
+        urr.AddGroup("override_perfume_bottles", perfumeBottlesGroup);
+        int[] replacementIndexes = urr.RandomizeGroup("override_perfume_bottles");
 
         // Place randomly chosen perfume bottles at the four item lot locations
         for (int i = 0; i < targetItemLotPerfumeBottles.Count; i++)
@@ -269,22 +280,38 @@ public class RandomizerServiceBase
             editor.SetItemLotMapLotItemId(targetItemLotPerfumeBottles[i], 0, perfumeBottleIDs[replacementIndexes[i]]);
             editor.SetItemLotMapCategory(targetItemLotPerfumeBottles[i], 0, Constants.CategoryWeapon);
         }
-
+        
         // Place the final bottle at the altus merchant
-        int targetShopLineupPerfumeBottle = 100725;
-        editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes[replacementIndexes.Length - 1]]);
-        editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeWeapon);
+        //int targetShopLineupPerfumeBottle = 100725;
+        //editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes[replacementIndexes.Length - 1]]);
+        //editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeWeapon);
     }
 
     public void SwapTreeSentinelDrops(ParamsEditor editor)
     {
-        int soloItemLotId = 30100;
-        int duoItemLotId = 30335;
+        int treeSentinelItemLotId = 30100;
+        int treeSentinelDuoItemLotId = 30335;
 
-        int halberdId = editor.GetItemLotMapLotItemId(soloItemLotId, 0);
-        int greatshieldId = editor.GetItemLotMapLotItemId(duoItemLotId, 0);
+        int halberdId = editor.GetItemLotMapLotItemId(treeSentinelItemLotId, 0);
+        int halberdCategory = editor.GetItemLotMapCategory(treeSentinelItemLotId, 0);
 
-        editor.SetItemLotMapLotItemId(soloItemLotId, 0, greatshieldId);
-        editor.SetItemLotMapLotItemId(duoItemLotId, 0, halberdId);
+        int greatshieldId = editor.GetItemLotMapLotItemId(treeSentinelDuoItemLotId, 0);
+        int greatshieldCategory= editor.GetItemLotMapCategory(treeSentinelDuoItemLotId, 0);
+
+        editor.SetItemLotMapLotItemId(treeSentinelItemLotId, 0, greatshieldId);
+        editor.SetItemLotMapCategory(treeSentinelItemLotId, 0, greatshieldCategory);
+
+        editor.SetItemLotMapLotItemId(treeSentinelDuoItemLotId, 0, halberdId);
+        editor.SetItemLotMapCategory(treeSentinelDuoItemLotId, 0, halberdCategory);
+    }
+
+    public void DisableSerpentHunter(ParamsEditor editor)
+    {
+        int serpentHunterId = 17030000;
+
+        editor.SetEquipWeaponIsCustom(serpentHunterId, 0);
+        editor.SetEquipWeaponMaterialSetId(serpentHunterId, 0);
+        editor.SetEquipWeaponReinforceTypeId(serpentHunterId, 3000);
+        editor.SetEquipWeaponReinforceShopCategory(serpentHunterId, 0);
     }
 }

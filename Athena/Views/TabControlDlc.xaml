@@ -4,8 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Athena.Converters"
+             xmlns:services="clr-namespace:Athena.Services"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="600"
              >
+
+    <UserControl.Resources>
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+    </UserControl.Resources>
 
     <StackPanel Margin="8" HorizontalAlignment="Center" MaxWidth="400">
         <TextBlock Text="SCADUBINGO Equipment Randomizer"
@@ -33,5 +39,24 @@
                     Height="40" Width="120"
                     Margin="0,8,0,0"
                     Command="{Binding LaunchCommand}" />
+
+        <GroupBox Header="DLC Mode"
+          Margin="0,30,0,0"
+          Padding="8"
+          BorderBrush="LightGray"
+          BorderThickness="1"
+          HorizontalAlignment="Center"
+          Width="200">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <RadioButton Content="Regular"
+                     GroupName="DlcModeGroup"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Default}}" />
+                <RadioButton Content="Moonwalk"
+                     GroupName="DlcModeGroup"
+                     Margin="12,0,0,0"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Moonwalk}}" />
+            </StackPanel>
+        </GroupBox>
+
     </StackPanel>
 </UserControl>

@@ -1661,3 +1661,4 @@ Backhand Blade - Blind Spot
 Great Katana - Overhead Stance
 Igon's Greatbow - Igon's Great Hunt
 Dueling Shield - Shield Strike
+Crescent Moon Axe - Waves of Darkness

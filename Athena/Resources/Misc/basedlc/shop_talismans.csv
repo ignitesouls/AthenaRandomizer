@@ -1,9 +1,10 @@
 ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
-2110,Blue Dancer Charm,25000,Talisman,Accessory,2,520350,1
-2081,Rotten Winged Sword Insignia,25000,Talisman,Accessory,2,400480,1
-1231,Shard of Alexander,30000,Talisman,Accessory,2,400174,1
 1032,Great-Jar's Arsenal,15000,Talisman,Accessory,2,400470,1
+1231,Shard of Alexander,30000,Talisman,Accessory,2,400174,1
+2081,Rotten Winged Sword Insignia,25000,Talisman,Accessory,2,400480,1
+2110,Blue Dancer Charm,25000,Talisman,Accessory,2,520350,1
 2180,Claw Talisman,20000,Talisman,Accessory,2,10007230,1
-7140,Crimson Seed Talisman +1,15000,Talisman,Accessory,2,2050407000,1
 4001,Dragoncrest Shield Talisman +1,20000,Talisman,Accessory,2,30087030,1
+7140,Crimson Seed Talisman +1,15000,Talisman,Accessory,2,2050407000,1
+8020,Outer God Heirloom,5000,Talisman,Accessory,2,2045417800,1
 10040,Talisman Pouch,25000,Key Item,Good,3,60510,1

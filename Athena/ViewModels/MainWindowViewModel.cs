@@ -1,16 +1,21 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
+using Athena.Config;
+using Athena.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace Athena.ViewModels;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
+
+    private readonly AppConfig _config;
+
     public ObservableCollection<ModeTabViewModelBase> ModeTabs { get; } = new()
     {
         new TabViewModelBase
@@ -39,6 +44,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
             if (_selectedTab != value)
             {
                 _selectedTab = value;
+                _config.LastOpenedTabTitle = value.Title;
+                ConfigService.Save(_config);
                 OnPropertyChanged(nameof(SelectedTab));
             }
         }
@@ -46,8 +53,19 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     public MainWindowViewModel()
     {
+
+        _config = ConfigService.Load();
+
         // default tab
-        _selectedTab = ModeTabs[0];
+
+        if (_config.LastOpenedTabTitle != null)
+        {
+            _selectedTab = ModeTabs.Where(t => t.Title == _config.LastOpenedTabTitle).First() ?? ModeTabs[0];
+        }
+        else
+        {
+            _selectedTab = ModeTabs[0];
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

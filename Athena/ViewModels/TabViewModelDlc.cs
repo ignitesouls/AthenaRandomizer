@@ -20,6 +20,34 @@ public class TabViewModelDlc : ModeTabViewModelBase, INotifyPropertyChanged
     private readonly RandomizerServiceDlc _randomizerService;
     private readonly EldenRingLauncherService _launcherService;
 
+    private DlcMode _dlcMode = DlcMode.Default;
+    public DlcMode DlcMode
+    {
+        get => _dlcMode;
+        set
+        {
+            if (_dlcMode != value)
+            {
+                _dlcMode = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private DlcMode? _randomizedDlcMode;
+    public DlcMode? RandomizedDlcMode
+    {
+        get => _randomizedDlcMode;
+        set
+        {
+            if (_randomizedDlcMode != value)
+            {
+                _randomizedDlcMode = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     private int? _baseSeed;
     public int? BaseSeed
     {
@@ -75,15 +103,20 @@ public class TabViewModelDlc : ModeTabViewModelBase, INotifyPropertyChanged
         BaseSeed = _config.LastUsedSeedDlc;
         BaseSeedInput = _config.LastUsedSeedDlc?.ToString();
         RandomizedSeed = _config.LastRandomizedSeedDlc;
+        RandomizedDlcMode = _config.LastRandomizedModeDlc;
+        DlcMode = _config.LastRandomizedModeDlc ?? DlcMode.Default;
 
         _randomizerService = new RandomizerServiceDlc();
         _launcherService = new EldenRingLauncherService();
 
         RandomizeCommand = new RelayCommand(() => _randomizerService.RandomizeDlc(
             ParsedBaseSeed,
+            DlcMode,
             newSeed =>
             {
+#if DEBUG
                 Debug.WriteLine($"baseSeed: {newSeed}");
+#endif
                 BaseSeed = newSeed;
                 BaseSeedInput = newSeed.ToString();
                 _config.LastUsedSeedDlc = newSeed;
@@ -91,16 +124,27 @@ public class TabViewModelDlc : ModeTabViewModelBase, INotifyPropertyChanged
             },
             newRandomizedSeed =>
             {
+#if DEBUG
                 Debug.WriteLine($"randomizedSeed: {newRandomizedSeed}");
+#endif
                 RandomizedSeed = newRandomizedSeed;
                 _config.LastRandomizedSeedDlc = newRandomizedSeed;
                 ConfigService.Save(_config);
+            },
+            newRandomizedDlcMode =>
+            {
+#if DEBUG
+                Debug.WriteLine($"randomizedDlcMode: {newRandomizedDlcMode}");
+#endif
+                RandomizedDlcMode = newRandomizedDlcMode;
+                _config.LastRandomizedModeDlc = newRandomizedDlcMode;
+                ConfigService.Save(_config);
             }),
-            () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null)));
+            () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedDlcMode == DlcMode)));
 
         LaunchCommand = new RelayCommand(
             () => _launcherService.LaunchEldenRing(LaunchMode.DLC),
-            () => (BaseSeed == RandomizedSeed) && (BaseSeed != null));
+            () => (BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedDlcMode == DlcMode));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
