@@ -226,8 +226,10 @@ $Event(1048572350, Restart, function() {
         
         // Unlock the Haligtree Roots Grace
         SetEventFlagID(71504, ON);
+        // Unlock Mohgwyn Dynasty Midpoint
+        SetEventFlagID(71253, ON);
         
-        // A seal was broken in town, and Haligtree Roots grace was unlocked
+        // A seal was broken in town, and new graces were unlocked
         DisplayGenericDialog(30071, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
         
         DisableAsset(1048571350);
@@ -414,5 +416,3 @@ L0:
     }
     EndEvent();
 });
-
-

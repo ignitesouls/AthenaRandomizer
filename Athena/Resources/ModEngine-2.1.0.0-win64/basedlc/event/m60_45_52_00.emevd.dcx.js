@@ -74,7 +74,7 @@ L0:
         }
 L2:
         onlineAct = PlayerIsInOwnWorld() && ActionButtonInArea(9503, 1045521500);
-        flag = EventFlag(181) && EventFlag(105);
+        flag = EventFlag(11104088) && EventFlag(105);
         WaitFor(onlineAct || flag);
         if (!flag.Passed) {
             DisplayGenericDialog(20003, PromptType.YESNO, NumberofOptions.NoButtons, 1045521500, 3);
@@ -125,5 +125,3 @@ $Event(1045520720, Restart, function() {
 $Event(150, Default, function() {
     $InitializeCommonEvent(0, 90005485, 1045520202);
 });
-
-

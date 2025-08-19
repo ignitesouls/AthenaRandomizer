@@ -253,6 +253,15 @@ $Event(11100042, Default, function() {
         SetEventFlagID(initialFlags[i], ON);   
     }
     
+    // talisman pouches
+    SetEventFlagID(60500, ON);
+    SetEventFlagID(60510, ON);
+    SetEventFlagID(60520, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 10040, 3);
+    for (let i = 0; i < 3; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 10040, 6001, 1);
+    }
+    
     // estus flasks
     SetEventFlagID(60000, ON);
     for (let i = 0; i <= 25; i++) {
@@ -260,9 +269,9 @@ $Event(11100042, Default, function() {
         RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
     }
     for (let i = 0; i < 3; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1001, 6001, 1);
+        DirectlyGivePlayerItem(ItemType.Goods, 1007, 6001, 1);
     }
-    DirectlyGivePlayerItem(ItemType.Goods, 1051, 6001, 1);
+    DirectlyGivePlayerItem(ItemType.Goods, 1057, 6001, 1);
     
     // steed whistle
     SetEventFlagID(60100, ON);
