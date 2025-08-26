@@ -178,6 +178,7 @@ public class RandomizerServiceBaseDlc
         int cipherPataId = 11100000;
         editor.SetItemLotMapLotItemId(cipherPataId, 0, 0);
         editor.SetItemLotMapCategory(cipherPataId, 0, 0);
+        editor.SetItemLotMapItemNum(cipherPataId, 0, 0);
 
         // Change Seluvis's Potion to Magic Scorpion Charm
         int seluvisPotionId = 101400;
@@ -187,9 +188,9 @@ public class RandomizerServiceBaseDlc
         editor.SetItemLotMapCategory(seluvisPotionId, 0, talismanCategory);
 
         // Remove Somber Ancient Dragon Smithing Stone from Mohgwyn
-        int mohgwynSomberStone = 12050900;
-        editor.SetItemLotMapLotItemId(mohgwynSomberStone, 0, 0);
-        editor.SetItemLotMapCategory(mohgwynSomberStone, 0, 0);
+        //int mohgwynSomberStone = 12050900;
+        //editor.SetItemLotMapLotItemId(mohgwynSomberStone, 0, 0);
+        //editor.SetItemLotMapCategory(mohgwynSomberStone, 0, 0);
     }
 
     private void InitBaseDlcShop(ParamsEditor editor)

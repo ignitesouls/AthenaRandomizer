@@ -3257,6 +3257,7 @@ Gravel Stone Seal
 Clawmark Seal
 Golden Order Seal
 Erdtree Seal
+Crucible Seal
 Dragon Communion Seal
 Frenzied Flame Seal
 Dryleaf Seal

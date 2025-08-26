@@ -11,7 +11,8 @@ namespace Athena.Services;
 public enum DlcMode
 {
     Default,
-    Moonwalk
+    Moonwalk,
+    Omenveil
 }
 
 public class RandomizerServiceDlc
@@ -45,6 +46,12 @@ public class RandomizerServiceDlc
                 {
                     seedManagerPrefix = SeedManagerPrefix + "_moonwalk";
                     randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/moonwalk";
+                    break;
+                }
+            case DlcMode.Omenveil:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_omenveil";
+                    randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/omenveil";
                     break;
                 }
             default:
@@ -106,6 +113,14 @@ public class RandomizerServiceDlc
                     GlintstoneStaffItemId = 70000000 + 25;
                     break;
                 }
+            case DlcMode.Omenveil:
+                {
+                    // default
+                    GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
+                    // Custom Crucible Seal (no stats requirement, otherwise indistinguishable from erdtree seal)
+                    FingerSealItemId = 70010000 + 10;
+                    break;
+                }
             default:
                 {
                     GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
@@ -132,7 +147,24 @@ public class RandomizerServiceDlc
             if (mode == DlcMode.Moonwalk)
             {
                 // Give initial sorceries/incantations
-                editor.SetInitialEquipSpell(charaInitId, 0, 4431);
+                editor.SetInitialEquipSpell(charaInitId, 0, 4431); // adula's moonblade
+            }
+            else if (mode == DlcMode.Omenveil)
+            {
+                // Give initial tools
+                editor.SetInitialEquipItem(charaInitId, 0, 3011); // regal omen bairn
+                editor.SetInitialEquipItemAmount(charaInitId, 0, 1);
+                
+                editor.SetInitialEquipItem(charaInitId, 1, 2150); // mohg's shackle
+                editor.SetInitialEquipItemAmount(charaInitId, 1, 1);
+                
+                editor.SetInitialEquipItem(charaInitId, 2, 260000); // dung eater puppet
+                editor.SetInitialEquipItemAmount(charaInitId, 2, 1);
+
+                // give incants
+                editor.SetInitialEquipSpell(charaInitId, 0, 7500); // tail
+                editor.SetInitialEquipSpell(charaInitId, 1, 7510); // horns
+                editor.SetInitialEquipSpell(charaInitId, 2, 7520); // breath
             }
 
             // initial runes and flasks
@@ -156,6 +188,13 @@ public class RandomizerServiceDlc
                 {
                     shopArmorSetsFilePath = $"{Constants.Misc}/dlc/moonwalk/shop_armor_sets.csv";
                     shopWeaponsFilePath = $"{Constants.Misc}/dlc/moonwalk/shop_weapons.csv";
+                    break;
+                }
+            case DlcMode.Omenveil:
+                {
+                    shopItemsFilePath = $"{Constants.Misc}/dlc/omenveil/shop_items.csv";
+                    shopArmorSetsFilePath = $"{Constants.Misc}/dlc/omenveil/shop_armor_sets.csv";
+                    shopWeaponsFilePath = $"{Constants.Misc}/dlc/omenveil/shop_weapons.csv";
                     break;
                 }
             default:
@@ -442,6 +481,14 @@ public class RandomizerServiceDlc
                     torsoId = 1010100;
                     armId = -1;
                     legId = 1010300;
+                    break;
+                }
+            case DlcMode.Omenveil:
+                {
+                    helmId = -1;
+                    torsoId = 1050100;
+                    armId = -1;
+                    legId = -1;
                     break;
                 }
             default:

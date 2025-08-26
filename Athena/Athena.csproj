@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyName>Athena Randomizer v0.11.0</AssemblyName>
+		<AssemblyName>Athena Randomizer v0.12.0</AssemblyName>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<SelfContained>true</SelfContained>
@@ -30,6 +30,16 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>-->
 		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.dcx">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.tpfbdt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.tpfbhd">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>

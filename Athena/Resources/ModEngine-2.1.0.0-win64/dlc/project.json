@@ -6,11 +6,14 @@
   "PinnedRows": {
     "EquipParamWeapon": [
       70000000,
-      11010000
+      11010000,
+      34070001,
+      70010000
     ],
     "EquipParamCustomWeapon": [
       4800058,
-      4800059
+      4800059,
+      4800060
     ]
   },
   "PinnedFields": {},

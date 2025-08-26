@@ -3,7 +3,11 @@
   "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
   "GameType": 8,
   "PinnedParams": [],
-  "PinnedRows": {},
+  "PinnedRows": {
+    "ItemLotParam_map": [
+      5300
+    ]
+  },
   "PinnedFields": {},
   "UseLooseParams": false,
   "PartialParams": false,

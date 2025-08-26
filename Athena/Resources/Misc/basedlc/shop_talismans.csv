@@ -1,8 +1,15 @@
 ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
-1032,Great-Jar's Arsenal,15000,Talisman,Accessory,2,400470,1
-1231,Shard of Alexander,30000,Talisman,Accessory,2,400174,1
-2081,Rotten Winged Sword Insignia,25000,Talisman,Accessory,2,400480,1
-2110,Blue Dancer Charm,25000,Talisman,Accessory,2,520350,1
-2180,Claw Talisman,20000,Talisman,Accessory,2,10007230,1
+2081,Rotten Winged Sword Insignia,20000,Talisman,Accessory,2,400480,1
+1032,Great-Jar's Arsenal,10000,Talisman,Accessory,2,400470,1
+1002,Crimson Amber Medallion +2,10000,Talisman,Accessory,2,35007030,1
+1042,Erdtree's Favor +2,10000,Talisman,Accessory,2,11057100,1
 4001,Dragoncrest Shield Talisman +1,20000,Talisman,Accessory,2,30087030,1
-7140,Crimson Seed Talisman +1,15000,Talisman,Accessory,2,2050407000,1
+4012,Spelldrake Talisman +2,10000,Talisman,Accessory,2,30207060,1
+4022,Flamedrake Talisman +2,10000,Talisman,Accessory,2,520440,1
+4032,Boltdrake Talisman +2,10000,Talisman,Accessory,2,13007760,1
+4042,Haligdrake Talisman +2,10000,Talisman,Accessory,2,12057370,1
+4052,Pearldrake Talisman +2,10000,Talisman,Accessory,2,15007220,1
+2110,Blue Dancer Charm,10000,Talisman,Accessory,2,520350,1
+2090,Dagger Talisman,20000,Talisman,Accessory,2,16007620,1
+2160,Lord of Blood's Exultation,20000,Talisman,Accessory,2,520220,1
+5000,Crimson Seed Talisman,30000,Talisman,Accessory,2,30087010,1

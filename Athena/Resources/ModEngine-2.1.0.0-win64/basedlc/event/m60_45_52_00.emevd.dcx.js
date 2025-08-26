@@ -74,7 +74,9 @@ L0:
         }
 L2:
         onlineAct = PlayerIsInOwnWorld() && ActionButtonInArea(9503, 1045521500);
-        flag = EventFlag(11104088) && EventFlag(105);
+        // entrance into capital
+        //flag = EventFlag(11104088) && EventFlag(105);
+        flag = EventFlag(105);
         WaitFor(onlineAct || flag);
         if (!flag.Passed) {
             DisplayGenericDialog(20003, PromptType.YESNO, NumberofOptions.NoButtons, 1045521500, 3);

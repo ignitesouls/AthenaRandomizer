@@ -10,7 +10,7 @@ namespace Athena.Config;
 public class AppConfig
 {
     // Global
-    public string LastOpenedTabTitle { get; set; }
+    public string? LastOpenedTabTitle { get; set; }
 
     // DLC
     public int? LastUsedSeedDlc { get; set; }

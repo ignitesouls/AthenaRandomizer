@@ -46,7 +46,7 @@
           BorderBrush="LightGray"
           BorderThickness="1"
           HorizontalAlignment="Center"
-          Width="200">
+          Width="260">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton Content="Regular"
                      GroupName="DlcModeGroup"
@@ -55,6 +55,10 @@
                      GroupName="DlcModeGroup"
                      Margin="12,0,0,0"
                      IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Moonwalk}}" />
+                <RadioButton Content="Omenveil"
+                     GroupName="DlcModeGroup"
+                     Margin="12,0,0,0"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Omenveil}}" />
             </StackPanel>
         </GroupBox>
 

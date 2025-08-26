@@ -441,122 +441,82 @@ $Event(0, Default, function() {
     InitializeEvent(0, 9943, 0);
     InitializeEvent(0, 9940, 0);
     InitializeEvent(0, 1700, 0);
+    
+    // grace progression events
     InitializeEvent(0, 11100084, 0);
     InitializeEvent(0, 11100085, 0);
     InitializeEvent(0, 11100086, 0);
     InitializeEvent(0, 11100087, 0);
-    // Godrick pairs
-    //InitializeEvent(0, 11100088, 9100, 9108);
-    //InitializeEvent(1, 11100088, 9100, 9111);
-    //InitializeEvent(2, 11100088, 9100, 9112);
-    //InitializeEvent(3, 11100088, 9100, 9118);
-    //InitializeEvent(4, 11100088, 9100, 9120);
-    //InitializeEvent(5, 11100088, 9100, 9122);
-    //InitializeEvent(6, 11100088, 9100, 9130);
-    //InitializeEvent(7, 11100088, 9100, 9131);
-    //InitializeEvent(8, 11100088, 9100, 9133);
-    // Astel Pairs
-    //InitializeEvent(9, 11100088, 9108, 9111);
-    //InitializeEvent(10, 11100088, 9108, 9112);
-    //InitializeEvent(11, 11100088, 9108, 9118);
-    //InitializeEvent(12, 11100088, 9108, 9120);
-    //InitializeEvent(13, 11100088, 9108, 9122);
-    //InitializeEvent(14, 11100088, 9108, 9130);
-    //InitializeEvent(15, 11100088, 9108, 9131);
-    //InitializeEvent(16, 11100088, 9108, 9133);
-    // Fortissax pairs
-    //InitializeEvent(17, 11100088, 9111, 9112);
-    //InitializeEvent(18, 11100088, 9111, 9118);
-    //InitializeEvent(19, 11100088, 9111, 9120);
-    //InitializeEvent(20, 11100088, 9111, 9122);
-    //InitializeEvent(21, 11100088, 9111, 9130);
-    //InitializeEvent(22, 11100088, 9111, 9131);
-    //InitializeEvent(23, 11100088, 9111, 9133);
-    // Mohg pairs
-    //InitializeEvent(24, 11100088, 9112, 9118);
-    //InitializeEvent(25, 11100088, 9112, 9120);
-    //InitializeEvent(26, 11100088, 9112, 9122);
-    //InitializeEvent(27, 11100088, 9112, 9130);
-    //InitializeEvent(28, 11100088, 9112, 9131);
-    //InitializeEvent(29, 11100088, 9112, 9133);
-    // Rennala Pairs
-    //InitializeEvent(30, 11100088, 9118, 9120);
-    //InitializeEvent(31, 11100088, 9118, 9122);
-    //InitializeEvent(32, 11100088, 9118, 9130);
-    //InitializeEvent(33, 11100088, 9118, 9131);
-    //InitializeEvent(34, 11100088, 9118, 9133);
-    // Malenia Pairs
-    //InitializeEvent(35, 11100088, 9120, 9122);
-    //InitializeEvent(36, 11100088, 9120, 9130);
-    //InitializeEvent(37, 11100088, 9120, 9131);
-    //InitializeEvent(38, 11100088, 9120, 9133);
-    // Rykard Pairs
-    //InitializeEvent(39, 11100088, 9122, 9130);
-    //InitializeEvent(40, 11100088, 9122, 9131);
-    //InitializeEvent(41, 11100088, 9122, 9133);
-    // Radahn Pairs
-    //InitializeEvent(42, 11100088, 9130, 9131);
-    //InitializeEvent(43, 11100088, 9130, 9133);
-    // Regal Moose Pairs
-    //InitializeEvent(44, 11100088, 9131, 9133);
+    InitializeEvent(0, 11100089, 0);
+    InitializeEvent(0, 11100090, 0);
     
-    // Godrick pairs
-    InitializeEvent(0, 11100088, 10000800, 12040800);
-    InitializeEvent(1, 11100088, 10000800, 12030850);
-    InitializeEvent(2, 11100088, 10000800, 12050800);
-    InitializeEvent(3, 11100088, 10000800, 14000800);
-    InitializeEvent(4, 11100088, 10000800, 15000800);
-    InitializeEvent(5, 11100088, 10000800, 16000800);
-    InitializeEvent(6, 11100088, 10000800, 1252380800);
-    InitializeEvent(7, 11100088, 10000800, 1052520800);
-    InitializeEvent(8, 11100088, 10000800, 12090800);
-    // Astel Pairs
-    InitializeEvent(9, 11100088, 12040800, 12030850);
-    InitializeEvent(10, 11100088, 12040800, 12050800);
-    InitializeEvent(11, 11100088, 12040800, 14000800);
-    InitializeEvent(12, 11100088, 12040800, 15000800);
-    InitializeEvent(13, 11100088, 12040800, 16000800);
-    InitializeEvent(14, 11100088, 12040800, 1252380800);
-    InitializeEvent(15, 11100088, 12040800, 1052520800);
-    InitializeEvent(16, 11100088, 12040800, 12090800);
-    // Fortissax pairs
-    InitializeEvent(17, 11100088, 12030850, 12050800);
-    InitializeEvent(18, 11100088, 12030850, 14000800);
-    InitializeEvent(19, 11100088, 12030850, 15000800);
-    InitializeEvent(20, 11100088, 12030850, 16000800);
-    InitializeEvent(21, 11100088, 12030850, 1252380800);
-    InitializeEvent(22, 11100088, 12030850, 1052520800);
-    InitializeEvent(23, 11100088, 12030850, 12090800);
-    // Mohg pairs
-    InitializeEvent(24, 11100088, 12050800, 14000800);
-    InitializeEvent(25, 11100088, 12050800, 15000800);
-    InitializeEvent(26, 11100088, 12050800, 16000800);
-    InitializeEvent(27, 11100088, 12050800, 1252380800);
-    InitializeEvent(28, 11100088, 12050800, 1052520800);
-    InitializeEvent(29, 11100088, 12050800, 12090800);
-    // Rennala Pairs
-    InitializeEvent(30, 11100088, 14000800, 15000800);
-    InitializeEvent(31, 11100088, 14000800, 16000800);
-    InitializeEvent(32, 11100088, 14000800, 1252380800);
-    InitializeEvent(33, 11100088, 14000800, 1052520800);
-    InitializeEvent(34, 11100088, 14000800, 12090800);
-    // Malenia Pairs
-    InitializeEvent(35, 11100088, 15000800, 16000800);
-    InitializeEvent(36, 11100088, 15000800, 1252380800);
-    InitializeEvent(37, 11100088, 15000800, 1052520800);
-    InitializeEvent(38, 11100088, 15000800, 12090800);
-    // Rykard Pairs
-    InitializeEvent(39, 11100088, 16000800, 1252380800);
-    InitializeEvent(40, 11100088, 16000800, 1052520800);
-    InitializeEvent(41, 11100088, 16000800, 12090800);
-    // Radahn Pairs
-    InitializeEvent(42, 11100088, 1252380800, 1052520800);
-    InitializeEvent(43, 11100088, 1252380800, 12090800);
-    // Regal Moose Pairs
-    InitializeEvent(44, 11100088, 1052520800, 12090800);
-    
-    // bad idiot modder dialogues
-    //InitializeEvent(0, 11100089, 0);
+    // Remembrance bosses pairs (kill any two of these to enter DLC)
+    // Godrick
+    InitializeEvent(0, 11100088, 10000800, 11000800);
+    InitializeEvent(1, 11100088, 10000800, 12040800);
+    InitializeEvent(2, 11100088, 10000800, 12030850);
+    InitializeEvent(3, 11100088, 10000800, 12050800);
+    InitializeEvent(4, 11100088, 10000800, 14000800);
+    InitializeEvent(5, 11100088, 10000800, 15000800);
+    InitializeEvent(6, 11100088, 10000800, 16000800);
+    InitializeEvent(7, 11100088, 10000800, 1252380800);
+    InitializeEvent(8, 11100088, 10000800, 1052520800);
+    InitializeEvent(9, 11100088, 10000800, 12090800);
+    // Morgott
+    InitializeEvent(10, 11100088, 11000800, 12040800);
+    InitializeEvent(11, 11100088, 11000800, 12030850);
+    InitializeEvent(12, 11100088, 11000800, 12050800);
+    InitializeEvent(13, 11100088, 11000800, 14000800);
+    InitializeEvent(14, 11100088, 11000800, 15000800);
+    InitializeEvent(15, 11100088, 11000800, 16000800);
+    InitializeEvent(16, 11100088, 11000800, 1252380800);
+    InitializeEvent(17, 11100088, 11000800, 1052520800);
+    InitializeEvent(18, 11100088, 11000800, 12090800);
+    // Astel
+    InitializeEvent(19, 11100088, 12040800, 12030850);
+    InitializeEvent(20, 11100088, 12040800, 12050800);
+    InitializeEvent(21, 11100088, 12040800, 14000800);
+    InitializeEvent(22, 11100088, 12040800, 15000800);
+    InitializeEvent(23, 11100088, 12040800, 16000800);
+    InitializeEvent(24, 11100088, 12040800, 1252380800);
+    InitializeEvent(25, 11100088, 12040800, 1052520800);
+    InitializeEvent(26, 11100088, 12040800, 12090800);
+    // Fortissax
+    InitializeEvent(27, 11100088, 12030850, 12050800);
+    InitializeEvent(28, 11100088, 12030850, 14000800);
+    InitializeEvent(29, 11100088, 12030850, 15000800);
+    InitializeEvent(30, 11100088, 12030850, 16000800);
+    InitializeEvent(31, 11100088, 12030850, 1252380800);
+    InitializeEvent(32, 11100088, 12030850, 1052520800);
+    InitializeEvent(33, 11100088, 12030850, 12090800);
+    // Mohg
+    InitializeEvent(34, 11100088, 12050800, 14000800);
+    InitializeEvent(35, 11100088, 12050800, 15000800);
+    InitializeEvent(36, 11100088, 12050800, 16000800);
+    InitializeEvent(37, 11100088, 12050800, 1252380800);
+    InitializeEvent(38, 11100088, 12050800, 1052520800);
+    InitializeEvent(39, 11100088, 12050800, 12090800);
+    // Rennala
+    InitializeEvent(40, 11100088, 14000800, 15000800);
+    InitializeEvent(41, 11100088, 14000800, 16000800);
+    InitializeEvent(42, 11100088, 14000800, 1252380800);
+    InitializeEvent(43, 11100088, 14000800, 1052520800);
+    InitializeEvent(44, 11100088, 14000800, 12090800);
+    // Malenia
+    InitializeEvent(45, 11100088, 15000800, 16000800);
+    InitializeEvent(46, 11100088, 15000800, 1252380800);
+    InitializeEvent(47, 11100088, 15000800, 1052520800);
+    InitializeEvent(48, 11100088, 15000800, 12090800);
+    // Rykard
+    InitializeEvent(49, 11100088, 16000800, 1252380800);
+    InitializeEvent(50, 11100088, 16000800, 1052520800);
+    InitializeEvent(51, 11100088, 16000800, 12090800);
+    // Radahn
+    InitializeEvent(52, 11100088, 1252380800, 1052520800);
+    InitializeEvent(53, 11100088, 1252380800, 12090800);
+    // Fire Giant
+    InitializeEvent(54, 11100088, 1052520800, 12090800);
+    // Regal Moose has been paired with all other remembrances already
 });
 
 $Event(50, Default, function() {
@@ -827,11 +787,12 @@ $Event(11100084, Default, function() {
     const progressiveGracesTier1 = [
         //        Area            - Grace Name
         //        ----              ----------
-        76303, // Altus           - Altus Highway Junction
+        // 76303, // Altus           - Altus Highway Junction
+        76312, // Altus Plateau   - Outer Wall Battleground
         76353, // Mt. Gelmir      - Road of Iniquity
-        76551, // Consecrated     - Inner Consecrated Snowfield
-        76521, // Mountaintops    - Snow Valley Ruins Overlook
         76356, // Mt. Gelmir      - Craftsman's Shack
+        76521, // Mountaintops    - Snow Valley Ruins Overlook
+        76551, // Consecrated     - Inner Consecrated Snowfield
         71234, // Deeproot Depths - Nameless Eternal City
         71216, // Lake of Rot     - Lake of Rot Shoreside
     ];
@@ -868,8 +829,7 @@ $Event(11100085, Default, function() {
     SetThisEventSlot(ON);
 });
 
-// Unlock DLC graces (when Radahn or Elemer is defeated, or 2 of any shard bearers)
-// Currently unlocks when any 2 remembrance bosses are defeated ONLY
+// Unlock DLC graces. Currently unlocks when any 2 remembrance bosses are defeated
 $Event(11100086, Default, function() {
     EndIf(ThisEventSlot());
     // 9130 is the event flag for "Defeated Starscourge Radahn"
@@ -877,7 +837,7 @@ $Event(11100086, Default, function() {
     // 182 is the event flag for "Acquired 2 Great Runes"
     //WaitFor(EventFlag(9130) || EventFlag(9182) || EventFlag(182));
     
-    // Our insane 2 remembrance bullshit condition
+    // Wait for 2 remembrances to be killed
     WaitFor(EventFlag(11104088));
     
     const progressiveGracesTier1 = [
@@ -887,9 +847,9 @@ $Event(11100086, Default, function() {
         76902, // Scadu Altus      - Moorth Ruins
         76833, // Cerulean Coast   - The Fissure
         72801, // Midra's Manse    - Manse Hall
-        76916, // Scadu Altus      - Castle Watering Hole
         
-        // 76841, // Consecrated      - Charo's Hidden Grave
+        // 76916, // Scadu Altus      - Castle Watering Hole
+        // 76841, // Charo's          - Charo's Hidden Grave
         // 76835, // Cerulean Coast   - Cerulean Coast Cross
         // 76913, // Rauh Base        - Temple Town Ruins
         // 76940, // Ancient Rauh     - Viaduct Minor Tower
@@ -916,7 +876,8 @@ $Event(11100087, Default, function() {
         //        Area                  - Grace Name
         //        ----                    ----------
         //76852, // Jagged Peak           - Jagged Peak Summit
-        76851, // Jagged Peak           - Jagged Peak Mountainside
+        // 76851, // Jagged Peak           - Jagged Peak Mountainside
+        76850, // Jagged Peak           - Foot of the Jagged Peak
         76841, // Charo's Hidden Grave  - Charo's Hidden Grave
     ];
     
@@ -942,103 +903,45 @@ $Event(11100088, Default, function(flag1, flag2) {
       EndEvent();
     }
     
-    SetEventFlagID(11104088, ON);
-    
+    // Flask of Wondrous Physick is for sale at roundtable
+    SetEventFlagID(11109774, ON);
     // Some DLC graces and Capital were unlocked
     DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    // Golden Seeds and Sacred Tears
+    AwardItemLot(5300);
+    
+    // This event has triggered
+    SetEventFlagID(11104088, ON);
 });
 
-// Show appropriate dialogue depending on the state of remembrances and Radahn
 $Event(11100089, Default, function() {
     EndIf(ThisEventSlot());
     
-    // 11104088 - Two Remembrances bosses have been defeated
-    // 1252380800 - Radahn has been defeated
+    WaitFor(EventFlag(330)); // Burned the Sealing Tree and warped to Enir-Ilim
     
-    // two remembrances OR radahn
-    WaitFor(
-        EventFlag(11104088)      // two remembrances are defeated
-        || EventFlag(1252380800) // Radahn is defeated
-    );
+    // 72016   Enir-Ilim - Divine Gate Front Staircase
+    SetEventFlagID(72016, ON);
     
-    // arbitrary wait to allow other events to end (in case radahn is the second remembrance)
-    WaitFixedTimeRealFrames(5);
+    // The Divine Gate Front Staircase grace was unlocked
+    DisplayGenericDialog(30075, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+  
+    SetThisEventSlot(ON);
+});
+
+$Event(11100090, Default, function() {
+    EndIf(ThisEventSlot());
+   
+    // Wait until Haligtree Canopy grace has been activated
+    WaitFor(EventFlag(71506));
+   
+    // 71502 - Haligtree - Elphael Inner Wall
+    SetEventFlagID(71502, ON);
     
-    // if two remembrances are defeated and radahn isn't one of them
-    if (
-        EventFlag(11104088)       // two remembrances have been defeated
-        && !EventFlag(1252380800) // Radahn is still not defeated
-    ) {
-        if (!EventFlag(11104090)) {
-            // two remembrances were defeated first
-            SetEventFlagID(11104090, ON);
-            
-            // Some DLC graces and Capital were unlocked
-            DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-        }
-    }
+    // The Elphael Inner Wall grace was unlocked
+    DisplayGenericDialog(30076, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
     
-    // Now, wait for Radahn to be defeated
-    WaitForEventFlag(ON, 0, 1252380800);
-    WaitFixedTimeRealFrames(5);
-    
-    //WaitFor(EventFlag(1252380800));
-    
-    // if radahn is defeated and is the first remembrance
-    //if (
-        //        EventFlag(1252380800)   // Radahn is defeated
-    //&& !EventFlag(11104088) // two remembrances have not been defeated
-        //) {
-        //if (!EventFlag(11104089)) {
-            // Radahn was defeated first
-            //SetEventFlagID(11104089, ON);
-            
-            // War-Dead catacombs grace was unlocked
-            //  DisplayGenericDialog(30073, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-        //  }
-    //}
-    
-    // Now, wait for two remembrances to be defeated
-    //WaitFor(EventFlag(11104088));
-    // Now, wait for Radahn to be defeated
-    WaitForEventFlag(ON, 0, 11104088);
-    
-    // radahn is defeated, but two remembrances were defeated before radahn was defeated
-    //if (
-    //EventFlag(11104090)      // two remembrances are defeated first
-    //  && EventFlag(1252380800) // Radahn is defeated
-    //) {
-        // War-Dead catacombs grace was unlocked
-        //  DisplayGenericDialog(30073, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-        //SetThisEventSlot(ON);
-        //EndEvent();
-    // }
-    
-    // two remembrances have been defeated, and Radahn was the first
-    if (
-        EventFlag(11104088)    // two remembrances are defeated
-        && EventFlag(11104089) // radahn was defeated first
-    ) {
-        // Some DLC graces and Capital were unlocked
-        DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-        
-        // We've already unlocked DLC graces, Capital and War-Dead, so end the event
-        SetThisEventSlot(ON);
-        EndEvent();
-    }
-    
-    // two remembrances have been defeated, and Radahn was the second (by process of elimination)
-    if (
-        EventFlag(11104088)      // two remembrances are defeated
-        && EventFlag(1252380800) // Radahn is defeated
-    ) {
-        // Radahn is defeated second
-        SetEventFlagID(11107089, ON);
-        // War-Dead Catacombs grace, some DLC graces, and Capital were unlocked
-        DisplayGenericDialog(30074, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-        SetThisEventSlot(ON);
-        EndEvent();
-    }
+    SetThisEventSlot(ON);
 });
 
 $Event(130, Default, function(X0_4) {

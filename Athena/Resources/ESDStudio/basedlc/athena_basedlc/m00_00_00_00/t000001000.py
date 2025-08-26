@@ -2963,7 +2963,7 @@ def t000001000_x85():
     """State 0"""
     if GetScadutreeLevel() == 0:
         """State 1"""
-        SetScadutreeLevel(5)
+        SetScadutreeLevel(3)
         return 1
     else:
         """State 2"""

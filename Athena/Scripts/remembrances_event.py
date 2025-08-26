@@ -1,20 +1,8 @@
 import json
 
 remembrance_flags = [
-  9100, # - Godrick
-  9108, # - Astel
-  9111, # - Fortissax
-  9112, # - Mohg
-  9118, # - Rennala
-  9120, # - Malenia
-  9122, # - Rykard
-  9130, # - Radahn
-  9131, # - Fire Giant
-  9133, # - Regal Moose
-]
-
-remembrance_flags = [
   10000800, # - Godrick
+  11000800, # - Morgott
   12040800, # - Astel
   12030850, # - Fortissax
   12050800, # - Mohg

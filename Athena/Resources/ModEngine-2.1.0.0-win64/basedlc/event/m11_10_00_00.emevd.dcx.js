@@ -167,8 +167,12 @@ $Event(11100042, Default, function() {
         9021, // <- where she offers you an accord
         
         10009655, // Melina has offered to take you to roundtable hold
+        11108548, // The door to the two fingers / Enia is open already
+        12030800, // Fia's Champions is defeated already
         
         // Tutorial flags
+        10010030, // Event Flag that teleports player after Grafted Scion battle starts (whenever player dies)
+        10010801, // Event flag that gets triggered after Grafted Scion flies into arena the first time (now he stands there)
         18000020, // Tutorial event is completed
         9021,     // Set within the tutorial event
         
@@ -238,20 +242,27 @@ $Event(11100042, Default, function() {
         // GRACES - Players can warp to these graces
         //        Area      - Grace Name
         //        ----        ----------
-        76154, // Weeping   - Ailing Village Outskirts
-        71801, // Limgrave  - Stranded Graveyard
         76111, // Limgrave  - Gatefront
-        76119, // Limgrave  - Summonwater Village
-        76409, // Caelid    - Smoldering Wall
+        76154, // Weeping   - Ailing Village Outskirts
+        76413, // Caelid    - Inner Aeonia
+        76205, // Liurnia   - South Raya Lucaria Gate
+        
+        // 71801, // Limgrave  - Stranded Graveyard
+        // 76119, // Limgrave  - Summonwater Village
+        // 76409, // Caelid    - Smoldering Wall
+        
         // 76400, // Caelid    - Smoldering Church
-        76203, // Liurnia   - Scenic Isle
-        76225, // Liurnia   - Ruined Labyrinth
+        // 76203, // Liurnia   - Scenic Isle
+        // 76225, // Liurnia   - Ruined Labyrinth
     ];
     
     // Set all of the above flags
     for (let i = 0; i < initialFlags.length; i++) {
         SetEventFlagID(initialFlags[i], ON);   
     }
+    
+    // Cursemark of Death
+    DirectlyGivePlayerItem(ItemType.Goods, 8191, 6001, 1);
     
     // talisman pouches
     SetEventFlagID(60500, ON);
@@ -269,9 +280,9 @@ $Event(11100042, Default, function() {
         RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
     }
     for (let i = 0; i < 3; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1007, 6001, 1);
+        DirectlyGivePlayerItem(ItemType.Goods, 1001, 6001, 1);
     }
-    DirectlyGivePlayerItem(ItemType.Goods, 1057, 6001, 1);
+    DirectlyGivePlayerItem(ItemType.Goods, 1051, 6001, 1);
     
     // steed whistle
     SetEventFlagID(60100, ON);
