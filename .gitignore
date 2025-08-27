@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Massive files
+Athena/Resources/ModEngine-2.1.0.0-win64/**/menu/hi/*
+
 # User-specific files
 *.rsuser
 *.suo
