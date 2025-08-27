@@ -447,75 +447,75 @@ $Event(0, Default, function() {
     InitializeEvent(0, 11100085, 0);
     InitializeEvent(0, 11100086, 0);
     InitializeEvent(0, 11100087, 0);
+    InitializeEvent(0, 11100088, 0);
     InitializeEvent(0, 11100089, 0);
-    InitializeEvent(0, 11100090, 0);
     
     // Remembrance bosses pairs (kill any two of these to enter DLC)
     // Godrick
-    InitializeEvent(0, 11100088, 10000800, 11000800);
-    InitializeEvent(1, 11100088, 10000800, 12040800);
-    InitializeEvent(2, 11100088, 10000800, 12030850);
-    InitializeEvent(3, 11100088, 10000800, 12050800);
-    InitializeEvent(4, 11100088, 10000800, 14000800);
-    InitializeEvent(5, 11100088, 10000800, 15000800);
-    InitializeEvent(6, 11100088, 10000800, 16000800);
-    InitializeEvent(7, 11100088, 10000800, 1252380800);
-    InitializeEvent(8, 11100088, 10000800, 1052520800);
-    InitializeEvent(9, 11100088, 10000800, 12090800);
+    InitializeEvent(0, 11100090, 10000800, 11000800);
+    InitializeEvent(1, 11100090, 10000800, 12040800);
+    InitializeEvent(2, 11100090, 10000800, 12030850);
+    InitializeEvent(3, 11100090, 10000800, 12050800);
+    InitializeEvent(4, 11100090, 10000800, 14000800);
+    InitializeEvent(5, 11100090, 10000800, 15000800);
+    InitializeEvent(6, 11100090, 10000800, 16000800);
+    InitializeEvent(7, 11100090, 10000800, 1252380800);
+    InitializeEvent(8, 11100090, 10000800, 1052520800);
+    InitializeEvent(9, 11100090, 10000800, 12090800);
     // Morgott
-    InitializeEvent(10, 11100088, 11000800, 12040800);
-    InitializeEvent(11, 11100088, 11000800, 12030850);
-    InitializeEvent(12, 11100088, 11000800, 12050800);
-    InitializeEvent(13, 11100088, 11000800, 14000800);
-    InitializeEvent(14, 11100088, 11000800, 15000800);
-    InitializeEvent(15, 11100088, 11000800, 16000800);
-    InitializeEvent(16, 11100088, 11000800, 1252380800);
-    InitializeEvent(17, 11100088, 11000800, 1052520800);
-    InitializeEvent(18, 11100088, 11000800, 12090800);
+    InitializeEvent(10, 11100090, 11000800, 12040800);
+    InitializeEvent(11, 11100090, 11000800, 12030850);
+    InitializeEvent(12, 11100090, 11000800, 12050800);
+    InitializeEvent(13, 11100090, 11000800, 14000800);
+    InitializeEvent(14, 11100090, 11000800, 15000800);
+    InitializeEvent(15, 11100090, 11000800, 16000800);
+    InitializeEvent(16, 11100090, 11000800, 1252380800);
+    InitializeEvent(17, 11100090, 11000800, 1052520800);
+    InitializeEvent(18, 11100090, 11000800, 12090800);
     // Astel
-    InitializeEvent(19, 11100088, 12040800, 12030850);
-    InitializeEvent(20, 11100088, 12040800, 12050800);
-    InitializeEvent(21, 11100088, 12040800, 14000800);
-    InitializeEvent(22, 11100088, 12040800, 15000800);
-    InitializeEvent(23, 11100088, 12040800, 16000800);
-    InitializeEvent(24, 11100088, 12040800, 1252380800);
-    InitializeEvent(25, 11100088, 12040800, 1052520800);
-    InitializeEvent(26, 11100088, 12040800, 12090800);
+    InitializeEvent(19, 11100090, 12040800, 12030850);
+    InitializeEvent(20, 11100090, 12040800, 12050800);
+    InitializeEvent(21, 11100090, 12040800, 14000800);
+    InitializeEvent(22, 11100090, 12040800, 15000800);
+    InitializeEvent(23, 11100090, 12040800, 16000800);
+    InitializeEvent(24, 11100090, 12040800, 1252380800);
+    InitializeEvent(25, 11100090, 12040800, 1052520800);
+    InitializeEvent(26, 11100090, 12040800, 12090800);
     // Fortissax
-    InitializeEvent(27, 11100088, 12030850, 12050800);
-    InitializeEvent(28, 11100088, 12030850, 14000800);
-    InitializeEvent(29, 11100088, 12030850, 15000800);
-    InitializeEvent(30, 11100088, 12030850, 16000800);
-    InitializeEvent(31, 11100088, 12030850, 1252380800);
-    InitializeEvent(32, 11100088, 12030850, 1052520800);
-    InitializeEvent(33, 11100088, 12030850, 12090800);
+    InitializeEvent(27, 11100090, 12030850, 12050800);
+    InitializeEvent(28, 11100090, 12030850, 14000800);
+    InitializeEvent(29, 11100090, 12030850, 15000800);
+    InitializeEvent(30, 11100090, 12030850, 16000800);
+    InitializeEvent(31, 11100090, 12030850, 1252380800);
+    InitializeEvent(32, 11100090, 12030850, 1052520800);
+    InitializeEvent(33, 11100090, 12030850, 12090800);
     // Mohg
-    InitializeEvent(34, 11100088, 12050800, 14000800);
-    InitializeEvent(35, 11100088, 12050800, 15000800);
-    InitializeEvent(36, 11100088, 12050800, 16000800);
-    InitializeEvent(37, 11100088, 12050800, 1252380800);
-    InitializeEvent(38, 11100088, 12050800, 1052520800);
-    InitializeEvent(39, 11100088, 12050800, 12090800);
+    InitializeEvent(34, 11100090, 12050800, 14000800);
+    InitializeEvent(35, 11100090, 12050800, 15000800);
+    InitializeEvent(36, 11100090, 12050800, 16000800);
+    InitializeEvent(37, 11100090, 12050800, 1252380800);
+    InitializeEvent(38, 11100090, 12050800, 1052520800);
+    InitializeEvent(39, 11100090, 12050800, 12090800);
     // Rennala
-    InitializeEvent(40, 11100088, 14000800, 15000800);
-    InitializeEvent(41, 11100088, 14000800, 16000800);
-    InitializeEvent(42, 11100088, 14000800, 1252380800);
-    InitializeEvent(43, 11100088, 14000800, 1052520800);
-    InitializeEvent(44, 11100088, 14000800, 12090800);
+    InitializeEvent(40, 11100090, 14000800, 15000800);
+    InitializeEvent(41, 11100090, 14000800, 16000800);
+    InitializeEvent(42, 11100090, 14000800, 1252380800);
+    InitializeEvent(43, 11100090, 14000800, 1052520800);
+    InitializeEvent(44, 11100090, 14000800, 12090800);
     // Malenia
-    InitializeEvent(45, 11100088, 15000800, 16000800);
-    InitializeEvent(46, 11100088, 15000800, 1252380800);
-    InitializeEvent(47, 11100088, 15000800, 1052520800);
-    InitializeEvent(48, 11100088, 15000800, 12090800);
+    InitializeEvent(45, 11100090, 15000800, 16000800);
+    InitializeEvent(46, 11100090, 15000800, 1252380800);
+    InitializeEvent(47, 11100090, 15000800, 1052520800);
+    InitializeEvent(48, 11100090, 15000800, 12090800);
     // Rykard
-    InitializeEvent(49, 11100088, 16000800, 1252380800);
-    InitializeEvent(50, 11100088, 16000800, 1052520800);
-    InitializeEvent(51, 11100088, 16000800, 12090800);
+    InitializeEvent(49, 11100090, 16000800, 1252380800);
+    InitializeEvent(50, 11100090, 16000800, 1052520800);
+    InitializeEvent(51, 11100090, 16000800, 12090800);
     // Radahn
-    InitializeEvent(52, 11100088, 1252380800, 1052520800);
-    InitializeEvent(53, 11100088, 1252380800, 12090800);
+    InitializeEvent(52, 11100090, 1252380800, 1052520800);
+    InitializeEvent(53, 11100090, 1252380800, 12090800);
     // Fire Giant
-    InitializeEvent(54, 11100088, 1052520800, 12090800);
+    InitializeEvent(54, 11100090, 1052520800, 12090800);
     // Regal Moose has been paired with all other remembrances already
 });
 
@@ -891,7 +891,36 @@ $Event(11100087, Default, function() {
     SetThisEventSlot(ON);
 });
 
-$Event(11100088, Default, function(flag1, flag2) {
+$Event(11100088, Default, function() {
+    EndIf(ThisEventSlot());
+   
+    // Wait until Haligtree Canopy grace has been activated
+    WaitFor(EventFlag(71506));
+   
+    // 71502 - Haligtree - Elphael Inner Wall
+    SetEventFlagID(71502, ON);
+    
+    // The Elphael Inner Wall grace was unlocked
+    DisplayGenericDialog(30076, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);    
+});
+
+$Event(11100089, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    WaitFor(EventFlag(330)); // Burned the Sealing Tree and warped to Enir-Ilim
+    
+    // 72016   Enir-Ilim - Divine Gate Front Staircase
+    SetEventFlagID(72016, ON);
+    
+    // The Divine Gate Front Staircase grace was unlocked
+    DisplayGenericDialog(30075, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+  
+    SetThisEventSlot(ON);
+});
+
+$Event(11100090, Default, function(flag1, flag2) {
     EndIf(EventFlag(11104088));
     WaitFor(
         (EventFlag(flag1) && EventFlag(flag2)) // our condition
@@ -913,35 +942,6 @@ $Event(11100088, Default, function(flag1, flag2) {
     
     // This event has triggered
     SetEventFlagID(11104088, ON);
-});
-
-$Event(11100089, Default, function() {
-    EndIf(ThisEventSlot());
-    
-    WaitFor(EventFlag(330)); // Burned the Sealing Tree and warped to Enir-Ilim
-    
-    // 72016   Enir-Ilim - Divine Gate Front Staircase
-    SetEventFlagID(72016, ON);
-    
-    // The Divine Gate Front Staircase grace was unlocked
-    DisplayGenericDialog(30075, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-  
-    SetThisEventSlot(ON);
-});
-
-$Event(11100090, Default, function() {
-    EndIf(ThisEventSlot());
-   
-    // Wait until Haligtree Canopy grace has been activated
-    WaitFor(EventFlag(71506));
-   
-    // 71502 - Haligtree - Elphael Inner Wall
-    SetEventFlagID(71502, ON);
-    
-    // The Elphael Inner Wall grace was unlocked
-    DisplayGenericDialog(30076, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-    
-    SetThisEventSlot(ON);
 });
 
 $Event(130, Default, function(X0_4) {
