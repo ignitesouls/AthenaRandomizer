@@ -76,7 +76,7 @@ public class TabViewModelBaseDlc : ModeTabViewModelBase, INotifyPropertyChanged
         BaseSeedInput = _config.LastUsedSeedBaseDlc?.ToString();
         RandomizedSeed = _config.LastRandomizedSeedBaseDlc;
 
-        _randomizerService = new RandomizerServiceBaseDlc();
+        _randomizerService = new RandomizerServiceBaseDlc(AppVersion);
         _launcherService = new EldenRingLauncherService();
 
         RandomizeCommand = new RelayCommand(() => _randomizerService.RandomizeBaseDlc(

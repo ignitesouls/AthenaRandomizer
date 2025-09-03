@@ -106,7 +106,7 @@ public class TabViewModelDlc : ModeTabViewModelBase, INotifyPropertyChanged
         RandomizedDlcMode = _config.LastRandomizedModeDlc;
         DlcMode = _config.LastRandomizedModeDlc ?? DlcMode.Default;
 
-        _randomizerService = new RandomizerServiceDlc();
+        _randomizerService = new RandomizerServiceDlc(AppVersion);
         _launcherService = new EldenRingLauncherService();
 
         RandomizeCommand = new RelayCommand(() => _randomizerService.RandomizeDlc(

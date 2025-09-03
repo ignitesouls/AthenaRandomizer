@@ -67,6 +67,7 @@
 [Crumbling Farum Azula] Dragon Temple Lift
 [Crumbling Farum Azula] Dragon Temple Rooftop
 [Crumbling Farum Azula] Beside the Great Bridge
+[Crumbling Farum Azula] Ruins of the First Lord
 [Academy of Raya Lucaria] Raya Lucaria Grand Library
 [Academy of Raya Lucaria] Debate Parlor
 [Academy of Raya Lucaria] Church of the Cuckoo

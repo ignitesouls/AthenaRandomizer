@@ -11,8 +11,13 @@ namespace Athena.Services;
 
 public class RandomizerServiceBase
 {
-    private const string SeedManagerPrefix = "base";
+    private string SeedManagerPrefix = "base";
     RandomizerServiceStartingClass randomizerServiceStartingClass = new();
+
+    public RandomizerServiceBase(string appVersion)
+    {
+        SeedManagerPrefix = "base" + appVersion;
+    }
 
     public void RandomizeBase(int? baseSeed,
                               Action<int?>? updateBaseSeedCallback,

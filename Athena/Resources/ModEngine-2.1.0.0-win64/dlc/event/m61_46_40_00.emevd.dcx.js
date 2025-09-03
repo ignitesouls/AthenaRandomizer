@@ -94,6 +94,17 @@ $Event(2046400600, Default, function() {
         SetEventFlagID(initialFlags[i], ON);
     }
     
+    // spirit-calling bell
+    SetEventFlagID(60110, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8158, 6001, 1);
+    
+    // finger severer
+    SetEventFlagID(60310, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 103, 6001, 1);
+    
+    // tarnished's furled finger
+    DirectlyGivePlayerItem(ItemType.Goods, 100, 6001, 1);
+    
     // talisman pouches
     SetEventFlagID(60500, ON);
     SetEventFlagID(60510, ON);

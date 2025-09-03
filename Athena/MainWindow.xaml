@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:Athena"
         xmlns:views="clr-namespace:Athena.Views"
         xmlns:viewModels="clr-namespace:Athena.ViewModels"
-        Title="Athena Randomizer v0.12.0" Height="400" Width="800"
+        Title="Athena Randomizer v0.15.0" Height="400" Width="800"
         ResizeMode="CanMinimize"
         WindowStyle="SingleBorderWindow"
         >

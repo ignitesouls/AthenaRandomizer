@@ -17,11 +17,16 @@ public enum DlcMode
 
 public class RandomizerServiceDlc
 {
-    private const string SeedManagerPrefix = "dlc";
+    private string SeedManagerPrefix;
     private const int StarlightShopMenuTextId = 508000;
 
     private RandomizerServiceStartingClass randomizerServiceStartingClass = new();
     RandomizerServiceStartingClass.ClassStatAllocation startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
+
+    public RandomizerServiceDlc(string appVersion)
+    {
+        SeedManagerPrefix = "dlc" + appVersion;
+    }
 
     public void RandomizeDlc(int? baseSeed,
                              DlcMode mode,

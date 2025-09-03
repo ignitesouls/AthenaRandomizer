@@ -242,12 +242,13 @@ $Event(11100042, Default, function() {
         // GRACES - Players can warp to these graces
         //        Area      - Grace Name
         //        ----        ----------
+        71801, // Limgrave  - Stranded Graveyard
         76111, // Limgrave  - Gatefront
         76154, // Weeping   - Ailing Village Outskirts
         76413, // Caelid    - Inner Aeonia
         76205, // Liurnia   - South Raya Lucaria Gate
+        76244, // Liurnia   - Liurnia Highway South
         
-        // 71801, // Limgrave  - Stranded Graveyard
         // 76119, // Limgrave  - Summonwater Village
         // 76409, // Caelid    - Smoldering Wall
         
@@ -258,7 +259,7 @@ $Event(11100042, Default, function() {
     
     // Set all of the above flags
     for (let i = 0; i < initialFlags.length; i++) {
-        SetEventFlagID(initialFlags[i], ON);   
+        SetEventFlagID(initialFlags[i], ON);
     }
     
     // Cursemark of Death
@@ -299,6 +300,14 @@ $Event(11100042, Default, function() {
     // crafting kit
     SetEventFlagID(60120, ON);
     DirectlyGivePlayerItem(ItemType.Goods, 8500, 6001, 1);
+    
+    // Dark Moon Ring
+    SetEventFlagID(114, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8121, 6001, 1);
+    
+    // Flask of Wondrous Physick
+    SetEventFlagID(6700, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
     
     // Some early graces were unlocked
     DisplayGenericDialog(30067, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);

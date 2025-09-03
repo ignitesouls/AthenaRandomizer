@@ -11,7 +11,7 @@ $Event(0, Default, function() {
     InitializeEvent(0, 701, 0);
     InitializeEvent(0, 707, 0);
     InitializeEvent(0, 705, 0);
-    InitializeEvent(0, 900, 0);
+    //InitializeEvent(0, 900, 0);
     InitializeEvent(0, 901, 0);
     InitializeEvent(0, 902, 0);
     InitializeEvent(0, 910, 0);
@@ -449,74 +449,88 @@ $Event(0, Default, function() {
     InitializeEvent(0, 11100087, 0);
     InitializeEvent(0, 11100088, 0);
     InitializeEvent(0, 11100089, 0);
+    InitializeEvent(0, 11100090, 0);
+    InitializeEvent(0, 11100091, 0);
     
-    // Remembrance bosses pairs (kill any two of these to enter DLC)
-    // Godrick
-    InitializeEvent(0, 11100090, 10000800, 11000800);
-    InitializeEvent(1, 11100090, 10000800, 12040800);
-    InitializeEvent(2, 11100090, 10000800, 12030850);
-    InitializeEvent(3, 11100090, 10000800, 12050800);
-    InitializeEvent(4, 11100090, 10000800, 14000800);
-    InitializeEvent(5, 11100090, 10000800, 15000800);
-    InitializeEvent(6, 11100090, 10000800, 16000800);
-    InitializeEvent(7, 11100090, 10000800, 1252380800);
-    InitializeEvent(8, 11100090, 10000800, 1052520800);
-    InitializeEvent(9, 11100090, 10000800, 12090800);
-    // Morgott
-    InitializeEvent(10, 11100090, 11000800, 12040800);
-    InitializeEvent(11, 11100090, 11000800, 12030850);
-    InitializeEvent(12, 11100090, 11000800, 12050800);
-    InitializeEvent(13, 11100090, 11000800, 14000800);
-    InitializeEvent(14, 11100090, 11000800, 15000800);
-    InitializeEvent(15, 11100090, 11000800, 16000800);
-    InitializeEvent(16, 11100090, 11000800, 1252380800);
-    InitializeEvent(17, 11100090, 11000800, 1052520800);
-    InitializeEvent(18, 11100090, 11000800, 12090800);
-    // Astel
-    InitializeEvent(19, 11100090, 12040800, 12030850);
-    InitializeEvent(20, 11100090, 12040800, 12050800);
-    InitializeEvent(21, 11100090, 12040800, 14000800);
-    InitializeEvent(22, 11100090, 12040800, 15000800);
-    InitializeEvent(23, 11100090, 12040800, 16000800);
-    InitializeEvent(24, 11100090, 12040800, 1252380800);
-    InitializeEvent(25, 11100090, 12040800, 1052520800);
-    InitializeEvent(26, 11100090, 12040800, 12090800);
-    // Fortissax
-    InitializeEvent(27, 11100090, 12030850, 12050800);
-    InitializeEvent(28, 11100090, 12030850, 14000800);
-    InitializeEvent(29, 11100090, 12030850, 15000800);
-    InitializeEvent(30, 11100090, 12030850, 16000800);
-    InitializeEvent(31, 11100090, 12030850, 1252380800);
-    InitializeEvent(32, 11100090, 12030850, 1052520800);
-    InitializeEvent(33, 11100090, 12030850, 12090800);
-    // Mohg
-    InitializeEvent(34, 11100090, 12050800, 14000800);
-    InitializeEvent(35, 11100090, 12050800, 15000800);
-    InitializeEvent(36, 11100090, 12050800, 16000800);
-    InitializeEvent(37, 11100090, 12050800, 1252380800);
-    InitializeEvent(38, 11100090, 12050800, 1052520800);
-    InitializeEvent(39, 11100090, 12050800, 12090800);
-    // Rennala
-    InitializeEvent(40, 11100090, 14000800, 15000800);
-    InitializeEvent(41, 11100090, 14000800, 16000800);
-    InitializeEvent(42, 11100090, 14000800, 1252380800);
-    InitializeEvent(43, 11100090, 14000800, 1052520800);
-    InitializeEvent(44, 11100090, 14000800, 12090800);
-    // Malenia
-    InitializeEvent(45, 11100090, 15000800, 16000800);
-    InitializeEvent(46, 11100090, 15000800, 1252380800);
-    InitializeEvent(47, 11100090, 15000800, 1052520800);
-    InitializeEvent(48, 11100090, 15000800, 12090800);
-    // Rykard
-    InitializeEvent(49, 11100090, 16000800, 1252380800);
-    InitializeEvent(50, 11100090, 16000800, 1052520800);
-    InitializeEvent(51, 11100090, 16000800, 12090800);
-    // Radahn
-    InitializeEvent(52, 11100090, 1252380800, 1052520800);
-    InitializeEvent(53, 11100090, 1252380800, 12090800);
-    // Fire Giant
-    InitializeEvent(54, 11100090, 1052520800, 12090800);
-    // Regal Moose has been paired with all other remembrances already
+    // Remembrance bosses pairs
+    InitializeEvent(0, 11120000, 10000800, 12040800);
+    InitializeEvent(1, 11120000, 10000800, 12030850);
+    InitializeEvent(2, 11120000, 10000800, 12050800);
+    InitializeEvent(3, 11120000, 10000800, 14000800);
+    InitializeEvent(4, 11120000, 10000800, 15000800);
+    InitializeEvent(5, 11120000, 10000800, 16000800);
+    InitializeEvent(6, 11120000, 10000800, 1252380800);
+    InitializeEvent(7, 11120000, 10000800, 1052520800);
+    InitializeEvent(8, 11120000, 10000800, 12090800);
+    InitializeEvent(9, 11120000, 10000800, 11000800);
+    InitializeEvent(10, 11120000, 10000800, 13000800);
+    InitializeEvent(11, 11120000, 10000800, 13000830);
+    InitializeEvent(12, 11120000, 12040800, 12030850);
+    InitializeEvent(13, 11120000, 12040800, 12050800);
+    InitializeEvent(14, 11120000, 12040800, 14000800);
+    InitializeEvent(15, 11120000, 12040800, 15000800);
+    InitializeEvent(16, 11120000, 12040800, 16000800);
+    InitializeEvent(17, 11120000, 12040800, 1252380800);
+    InitializeEvent(18, 11120000, 12040800, 1052520800);
+    InitializeEvent(19, 11120000, 12040800, 12090800);
+    InitializeEvent(20, 11120000, 12040800, 11000800);
+    InitializeEvent(21, 11120000, 12040800, 13000800);
+    InitializeEvent(22, 11120000, 12040800, 13000830);
+    InitializeEvent(23, 11120000, 12030850, 12050800);
+    InitializeEvent(24, 11120000, 12030850, 14000800);
+    InitializeEvent(25, 11120000, 12030850, 15000800);
+    InitializeEvent(26, 11120000, 12030850, 16000800);
+    InitializeEvent(27, 11120000, 12030850, 1252380800);
+    InitializeEvent(28, 11120000, 12030850, 1052520800);
+    InitializeEvent(29, 11120000, 12030850, 12090800);
+    InitializeEvent(30, 11120000, 12030850, 11000800);
+    InitializeEvent(31, 11120000, 12030850, 13000800);
+    InitializeEvent(32, 11120000, 12030850, 13000830);
+    InitializeEvent(33, 11120000, 12050800, 14000800);
+    InitializeEvent(34, 11120000, 12050800, 15000800);
+    InitializeEvent(35, 11120000, 12050800, 16000800);
+    InitializeEvent(36, 11120000, 12050800, 1252380800);
+    InitializeEvent(37, 11120000, 12050800, 1052520800);
+    InitializeEvent(38, 11120000, 12050800, 12090800);
+    InitializeEvent(39, 11120000, 12050800, 11000800);
+    InitializeEvent(40, 11120000, 12050800, 13000800);
+    InitializeEvent(41, 11120000, 12050800, 13000830);
+    InitializeEvent(42, 11120000, 14000800, 15000800);
+    InitializeEvent(43, 11120000, 14000800, 16000800);
+    InitializeEvent(44, 11120000, 14000800, 1252380800);
+    InitializeEvent(45, 11120000, 14000800, 1052520800);
+    InitializeEvent(46, 11120000, 14000800, 12090800);
+    InitializeEvent(47, 11120000, 14000800, 11000800);
+    InitializeEvent(48, 11120000, 14000800, 13000800);
+    InitializeEvent(49, 11120000, 14000800, 13000830);
+    InitializeEvent(50, 11120000, 15000800, 16000800);
+    InitializeEvent(51, 11120000, 15000800, 1252380800);
+    InitializeEvent(52, 11120000, 15000800, 1052520800);
+    InitializeEvent(53, 11120000, 15000800, 12090800);
+    InitializeEvent(54, 11120000, 15000800, 11000800);
+    InitializeEvent(55, 11120000, 15000800, 13000800);
+    InitializeEvent(56, 11120000, 15000800, 13000830);
+    InitializeEvent(57, 11120000, 16000800, 1252380800);
+    InitializeEvent(58, 11120000, 16000800, 1052520800);
+    InitializeEvent(59, 11120000, 16000800, 12090800);
+    InitializeEvent(60, 11120000, 16000800, 11000800);
+    InitializeEvent(61, 11120000, 16000800, 13000800);
+    InitializeEvent(62, 11120000, 16000800, 13000830);
+    InitializeEvent(63, 11120000, 1252380800, 1052520800);
+    InitializeEvent(64, 11120000, 1252380800, 12090800);
+    InitializeEvent(65, 11120000, 1252380800, 11000800);
+    InitializeEvent(66, 11120000, 1252380800, 13000800);
+    InitializeEvent(67, 11120000, 1252380800, 13000830);
+    InitializeEvent(68, 11120000, 1052520800, 12090800);
+    InitializeEvent(69, 11120000, 1052520800, 11000800);
+    InitializeEvent(70, 11120000, 1052520800, 13000800);
+    InitializeEvent(71, 11120000, 1052520800, 13000830);
+    InitializeEvent(72, 11120000, 12090800, 11000800);
+    InitializeEvent(73, 11120000, 12090800, 13000800);
+    InitializeEvent(74, 11120000, 12090800, 13000830);
+    InitializeEvent(75, 11120000, 11000800, 13000800);
+    InitializeEvent(76, 11120000, 11000800, 13000830);
+    InitializeEvent(77, 11120000, 13000800, 13000830);
 });
 
 $Event(50, Default, function() {
@@ -778,7 +792,8 @@ L0:
 
 // Unlock post-Altus graces (when Altus is reached)
 $Event(11100084, Default, function() {
-    EndIf(ThisEventSlot());
+    //EndIf(ThisEventSlot());
+    EndIf(EventFlag(11107000));
     // 9410 is one of the event flags for activating the teleporter at Impassable Great Bridge
     // I tested by grabbing the first graces along the 3 ways into Altus, and it activated when
     // I touched the grace, so I think it's fine. Gameplay may reveal a flaw in this event flag!
@@ -801,10 +816,13 @@ $Event(11100084, Default, function() {
         SetEventFlagID(progressiveGracesTier1[i], ON);
     }
     
+    // Golden Seeds and Sacred Tears
+    AwardItemLot(5310); // sets event flag 11107000
+    
     // Some base game graces were unlocked, including underground
     DisplayGenericDialog(30068, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
     
-    SetThisEventSlot(ON);
+    // SetThisEventSlot(ON);
 });
 
 // Unlock War-Dead Catacombs grace (when Radahn is defeated)
@@ -916,11 +934,41 @@ $Event(11100089, Default, function() {
     
     // The Divine Gate Front Staircase grace was unlocked
     DisplayGenericDialog(30075, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+$Event(11100090, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    // 72106    Shadow Keep, Church District - Church District Entrance
+    WaitFor(EventFlag(21000850) || EventFlag(72106)); // Hippo is dead or Church District grace has been activated
+    
+    // 76940    Ancient Ruins of Rauh - Viaduct Minor Tower
+    SetEventFlagID(76940, ON);
+    
+    // Viaduct Minor Tower grace has been unlocked
+    DisplayGenericDialog(30077, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
   
     SetThisEventSlot(ON);
 });
 
-$Event(11100090, Default, function(flag1, flag2) {
+$Event(11100091, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    // 76508    Mountaintops of the Giants - Flame Peak - Foot of the Forge
+    WaitFor(EventFlag(76508));
+    
+    // 71309    Crumbling Farum Azula - Dragon Temple Rooftop
+    SetEventFlagID(71309, ON);
+    
+    // Dragon Temple Rooftop grace has been unlocked
+    DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+  
+    SetThisEventSlot(ON);
+});
+
+$Event(11120000, Default, function(flag1, flag2) {
     EndIf(EventFlag(11104088));
     WaitFor(
         (EventFlag(flag1) && EventFlag(flag2)) // our condition

@@ -2,7 +2,6 @@ import json
 
 remembrance_flags = [
   10000800, # - Godrick
-  11000800, # - Morgott
   12040800, # - Astel
   12030850, # - Fortissax
   12050800, # - Mohg
@@ -11,7 +10,10 @@ remembrance_flags = [
   16000800, # - Rykard
   1252380800, # - Radahn
   1052520800, # - Fire Giant
-  12090800, # - Regal Moose
+  12090800, # - Regal Ancestor Spirit
+  11000800, # - Morgott
+  13000800, # - Maliketh
+  13000830, # Placidusax
 ]
 
 pairs = []
@@ -32,6 +34,6 @@ for i, r in enumerate(remembrance_flags):
 
 init_events = ''
 for p, pair in enumerate(pairs):
-  init_events += f'\nInitializeEvent({p}, 11100088, {pair[0]}, {pair[1]});'
+  init_events += f'\nInitializeEvent({p}, 11120000, {pair[0]}, {pair[1]});'
 
 print(init_events)

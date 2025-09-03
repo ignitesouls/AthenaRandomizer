@@ -11,8 +11,13 @@ namespace Athena.Services;
 
 public class RandomizerServiceBaseDlc
 {
-    private const string SeedManagerPrefix = "basedlc";
+    private string SeedManagerPrefix;
     RandomizerServiceStartingClass randomizerServiceStartingClass = new();
+
+    public RandomizerServiceBaseDlc(string appVersion)
+    {
+        SeedManagerPrefix = "basedlc" + appVersion;
+    }
 
     public void RandomizeBaseDlc(int? baseSeed,
                                  Action<int?>? updateBaseSeedCallback,
@@ -37,6 +42,9 @@ public class RandomizerServiceBaseDlc
 
         // Remove roundtable fist check, change Seluvis's Potion to Magic Scorpion Charm, Sentry Torch at Altus merchant
         OverrideDropsBaseDlc(editor);
+
+        // Prevent serpent hunter from being upgraded
+        DisableSerpentHunter(editor);
 
         // Initialize the Talisman Shop
         InitBaseDlcShop(editor);
@@ -179,13 +187,27 @@ public class RandomizerServiceBaseDlc
         editor.SetItemLotMapLotItemId(cipherPataId, 0, 0);
         editor.SetItemLotMapCategory(cipherPataId, 0, 0);
         editor.SetItemLotMapItemNum(cipherPataId, 0, 0);
-
+        
         // Change Seluvis's Potion to Magic Scorpion Charm
-        int seluvisPotionId = 101400;
+        //int seluvisPotionId = 101400;
+        //int magicScorpionCharmId = 2000;
+        //byte talismanCategory = 4;
+        //editor.SetItemLotMapLotItemId(seluvisPotionId, 0, magicScorpionCharmId);
+        //editor.SetItemLotMapCategory(seluvisPotionId, 0, talismanCategory);
+
+        // Replace an item in Seluvis's shop with Magic Scorpion Charm
+        int pidiaOldFangId = 100329;
         int magicScorpionCharmId = 2000;
-        byte talismanCategory = 4;
-        editor.SetItemLotMapLotItemId(seluvisPotionId, 0, magicScorpionCharmId);
-        editor.SetItemLotMapCategory(seluvisPotionId, 0, talismanCategory);
+        byte talismanEquipType = 2;
+        uint magicScorpionAcquisitionFlag = 400141;
+        short sellQuantity = 1;
+        int sellPrice = 5000;
+        editor.SetShopLineupEquipId(pidiaOldFangId, magicScorpionCharmId);
+        editor.SetShopLineupEquipType(pidiaOldFangId, talismanEquipType);
+        editor.SetShopLineupEventFlagForStock(pidiaOldFangId, magicScorpionAcquisitionFlag);
+        editor.SetShopLineupSellQuantity(pidiaOldFangId, sellQuantity);
+        editor.SetShopLineupSellPrice(pidiaOldFangId, sellPrice);
+
 
         // Remove Somber Ancient Dragon Smithing Stone from Mohgwyn
         //int mohgwynSomberStone = 12050900;
@@ -228,5 +250,15 @@ public class RandomizerServiceBaseDlc
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
         }
+    }
+
+    public void DisableSerpentHunter(ParamsEditor editor)
+    {
+        int serpentHunterId = 17030000;
+
+        editor.SetEquipWeaponIsCustom(serpentHunterId, 0);
+        editor.SetEquipWeaponMaterialSetId(serpentHunterId, 0);
+        editor.SetEquipWeaponReinforceTypeId(serpentHunterId, 3000);
+        editor.SetEquipWeaponReinforceShopCategory(serpentHunterId, 0);
     }
 }
