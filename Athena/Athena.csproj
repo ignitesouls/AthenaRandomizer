@@ -24,47 +24,37 @@
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<!--<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		</Content>-->
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.dcx">
+		<Content Include="Resources\me3-v0.8.0\**\*.dcx">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.tpfbdt">
+		<Content Include="Resources\me3-v0.8.0\**\*.tpfbdt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.tpfbhd">
+		<Content Include="Resources\me3-v0.8.0\**\*.tpfbhd">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.bat">
+		<Content Include="Resources\me3-v0.8.0\**\*.bat">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\**\*.toml">
+		<Content Include="Resources\me3-v0.8.0\**\*.me3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\modengine2\**\*.*">
+		<Content Include="Resources\me3-v0.8.0\bin\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\modengine2_launcher.exe">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		</Content>
-		<Content Include="Resources\ModEngine-2.1.0.0-win64\SkipTheIntro\**\*.*">
+		<Content Include="Resources\me3-v0.8.0\StutterFix\**\*.*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
