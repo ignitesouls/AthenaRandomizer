@@ -6,7 +6,7 @@ namespace Athena.Config;
 internal partial class Constants
 {
     // Mod Configuration
-    public static string ModEngineWorkingDirectory = Path.Combine("Resources", "ModEngine-2.1.0.0-win64");
+    public static string ModEngineWorkingDirectory = Path.Combine("Resources", "me3-v0.8.0");
     public static string RegulationBase = Path.Combine("Resources", "Regulation");
 
     public static string MenuBndDirectory = Path.Combine("Resources", "Bnd");
@@ -29,10 +29,10 @@ internal partial class Constants
     public static string MapFolderDlc = Path.Combine(ModEngineWorkingDirectory, "dlc", "map", "MapStudio");
 
     // Launch Configuration
-    public static string LaunchEldenRingBase = "launchmod_base.bat";
-    public static string LaunchEldenRingBaseDlc = "launchmod_basedlc.bat";
-    public static string LaunchEldenRingDlc = "launchmod_dlc.bat";
-    
+    public static string LaunchEldenRingBase = "launch-eldenring-base.bat";
+    public static string LaunchEldenRingBaseDlc = "launch-eldenring-basedlc.bat";
+    public static string LaunchEldenRingDlc = "launch-eldenring-dlc.bat";
+
     // Metadata
     public static string RandomizationGroups = Path.Combine("Resources", "RandomizationGroups");
     public static string RandomizationGroupsBase = Path.Combine(RandomizationGroups, "base");
