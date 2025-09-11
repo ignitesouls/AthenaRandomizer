@@ -25,41 +25,37 @@ Athena’s influence is currently divided into three distinct domains:
 
 | Domain             | Status              | Description |
 |--------------------|---------------------|-------------|
-| **Base Game**      | ✅ Alpha Available   | Full randomizer for the base game of Elden Ring |
-| **Base Game + DLC**| 🛠️ Under Construction | Unified experience randomizing all content, meant for 2v2 matches |
-| **DLC**            | ✅ Alpha Available   | Active domain used in SCADUBINGO DLC competitive league |
+| **Base Game**      | ✅ Available   | Equipment and weapon randomizer for the base game of Elden Ring |
+| **Base Game + DLC**| ✅ Available   | Equipment and weapon randomizer for Base+DLC bingo (meant for 2v2 matches). Uses milestones-based grace unlocks for faster game progression |
+| **DLC**            | ✅ Available   | Equipment and weapon randomizer for DLC-only bingo |
 
 ---
 
-## 🌿 Base Game Mode: Overview
+## Permissions
 
-The **Base Game mode** introduces chaos to the familiar routes of Limgrave, Liurnia, and beyond.
-
-Features include:
-
-- 🧠 **Uniformly-distributed randomization** of weapons, sorceries, incantations, shops, and remembrance rewards
-- ⚗️ **Perfume Bottles** now join the chaotic item pool
-- 🗺️ **All map fragments** are granted at the start of your journey
-- 🕯️ **Lantern** is also provided from the beginning
-- 🌅 **Grace near Varre’s church** added to ease the Mohg questline
-- 🪨 **Smithing stones** cost 2 per level — balanced and predictable
-- 💧 **Flask upgrade confirmations** removed for faster flow
-
-This domain supports seed-based determinism for consistent races, practice, and match-based scenarios.
+**This application is valid for use in any private or public Elden Ring bingo leagues without requiring permission from the authors.** As a courtesy, you can optionally mention the Ignite community, which organizes around Elden Ring gaming (randomizer races, bingo, challenge runs, no-hit runs, and the like). To do so, please provide a link to the Discord: [https://discord.gg/ignitesouls](https://discord.gg/ignitesouls), but this is not required.
 
 ---
 
-## 🎮 DLC Mode: Overview
+## 🏹 Used in:
 
-The **DLC mode** is under **active alpha development**. Despite its early stage, it is **continually battle-tested and used by the SCADUBINGO community** to host competitive randomized Elden Ring DLC bingo matches.
+- The Ignite discord community: [join now for Elden Ring & Nightreign gaming!](https://discord.gg/ignitesouls)
+- Base Game
+  - **Rookie Rumble (an Elden Squares division)**
+- Base + DLC
+  - **Elden Squares Golden Order**
+  - **Elden Squares Crucible**
+  - **Elden Squares "Royal Family" (name pending)**
+- DLC
+  - **SCADUBINGO Events: Moonwalk and Omenveil**
 
-The DLC mode includes:
+---
 
-- 🎲 **Seeded determinism**: Players can share a base seed to reproduce identical game worlds
-- 🏹 **Weapon pool logic**: Randomizes pools separately: bows and crossbows, shields, perfume bottles, and more
-- 🛍️ **Millicent’s shop reshuffling**: Merchant Millicent awaits you at the Gravesite Hollow, the entrance to the DLC, with new shop dynamics
-- 🐴 **Horse blinders for Torrent**: Traipse through the Abyssal Woods atop your trusty steed
-- 🛡️ **Randomized Armor Sets**: Millicent sells one of 9 drip sets, protection secondary
+## 📣 Contributing
+
+Want to help shape the battlefield? Join the [discord](https://discord.gg/ignitesouls) and contact a @firekeeper.
+
+Let the goddess guide your chaos.
 
 ---
 
@@ -67,17 +63,6 @@ The DLC mode includes:
 
 SPDX-License-Identifier: GPL-3.0-only
 
----
+The licensing of this application apply only to the files written by the authors.
 
-## 🏹 Used in:
-
-- The Ignite discord community: [join now for Elden Ring & Nightreign gaming!](https://discord.gg/ignitesouls)
-- **SCADUBINGO: DLC Bingo**
-
----
-
-## 📣 Contributing
-
-Want to help shape the battlefield? Join the discord and contact a @firekeeper.
-
-Let the goddess guide your chaos.
+- modengine3 uses both APACHE and MIT license. See the `me3-vX.Y.Z` folder in [Resources](./Athena/Resources/) for included licensing files.
