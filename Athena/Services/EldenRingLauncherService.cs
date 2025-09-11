@@ -23,11 +23,19 @@ public class EldenRingLauncherService
             _ => throw new ArgumentOutOfRangeException()
         };
 
+        //Process.Start(new ProcessStartInfo
+        //{
+        //    FileName = fileName,
+        //    WorkingDirectory = Constants.ModEngineWorkingDirectory,
+        //    UseShellExecute = true,
+        //    //CreateNoWindow = true
+        //});
         Process.Start(new ProcessStartInfo
         {
-            FileName = fileName,
+            FileName = "cmd.exe",
+            Arguments = "/c \"" + fileName + "\"",
             WorkingDirectory = Constants.ModEngineWorkingDirectory,
-            UseShellExecute = true,
+            UseShellExecute = false,
             CreateNoWindow = true
         });
     }
