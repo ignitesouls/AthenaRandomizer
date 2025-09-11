@@ -1,0 +1,11 @@
+profileVersion = "v1"
+
+[[supports]]
+game = "eldenring"
+
+[[package]]
+id = "athena-randomizer-dlc"
+path = "dlc"
+
+[[natives]]
+path = 'StutterFix/DINPUT8.DLL'
