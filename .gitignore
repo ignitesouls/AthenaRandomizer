@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Massive files
-Athena/Resources/ModEngine-2.1.0.0-win64/**/menu/hi/*
+**/menu/hi/*
 
 # User-specific files
 *.rsuser
@@ -35,6 +35,10 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+
+# me3 binaries
+!**/me3*/bin/
+!**/me3*/bin/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
