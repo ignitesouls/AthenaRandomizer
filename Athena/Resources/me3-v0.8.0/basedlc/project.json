@@ -1,17 +1,9 @@
 {
-  "ProjectName": "athena_basedlc",
+  "ProjectName": "base_dlc_v_0_15_0_onward",
   "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
   "GameType": 8,
-  "PinnedParams": [
-    "BonfireWarpParam"
-  ],
-  "PinnedRows": {
-    "ItemLotParam_map": [
-      5300,
-      5301,
-      5310
-    ]
-  },
+  "PinnedParams": [],
+  "PinnedRows": {},
   "PinnedFields": {},
   "UseLooseParams": false,
   "PartialParams": false,

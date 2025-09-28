@@ -5,6 +5,7 @@
 
 # Massive files
 **/menu/hi/*
+**/menu_hi_low/*
 
 # User-specific files
 *.rsuser

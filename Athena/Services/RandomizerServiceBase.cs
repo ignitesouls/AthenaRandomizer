@@ -11,7 +11,7 @@ namespace Athena.Services;
 
 public class RandomizerServiceBase
 {
-    private string SeedManagerPrefix = "base";
+    private string SeedManagerPrefix;
     RandomizerServiceStartingClass randomizerServiceStartingClass = new();
 
     public RandomizerServiceBase(string appVersion)
@@ -52,12 +52,15 @@ public class RandomizerServiceBase
         // Disable upgrading Serpent-Hunter
         DisableSerpentHunter(editor);
 
+        // Pidia sells magic scorpion charm
+        GivePidiaMagicScorpionCharm(editor);
+
         editor.WriteToRegulationPath(Constants.RegulationOutBase);
         menuBndEditor.WriteToMenuBndFilePath(Constants.MenuBndOutBase);
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
     }
-    
+
     private void RandomizeStartingClassesBase(ParamsEditor editor, MenuBndEditorService menuBndEditor, OptimizedReplacementRandomizer urr)
     {
         using DebugTimer _ = new DebugTimer("RandomizeStartingClassesBase");
@@ -69,7 +72,7 @@ public class RandomizerServiceBase
         for (int i = 0; i < ParamsEditor.TotalStartingClasses; i++)
         {
             int charaInitId = ParamsEditor.VagabondCharaInitId + i;
-            
+
             // remove all starting gear, spells, etc.
             randomizerServiceStartingClass.ClearLoadout(editor, charaInitId);
 
@@ -138,7 +141,7 @@ public class RandomizerServiceBase
                                                             urr,
                                                             $"{Constants.RandomizationGroupsBase}/chance_weapons",
                                                             weaponIdsToItemLotEnemy);
-        
+
         // guaranteed and map weapons (randomized within classes)
         ReplacementUtils.Randomize<GameItemModel>(editor,
                                                   urr,
@@ -152,13 +155,13 @@ public class RandomizerServiceBase
                                                                        urr,
                                                                        $"{Constants.RandomizationGroupsBase}/remembrances/weapons.csv",
                                                                        weaponIdsToShopLineup);
-        
+
         // remembrance sorceries
         ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
                                                                        urr,
                                                                        $"{Constants.RandomizationGroupsBase}/remembrances/sorceries.csv",
                                                                        goodsIdsToShopLineup);
-        
+
         // remembrance incantations
         ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
                                                                        urr,
@@ -285,11 +288,27 @@ public class RandomizerServiceBase
             editor.SetItemLotMapLotItemId(targetItemLotPerfumeBottles[i], 0, perfumeBottleIDs[replacementIndexes[i]]);
             editor.SetItemLotMapCategory(targetItemLotPerfumeBottles[i], 0, Constants.CategoryWeapon);
         }
-        
+
         // Place the final bottle at the altus merchant
         //int targetShopLineupPerfumeBottle = 100725;
         //editor.SetShopLineupEquipId(targetShopLineupPerfumeBottle, perfumeBottleIDs[replacementIndexes[replacementIndexes.Length - 1]]);
         //editor.SetShopLineupEquipType(targetShopLineupPerfumeBottle, Constants.EquipTypeWeapon);
+    }
+
+    public void GivePidiaMagicScorpionCharm(ParamsEditor editor)
+    {
+        // Replace an item in Seluvis's shop with Magic Scorpion Charm
+        int pidiaOldFangId = 100329;
+        int magicScorpionCharmId = 2000;
+        byte talismanEquipType = 2;
+        uint magicScorpionAcquisitionFlag = 400141;
+        short sellQuantity = 1;
+        int sellPrice = 5000;
+        editor.SetShopLineupEquipId(pidiaOldFangId, magicScorpionCharmId);
+        editor.SetShopLineupEquipType(pidiaOldFangId, talismanEquipType);
+        editor.SetShopLineupEventFlagForStock(pidiaOldFangId, magicScorpionAcquisitionFlag);
+        editor.SetShopLineupSellQuantity(pidiaOldFangId, sellQuantity);
+        editor.SetShopLineupSellPrice(pidiaOldFangId, sellPrice);
     }
 
     public void SwapTreeSentinelDrops(ParamsEditor editor)

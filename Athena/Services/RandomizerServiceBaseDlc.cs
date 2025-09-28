@@ -208,7 +208,6 @@ public class RandomizerServiceBaseDlc
         editor.SetShopLineupSellQuantity(pidiaOldFangId, sellQuantity);
         editor.SetShopLineupSellPrice(pidiaOldFangId, sellPrice);
 
-
         // Remove Somber Ancient Dragon Smithing Stone from Mohgwyn
         //int mohgwynSomberStone = 12050900;
         //editor.SetItemLotMapLotItemId(mohgwynSomberStone, 0, 0);
