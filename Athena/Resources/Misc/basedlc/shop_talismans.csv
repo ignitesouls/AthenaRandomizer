@@ -22,3 +22,4 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 4001,Dragoncrest Shield Talisman +1,20000,Talisman,Accessory,2,30087030,1
 2081,Rotten Winged Sword Insignia,20000,Talisman,Accessory,2,400480,1
 5000,Crimson Seed Talisman,30000,Talisman,Accessory,2,30087010,1
+1700,Throwing Dagger,40,Consumable,Good,3,150070,-1
