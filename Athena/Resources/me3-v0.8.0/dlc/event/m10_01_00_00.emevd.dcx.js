@@ -42,7 +42,7 @@ $Event(10010020, Restart, function() {
     SetWindSFX(-1);
     SetCharacterFaceParamOverride(10000, 0, -1);
     SetCharacterFaceParamOverride(10000, 1, -1);
-    PlayCutsceneToPlayerWithWeatherAndTime(10000040, CutscenePlayMode.Skippable, 10000, false, Weather.Default, 0, true, 23, 45, 0);
+    //PlayCutsceneToPlayerWithWeatherAndTime(10000040, CutscenePlayMode.Skippable, 10000, false, Weather.Default, 0, true, 23, 45, 0);
     WaitFixedTimeRealFrames(1);
 L0:
     SetPlayerRespawnPoint(10012020);

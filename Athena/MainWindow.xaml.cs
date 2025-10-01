@@ -23,4 +23,12 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = new MainWindowViewModel();
     }
+
+    private void AboutButton_Click(object sender, RoutedEventArgs e)
+    {
+        var aboutWindow = new AboutWindow();
+        aboutWindow.Owner = this;
+        aboutWindow.ShowDialog();
+    }
+
 }
