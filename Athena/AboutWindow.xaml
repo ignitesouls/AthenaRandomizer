@@ -30,10 +30,10 @@
             <!-- First row of creators -->
             <Grid HorizontalAlignment="Center" Margin="0,5,0,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="54" />
-                    <ColumnDefinition Width="54" />
-                    <ColumnDefinition Width="54" />
-                    <ColumnDefinition Width="54" />
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="64" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -74,8 +74,11 @@
                 <TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Center">
                     <Hyperlink NavigateUri="https://twitch.tv/lazyhelios" RequestNavigate="Hyperlink_RequestNavigate">Helios</Hyperlink>
                 </TextBlock>
-                
-                
+                <TextBlock Grid.Row="2" Grid.Column="2" TextAlignment="Center">
+                    <Hyperlink NavigateUri="https://twitch.tv/sprklmouse" RequestNavigate="Hyperlink_RequestNavigate">Sprklmouse</Hyperlink>
+                </TextBlock>
+
+
             </Grid>
 
             <TextBlock TextWrapping="Wrap" TextAlignment="Center">
