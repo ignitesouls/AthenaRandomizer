@@ -11,6 +11,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Resources\Assets\Athena.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -79,10 +80,26 @@
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
+		<None Remove="Resources\Assets\Athena.ico" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\common.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\common_func.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\m10_01_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\m11_10_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\m61_46_40_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_default\common.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_default\common_func.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_default\m10_01_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_default\m11_10_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\event_default\m61_46_40_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\dlc\menu_anamnesis\05_001_title_logo.gfx" />
 		<Content Include="oo2core_6_win64.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Include="Resources\Assets\Athena.ico" />
+		<Content Include="Resources\me3-v0.8.0\dlc\menu_anamnesis\05_001_title_logo.gfx">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 
@@ -93,5 +110,54 @@
 	<ItemGroup>
 	  <Folder Include="Resources\Bnd\base\" />
 	  <Folder Include="Resources\ModEngine-2.1.0.0-win64\base\msg\engus\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\Assets\Athena.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_anamnesis\common.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_anamnesis\common_func.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_anamnesis\m10_01_00_00.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_anamnesis\m11_10_00_00.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_anamnesis\m61_46_40_00.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_default\common.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_default\common_func.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_default\m10_01_00_00.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_default\m11_10_00_00.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\event_default\m61_46_40_00.emevd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\menu_anamnesis\hi\01_common.tpf.dcx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\hi\01_common.tpf.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\05_001_title_logo.gfx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>

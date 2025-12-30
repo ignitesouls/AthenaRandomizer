@@ -16,6 +16,7 @@ internal partial class Constants
 
     public static string MenuBndOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "msg", "engus", "menu_dlc02.msgbnd.dcx");
     public static string MenuBndOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "msg", "engus", "menu_dlc02.msgbnd.dcx");
+    public static string MenuBndOutDlc = Path.Combine(ModEngineWorkingDirectory, "dlc");
 
     public static string VanillaRegulation = Path.Combine(RegulationBase, "vanilla", "regulation.bin");
     public static string RegulationInBase = Path.Combine(RegulationBase, "base", "regulation.bin");

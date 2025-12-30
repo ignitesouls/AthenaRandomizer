@@ -46,21 +46,39 @@
           BorderBrush="LightGray"
           BorderThickness="1"
           HorizontalAlignment="Center"
-          Width="260">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <RadioButton Content="Regular"
+          Width="180">
+            <Grid HorizontalAlignment="Left" Margin="1,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <RadioButton Grid.Row="0" Grid.Column="0" Content="Regular"
                      GroupName="DlcModeGroup"
                      IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Default}}" />
-                <RadioButton Content="Moonwalk"
-                     GroupName="DlcModeGroup"
-                     Margin="12,0,0,0"
+                
+                <RadioButton Grid.Row="0" Grid.Column="1" Content="Moonwalk" Margin="17,0,-17,15" Grid.RowSpan="2"
+                    GroupName="DlcModeGroup"
                      IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Moonwalk}}" />
-                <RadioButton Content="Omenveil"
-                     GroupName="DlcModeGroup"
-                     Margin="12,0,0,0"
-                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Omenveil}}" />
-            </StackPanel>
+                
+                <RadioButton Grid.Row="1" Grid.Column="0" Content="Omenveil" Grid.ColumnSpan="2" Margin="0,3,68,-3"
+                    GroupName="DlcModeGroup"
+                    IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Omenveil}}" />                      
+                
+                <RadioButton Grid.Row="1" Grid.Column="1" Content="Anamnesis" Margin="17,3,-17,-3"
+                    GroupName="DlcModeGroup"
+                    IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Anamnesis}}" />                             
+
+            </Grid>
         </GroupBox>
+
+
+
 
     </StackPanel>
 </UserControl>

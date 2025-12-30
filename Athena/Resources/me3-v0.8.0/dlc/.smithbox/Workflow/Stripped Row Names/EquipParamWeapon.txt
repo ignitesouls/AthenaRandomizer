@@ -374,7 +374,6 @@ Rotten Crystal Sword
 Velvet Sword of St. Trina
 Star-Lined Sword
 Carian Sorcery Sword
-Carian Sorcery Sword Moonwalk
 Stone-Sheathed Sword
 Sword of Light
 Sword of Darkness
@@ -3257,7 +3256,6 @@ Gravel Stone Seal
 Clawmark Seal
 Golden Order Seal
 Erdtree Seal
-Crucible Seal
 Dragon Communion Seal
 Frenzied Flame Seal
 Dryleaf Seal
@@ -3541,6 +3539,8 @@ Red Bear's Claw
 
 [NPC] Beast Claw
 [NPC] Red Bear's Claw
+Carian Sorcery Sword Moonwalk
+Crucible Seal
 
 
 
