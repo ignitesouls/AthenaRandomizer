@@ -12,7 +12,7 @@ namespace Athena.ViewModels;
 
 public abstract class ModeTabViewModelBase
 {
-    public string AppVersion { get; } = "v0.17";
+    public string AppVersion { get; } = "v0.18";
     public string Title { get; set; } = "";
     public string Description { get; set; } = "";
 }
