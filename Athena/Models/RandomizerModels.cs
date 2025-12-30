@@ -23,6 +23,8 @@ public interface IGameItem: INamedItem
 
 public record GameItemModel(int ID, string Name, byte EquipType, int Category): IGameItem;
 
+
+
 public record CustomWeaponModel(int ID,
                                 string Name, 
                                 byte EquipType, 

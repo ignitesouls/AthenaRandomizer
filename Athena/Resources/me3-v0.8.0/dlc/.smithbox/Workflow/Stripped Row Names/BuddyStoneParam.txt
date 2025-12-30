@@ -68,6 +68,7 @@ Stone Platform
 
 
 
+
 Tombsward Catacombs
 Impaler's Catacombs
 Stormfoot Catacombs
@@ -263,6 +264,7 @@ Mountaintops of the Giants - Whiteridge Road, Minor Erdtree
 Mountaintops of the Giants - Southwest Freezing Lake, Lord Contender's Evergaol, Spiritcaller's Cave Entrance
 Mountaintops of the Giants - Southeast Freezing Lake
 
+South Church Anamnesis
 
 
 

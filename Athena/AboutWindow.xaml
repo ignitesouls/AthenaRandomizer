@@ -74,7 +74,9 @@
                 <TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Center">
                     <Hyperlink NavigateUri="https://twitch.tv/lazyhelios" RequestNavigate="Hyperlink_RequestNavigate">Helios</Hyperlink>
                 </TextBlock>
-                
+                <TextBlock Grid.Row="2" Grid.Column="2" TextAlignment="Center">
+                    <Hyperlink NavigateUri="https://www.twitch.tv/sprklmouse" RequestNavigate="Hyperlink_RequestNavigate">Sparkle</Hyperlink>
+                </TextBlock>
                 
             </Grid>
 

@@ -2,7 +2,9 @@
   "ProjectName": "athena_dlc_new_shop",
   "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
   "GameType": 8,
-  "PinnedParams": [],
+  "PinnedParams": [
+    "BuddyStoneParam"
+  ],
   "PinnedRows": {
     "EquipParamWeapon": [
       70000000,
@@ -14,6 +16,10 @@
       4800058,
       4800059,
       4800060
+    ],
+    "BuddyStoneParam": [
+      20010106,
+      2044450102
     ]
   },
   "PinnedFields": {},

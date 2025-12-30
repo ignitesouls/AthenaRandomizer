@@ -4,7 +4,10 @@ using Athena.Models;
 using Athena.Utilities;
 using EldenRingParamsEditor;
 using System.Diagnostics;
+using System.IO;
+using System.Windows.Documents;
 using UniversalReplacementRandomizer;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Athena.Services;
 
@@ -12,7 +15,8 @@ public enum DlcMode
 {
     Default,
     Moonwalk,
-    Omenveil
+    Omenveil,
+    Anamnesis
 }
 
 public class RandomizerServiceDlc
@@ -21,7 +25,7 @@ public class RandomizerServiceDlc
     private const int StarlightShopMenuTextId = 508000;
 
     private RandomizerServiceStartingClass randomizerServiceStartingClass = new();
-    RandomizerServiceStartingClass.ClassStatAllocation startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
+    RandomizerServiceStartingClass.ClassStatAllocation startingStats;
 
     public RandomizerServiceDlc(string appVersion)
     {
@@ -59,6 +63,12 @@ public class RandomizerServiceDlc
                     randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/omenveil";
                     break;
                 }
+            case DlcMode.Anamnesis:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_anamnesis";
+                    randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/anamnesis";
+                    break;
+                }
             default:
                 {
                     seedManagerPrefix = SeedManagerPrefix;
@@ -94,6 +104,8 @@ public class RandomizerServiceDlc
         // Disable Upgrading the default club
         DisableUpgradingClub(editor);
 
+        ModeCustomization(mode);
+
         editor.WriteToRegulationPath(Constants.RegulationOutDlc);
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
@@ -116,6 +128,7 @@ public class RandomizerServiceDlc
                 {
                     // Custom Carian Sorcery Sword (has no ash of war, does 0 damage with regular attacks)
                     GlintstoneStaffItemId = 70000000 + 25;
+                    startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
             case DlcMode.Omenveil:
@@ -124,11 +137,20 @@ public class RandomizerServiceDlc
                     GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
                     // Custom Crucible Seal (no stats requirement, otherwise indistinguishable from erdtree seal)
                     FingerSealItemId = 70010000 + 10;
+                    startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
+                    break;
+                }
+            case DlcMode.Anamnesis:
+                {
+                    // default
+                    GlintstoneStaffItemId = 33090000 + 10; //Carian Regal Scepter
+                    startingStats = new(Stats: new int[] { 40, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
             default:
                 {
                     GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
+                    startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
         }
@@ -148,6 +170,11 @@ public class RandomizerServiceDlc
             editor.SetInitialEquipWepRight(charaInitId, 0, ClubItemId);
             editor.SetInitialEquipWepLeft(charaInitId, 0, GlintstoneStaffItemId);
             editor.SetInitialEquipWepLeft(charaInitId, 1, FingerSealItemId);
+
+            // initial runes and flasks
+            editor.SetInitialRunes(charaInitId, NumberOfStartingRunes);
+            editor.SetInitialMaxHpFlasks(charaInitId, 12);
+            editor.SetInitialMaxFpFlasks(charaInitId, 2);
 
             if (mode == DlcMode.Moonwalk)
             {
@@ -171,11 +198,27 @@ public class RandomizerServiceDlc
                 editor.SetInitialEquipSpell(charaInitId, 1, 7510); // horns
                 editor.SetInitialEquipSpell(charaInitId, 2, 7520); // breath
             }
+            else if (mode == DlcMode.Anamnesis)
+            {
+                // Give initial tools
+                //editor.SetInitialEquipItem(charaInitId, 0, 3011); // regal omen bairn
+                //editor.SetInitialEquipItemAmount(charaInitId, 0, 1);
 
-            // initial runes and flasks
-            editor.SetInitialRunes(charaInitId, NumberOfStartingRunes);
-            editor.SetInitialMaxHpFlasks(charaInitId, 12);
-            editor.SetInitialMaxFpFlasks(charaInitId, 2);
+                //editor.SetInitialEquipItem(charaInitId, 1, 2150); // mohg's shackle
+                //editor.SetInitialEquipItemAmount(charaInitId, 1, 1);
+
+                //editor.SetInitialEquipItem(charaInitId, 2, 260000); // dung eater puppet
+                //editor.SetInitialEquipItemAmount(charaInitId, 2, 1);
+
+                // give incants
+                //editor.SetInitialEquipSpell(charaInitId, 0, 7500); // tail
+                //editor.SetInitialEquipSpell(charaInitId, 1, 7510); // horns
+                //editor.SetInitialEquipSpell(charaInitId, 2, 7520); // breath
+                editor.SetInitialMaxHpFlasks(charaInitId, 6);
+                editor.SetInitialMaxFpFlasks(charaInitId, 1);
+
+            }
+
         }
     }
 
@@ -200,6 +243,13 @@ public class RandomizerServiceDlc
                     shopItemsFilePath = $"{Constants.Misc}/dlc/omenveil/shop_items.csv";
                     shopArmorSetsFilePath = $"{Constants.Misc}/dlc/omenveil/shop_armor_sets.csv";
                     shopWeaponsFilePath = $"{Constants.Misc}/dlc/omenveil/shop_weapons.csv";
+                    break;
+                }
+            case DlcMode.Anamnesis:
+                {
+                    shopItemsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_items.csv";
+                    shopArmorSetsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_armor_sets.csv";
+                    shopWeaponsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_weapons.csv";
                     break;
                 }
             default:
@@ -315,16 +365,19 @@ public class RandomizerServiceDlc
         
         // Setup the Starlight Shards shop.
         byte starlightShardCostType = 2;
-        short starlightWeaponSellPrice = 1;
+        short starlightWeaponSellQuantity = 1;
+        ushort starlightWeaponNumSold;
         int starlightWeaponCost = 5;
         int currentCustomWeaponId = 9600069;
         currentShopLineupId = 9200000;
         currentEventFlagID = 1056457000;
 
+        int GraftedDragonItemId = 21060009;
+
         // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
         // The Starlight Shards shop shares weapons from the common pool (there can be duplicates)
         List<GameItemModel> common = CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
-        OptimizedRandomizationGroup merchantMillicentWeapons = new(3, common.Count);
+        OptimizedRandomizationGroup merchantMillicentWeapons = new(4, common.Count);
         urr.AddGroup("merchantMillicentWeapons", merchantMillicentWeapons);
         int[] replacementIndexes = urr.RandomizeGroup("merchantMillicentWeapons");
 
@@ -365,6 +418,18 @@ public class RandomizerServiceDlc
                 int materialId = editor.GetEquipWeaponMaterialSetId(equipID);
                 equipID = materialId == 2200 ? equipID + 9 : equipID + 24;
             }
+
+            //Dual-Wielding Grafted Dragons
+            if (equipID == GraftedDragonItemId)
+            {
+                starlightWeaponNumSold = (ushort)2;
+                //editor.SetEquipWeaponMaxAmmunition(21060000, 0);
+                
+            }
+            else
+            {
+                starlightWeaponNumSold = (ushort)1;
+            }
             
             string name = $"[Merchant Millicent - Starlight Shop - Weapon] {weapon.Name}";
             editor.CreateNewShopLineupRow(shopLineupId, name);
@@ -373,7 +438,8 @@ public class RandomizerServiceDlc
             editor.SetShopLineupCostType(shopLineupId, starlightShardCostType);
             editor.SetShopLineupSellPrice(shopLineupId, starlightWeaponCost);
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
-            editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellPrice);
+            editor.SetShopLineupNumSold(shopLineupId, starlightWeaponNumSold);
+            editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellQuantity);
             editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
         }
         
@@ -496,6 +562,14 @@ public class RandomizerServiceDlc
                     legId = -1;
                     break;
                 }
+            case DlcMode.Anamnesis:
+                {
+                    helmId = 770000;
+                    torsoId = 771100;
+                    armId = 770200;
+                    legId = 770300;
+                    break;
+                }
             default:
                 {
                     // Millicent's Set (including custom missing arm)
@@ -512,4 +586,70 @@ public class RandomizerServiceDlc
         editor.SetInitialEquipArm(merchantMillicentCharaInitId, armId);
         editor.SetInitialEquipLeg(merchantMillicentCharaInitId, legId);
     }
+
+    private void ModeCustomization(DlcMode mode)
+    {
+        //Anamnesis-only Title Screen
+        string menuPath = Path.Combine(Constants.MenuBndOutDlc, "menu");
+        string menuAnamnesisPath = Path.Combine(Constants.MenuBndOutDlc, "menu_anamnesis");
+        UpdateFolder(
+            targetPath: menuPath,
+            sourcePath: mode == DlcMode.Anamnesis ? menuAnamnesisPath : null
+        );
+
+        // Events (default vs Anamnesis)
+        string eventPath = Path.Combine(Constants.MenuBndOutDlc, "event");
+        string eventDefaultPath = Path.Combine(Constants.MenuBndOutDlc, "event_default");
+        string eventAnamnesisPath = Path.Combine(Constants.MenuBndOutDlc, "event_anamnesis");
+
+        UpdateFolder(
+            targetPath: eventPath,
+            sourcePath: mode == DlcMode.Anamnesis
+                ? eventAnamnesisPath
+                : eventDefaultPath
+        );
+    }
+
+    private static void UpdateFolder(string targetPath, string? sourcePath)
+    {
+        if (sourcePath != null &&
+            Path.GetFullPath(sourcePath) == Path.GetFullPath(targetPath))
+        {
+            return;
+        }
+
+
+        Directory.CreateDirectory(targetPath);
+
+        // clear target
+        foreach (var file in Directory.GetFiles(targetPath))
+        {
+            File.SetAttributes(file, FileAttributes.Normal);
+            File.Delete(file);
+        }
+
+        foreach (var dir in Directory.GetDirectories(targetPath))
+        {
+            Directory.Delete(dir, true);
+        }
+
+        // populate if source exists
+        if (sourcePath == null || !Directory.Exists(sourcePath))
+            return;
+
+        foreach (var dir in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+        {
+            Directory.CreateDirectory(dir.Replace(sourcePath, targetPath));
+        }
+
+        foreach (var file in Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories))
+        {
+            string dest = file.Replace(sourcePath, targetPath);
+            Directory.CreateDirectory(Path.GetDirectoryName(dest)!);
+            File.Copy(file, dest, true);
+        }
+    }
+
+
+
 }
