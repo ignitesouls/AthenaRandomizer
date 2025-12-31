@@ -5,9 +5,7 @@ using Athena.Utilities;
 using EldenRingParamsEditor;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Documents;
 using UniversalReplacementRandomizer;
-using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Athena.Services;
 
@@ -26,10 +24,14 @@ public class RandomizerServiceDlc
 
     private RandomizerServiceStartingClass randomizerServiceStartingClass = new();
     RandomizerServiceStartingClass.ClassStatAllocation startingStats;
+    private int[] anamnesisStarlightWeapons;
+
 
     public RandomizerServiceDlc(string appVersion)
     {
         SeedManagerPrefix = "dlc" + appVersion;
+        startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
+        anamnesisStarlightWeapons = new int[] { 0, 0, 0, 0 };
     }
 
     public void RandomizeDlc(int? baseSeed,
@@ -86,6 +88,8 @@ public class RandomizerServiceDlc
         InitStartingClassesDlc(editor, mode);
 
         InitDlcShop(editor, urr, mode);
+
+        InitAnamnesisRemembrances(editor, urr);
         
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
@@ -111,7 +115,7 @@ public class RandomizerServiceDlc
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
         updateRandomizedModeDlcCallback?.Invoke(mode);
     }
-    
+
     private void InitStartingClassesDlc(ParamsEditor editor, DlcMode mode = DlcMode.Default)
     {
         using DebugTimer _ = new DebugTimer("InitStartingClassesDlc");
@@ -128,7 +132,6 @@ public class RandomizerServiceDlc
                 {
                     // Custom Carian Sorcery Sword (has no ash of war, does 0 damage with regular attacks)
                     GlintstoneStaffItemId = 70000000 + 25;
-                    startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
             case DlcMode.Omenveil:
@@ -137,7 +140,6 @@ public class RandomizerServiceDlc
                     GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
                     // Custom Crucible Seal (no stats requirement, otherwise indistinguishable from erdtree seal)
                     FingerSealItemId = 70010000 + 10;
-                    startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
             case DlcMode.Anamnesis:
@@ -150,7 +152,6 @@ public class RandomizerServiceDlc
             default:
                 {
                     GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
-                    startingStats = new(Stats: new int[] { 50, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
         }
@@ -200,20 +201,6 @@ public class RandomizerServiceDlc
             }
             else if (mode == DlcMode.Anamnesis)
             {
-                // Give initial tools
-                //editor.SetInitialEquipItem(charaInitId, 0, 3011); // regal omen bairn
-                //editor.SetInitialEquipItemAmount(charaInitId, 0, 1);
-
-                //editor.SetInitialEquipItem(charaInitId, 1, 2150); // mohg's shackle
-                //editor.SetInitialEquipItemAmount(charaInitId, 1, 1);
-
-                //editor.SetInitialEquipItem(charaInitId, 2, 260000); // dung eater puppet
-                //editor.SetInitialEquipItemAmount(charaInitId, 2, 1);
-
-                // give incants
-                //editor.SetInitialEquipSpell(charaInitId, 0, 7500); // tail
-                //editor.SetInitialEquipSpell(charaInitId, 1, 7510); // horns
-                //editor.SetInitialEquipSpell(charaInitId, 2, 7520); // breath
                 editor.SetInitialMaxHpFlasks(charaInitId, 6);
                 editor.SetInitialMaxFpFlasks(charaInitId, 1);
 
@@ -372,12 +359,14 @@ public class RandomizerServiceDlc
         currentShopLineupId = 9200000;
         currentEventFlagID = 1056457000;
 
+        int numberOfShopWeapons = mode == DlcMode.Anamnesis ? 4 : 3;
+
         int GraftedDragonItemId = 21060009;
 
         // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
-        // The Starlight Shards shop shares weapons from the common pool (there can be duplicates)
-        List<GameItemModel> common = CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
-        OptimizedRandomizationGroup merchantMillicentWeapons = new(4, common.Count);
+        // The Starlight Shards shop may share weapons from the common pool (there can be duplicates if the csv has duplicates)
+        List<GameItemModel> starlightWeapons = CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+        OptimizedRandomizationGroup merchantMillicentWeapons = new(numberOfShopWeapons, starlightWeapons.Count);
         urr.AddGroup("merchantMillicentWeapons", merchantMillicentWeapons);
         int[] replacementIndexes = urr.RandomizeGroup("merchantMillicentWeapons");
 
@@ -387,9 +376,14 @@ public class RandomizerServiceDlc
             uint eventFlagForQuantity = currentEventFlagID;
             currentEventFlagID += eventFlagStepSize;
 
-            GameItemModel weapon = common[replacementIndexes[i]];
+            GameItemModel weapon = starlightWeapons[replacementIndexes[i]];
             int replacementEquipID = weapon.ID;
             int equipID = weapon.ID;
+
+            if (mode == DlcMode.Anamnesis)
+            {
+                anamnesisStarlightWeapons[i] = equipID;
+            }
 
             // Set reinforce level differently depending on if the weapon is custom or not
             if (weapon.EquipType == 5)
@@ -522,6 +516,53 @@ public class RandomizerServiceDlc
             editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
             editor.SetShopLineupSellQuantity(shopLineupId, sellQuantity);
             editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
+        }
+    }
+
+    private void InitAnamnesisRemembrances(ParamsEditor editor, OptimizedReplacementRandomizer urr)
+    {
+        int[] shopLineupIDTargets = new int[]
+        {
+            101898, // Enraged Divine Beast
+            101899, // AoW: Divine Beast Frost Stomp
+            101930, // Rellana's Twin Blades
+            101931, // Rellana's Twin Moons
+            101932, // Sword Lance
+            101933, // Blades of Stone
+            101934, // Putrescence Cleaver
+            101935, // Vortex of Putrescence
+            101936, // Poleblade of the Bud
+            101937, // Rotten Butterflies
+            101938, // Greatsword of Damnation
+            101939, // Midra's Flame of Frenzy
+            101940, // Shadow Sunflower Blossom
+            101941, // Land of Shadow
+            101942, // Spear of the Impaler
+            101943, // Messmer's Orb
+            101944, // Staff of the Great Beyond
+            101945, // Gazing Finger
+            101946, // Greatsword of Radahn (Lord)
+            101947, // Greatsword of Radahn (Light)
+            101948, // Light of Miquella
+        };
+        List<GameItemModel> remembranceWeaponReplacements = CsvReaderUtils.Read<GameItemModel>($"{Constants.Misc}/dlc/anamnesis/remembrances/replacements.csv");
+
+#if DEBUG
+        Debug.WriteLine($"remembrance weapons length: {remembranceWeaponReplacements.Count()}");
+#endif
+        remembranceWeaponReplacements.RemoveAll(gameItemModel => anamnesisStarlightWeapons.Contains(gameItemModel.ID));
+#if DEBUG
+        Debug.WriteLine($"remembrance weapons length: {remembranceWeaponReplacements.Count()}");
+#endif
+
+        OptimizedRandomizationGroup remembrancesGroup = new(shopLineupIDTargets.Count(), remembranceWeaponReplacements.Count());
+        urr.AddGroup("anamnesisRemembrancesGroup", remembrancesGroup);
+        int[] replacementIndexes = urr.RandomizeGroup("anamnesisRemembrancesGroup");
+
+        for (int i = 0; i < shopLineupIDTargets.Count(); i++)
+        {
+            editor.SetShopLineupEquipId(shopLineupIDTargets[i], remembranceWeaponReplacements[replacementIndexes[i]].ID);
+            editor.SetShopLineupEquipType(shopLineupIDTargets[i], remembranceWeaponReplacements[replacementIndexes[i]].EquipType);
         }
     }
 
