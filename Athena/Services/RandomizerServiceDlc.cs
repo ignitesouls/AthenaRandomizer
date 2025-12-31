@@ -470,6 +470,14 @@ public class RandomizerServiceDlc
                 eventFlagForQuantity = (uint)item.EventFlagID!;
             }
             int sellPrice = 1;
+            if (item.Cost > 40000)
+            {
+                sellPrice = 3;
+            }
+            else if (item.Cost > 20000)
+            {
+                sellPrice = 2;
+            }
             editor.CreateNewShopLineupRow(shopLineupId, name);
             editor.SetShopLineupEquipId(shopLineupId, equipID);
             editor.SetShopLineupEquipType(shopLineupId, equipType);
