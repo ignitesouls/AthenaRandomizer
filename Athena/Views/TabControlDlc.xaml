@@ -11,74 +11,112 @@
 
     <UserControl.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
 
-    <StackPanel Margin="8" HorizontalAlignment="Center" MaxWidth="400">
+    <StackPanel Margin="8" HorizontalAlignment="Center" MaxWidth="600">
         <TextBlock Text="SCADUBINGO Equipment Randomizer"
-                   FontSize="20"
-                   FontWeight="Bold"
+               FontSize="20"
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               Margin="0,0,0,20"/>
+
+        <!-- Starlight Shop Weapons displayed horizontally -->
+        <StackPanel Orientation="Vertical"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,10"
+            MaxWidth="600"
+            Visibility="{Binding HasWeapons, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Starlight Shop Weapons:" 
+               FontWeight="Bold"
+               HorizontalAlignment="Center"
+               FontSize="11"
+               Margin="0,0,0,2"/>
+            <ScrollViewer MaxHeight="30" 
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+                <TextBlock Text="{Binding WeaponsDisplayText}" 
                    HorizontalAlignment="Center"
-                   Margin="0,0,0,20"/>
+                   TextWrapping="Wrap"
+                   FontSize="9"
+                   Padding="2"/>
+            </ScrollViewer>
+        </StackPanel>
 
         <StackPanel Orientation="Vertical"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Margin="0,40,0,0">
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,0">
             <TextBlock Text="Base Seed:" Margin="0,0,0,2" />
             <TextBox Text="{Binding BaseSeedInput, UpdateSourceTrigger=PropertyChanged}" Width="120" />
         </StackPanel>
 
         <Button Content="Randomize"
-                    Height="40" Width="120"
-                    Margin="0,8,0,0"
-                    IsEnabled="True"
-                    Command="{Binding RandomizeCommand}"
-                    />
+            Height="40" Width="120"
+            Margin="0,8,0,0"
+            IsEnabled="True"
+            Command="{Binding RandomizeCommand}"/>
 
         <Button Content="Launch Elden Ring"
-                    Height="40" Width="120"
-                    Margin="0,8,0,0"
-                    Command="{Binding LaunchCommand}" />
+            Height="40" Width="120"
+            Margin="0,8,0,0"
+            Command="{Binding LaunchCommand}"/>
 
         <GroupBox Header="DLC Mode"
-          Margin="0,30,0,0"
-          Padding="8"
+          Margin="0,5,0,0"
+          Padding="5"
           BorderBrush="LightGray"
           BorderThickness="1"
           HorizontalAlignment="Center"
-          Width="180">
-            <Grid HorizontalAlignment="Left" Margin="1,0,0,0">
+          Width="250">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <RadioButton Grid.Row="0" Grid.Column="0" Content="Regular"
+                <RadioButton Grid.Row="0" Grid.Column="0" 
+                     Content="Regular"
+                     Margin="3"
+                     FontSize="11"
                      GroupName="DlcModeGroup"
                      IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Default}}" />
-                
-                <RadioButton Grid.Row="0" Grid.Column="1" Content="Moonwalk" Margin="17,0,-17,15" Grid.RowSpan="2"
-                    GroupName="DlcModeGroup"
-                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Moonwalk}}" />
-                
-                <RadioButton Grid.Row="1" Grid.Column="0" Content="Omenveil" Grid.ColumnSpan="2" Margin="0,3,68,-3"
-                    GroupName="DlcModeGroup"
-                    IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Omenveil}}" />                      
-                
-                <RadioButton Grid.Row="1" Grid.Column="1" Content="Anamnesis" Margin="17,3,-17,-3"
-                    GroupName="DlcModeGroup"
-                    IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Anamnesis}}" />                             
 
+                <RadioButton Grid.Row="0" Grid.Column="1" 
+                     Content="Moonwalk"
+                     Margin="3"
+                     FontSize="11"
+                     GroupName="DlcModeGroup"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Moonwalk}}" />
+
+                <RadioButton Grid.Row="1" Grid.Column="0" 
+                     Content="Omenveil"
+                     Margin="3"
+                     FontSize="11"
+                     GroupName="DlcModeGroup"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Omenveil}}" />
+
+                <RadioButton Grid.Row="1" Grid.Column="1" 
+                     Content="Anamnesis"
+                     Margin="3"
+                     FontSize="11"
+                     GroupName="DlcModeGroup"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Anamnesis}}" />
+
+                <RadioButton Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                     Content="Elden Squares"
+                     Margin="3"
+                     FontSize="11"
+                     HorizontalAlignment="Center"
+                     GroupName="DlcModeGroup"
+                     IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Eldensquares}}" />
             </Grid>
         </GroupBox>
-
-
-
-
     </StackPanel>
 </UserControl>
