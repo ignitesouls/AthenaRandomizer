@@ -843,7 +843,7 @@ $Event(11100087, Default, function() {
         // 76851, // Jagged Peak           - Jagged Peak Mountainside
         76850, // Jagged Peak           - Foot of the Jagged Peak
         76841, // Charo's Hidden Grave  - Charo's Hidden Grave
-        76833, // Cerulean Coast   - The Fissure
+        //76833, // Cerulean Coast   - The Fissure
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {
