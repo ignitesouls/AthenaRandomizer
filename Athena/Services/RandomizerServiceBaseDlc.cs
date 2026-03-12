@@ -359,18 +359,15 @@ public class RandomizerServiceBaseDlc
 
     public void RandomizeGrace(ParamsEditor editor, OptimizedReplacementRandomizer urr)
     {
-        // Limgrave, Pick 2 out of a North+South or East+West
+        // Limgrave: pick 1 from Limgrave1 and 1 from Limgrave2
         {
             var rng = urr.GetSeedManager().GetRandomByKey("grace_Limgrave");
 
-            bool useNorthSouth = rng.Next(2) == 0;
-
-            int[] aPool = useNorthSouth ? GracePools["Limgrave_North"] : GracePools["Limgrave_East"];
-            int[] bPool = useNorthSouth ? GracePools["Limgrave_South"] : GracePools["Limgrave_West"];
+            int[] aPool = GracePools["Limgrave1"];
+            int[] bPool = GracePools["Limgrave2"];
 
             int first = aPool[rng.Next(aPool.Length)];
 
-            //Second From the paired pool, guaranteed different (handle overlapping IDS)
             int second;
             int guard = 0;
             do
@@ -383,7 +380,7 @@ public class RandomizerServiceBaseDlc
             editor.SetGraceEventFlagId(second);
         }
 
-        //Liurnia Pick 2 out of a North+South or East+West
+        // Liurnia: Pick 2 out of a North+South or East+West
         {
             var rng = urr.GetSeedManager().GetRandomByKey("grace_Liurnia");
 
@@ -406,11 +403,14 @@ public class RandomizerServiceBaseDlc
             editor.SetGraceEventFlagId(second);
         }
 
-        //ALL OTHER POOLS: pick 1 each 
+        // All other pools: pick 1 each
         foreach (var (poolName, pool) in GracePools)
         {
-            // skip the sub-pools that were already handled as pairs above
-            if (poolName.StartsWith("Limgrave_")) continue;
+            // skip Limgrave paired pools already handled above
+            if (poolName == "Limgrave1") continue;
+            if (poolName == "Limgrave2") continue;
+
+            // skip Liurnia paired pools already handled above
             if (poolName.StartsWith("Liurnia_")) continue;
 
             Random rng = urr.GetSeedManager().GetRandomByKey($"grace_{poolName}");
@@ -421,7 +421,7 @@ public class RandomizerServiceBaseDlc
 
     private static readonly Dictionary<string, int[]> GracePools = new()
     {
-        ["Limgrave_North"] = new[]
+        ["Limgrave1"] = new[]
         {
             61413800, // Stormhill Shack
             61423800, // Warmaster Shack
@@ -430,30 +430,16 @@ public class RandomizerServiceBaseDlc
             61423700, // Gatefront
             61433700, // Agheel Lake North
             61443900, // Summoning Village Outskirts
-        },
-            ["Limgrave_South"] = new[]
-        {
-            61423601, // First Step
-            61433500, // Seaside Ruins
+            61443800, // Artist Shack
             61443500, // Agheel Lake South
-            180001,   // Stranded Graveyard
-        },
-            ["Limgrave_East"] = new[]
-        {
-            61433900, // Saintsbridge
-            61463800, // Third Church of Marika
-            61443800,  // Artist Shack
-            61443500, // Agheel Lake South
-            61433800  // Murkwater Coast
-        },
-            ["Limgrave_West"] = new[]
-        {
-            61413800, // Stormhill Shack
-            61423800, // Warmaster Shack
-            61423600, // Church of Elleh
-            61423601, // First Step
-            180001,   // Stranded Graveyard
             61433500, // Seaside Ruins
+            61433800, // Murkwater Coast
+        },
+            ["Limgrave2"] = new[]
+        {
+            //61423600, // Church of Elleh
+            //61423601, // First Step
+            180001,   // Stranded Graveyard
         },
 
         // LIURNIA 

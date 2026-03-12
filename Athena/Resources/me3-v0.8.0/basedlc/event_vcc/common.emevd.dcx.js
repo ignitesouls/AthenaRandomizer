@@ -451,7 +451,7 @@ $Event(0, Default, function() {
     InitializeEvent(0, 11100089, 0);
     InitializeEvent(0, 11100090, 0);
     InitializeEvent(0, 11100091, 0);
-    //InitializeEvent(0, 11100092, 0);
+    InitializeEvent(0, 11100092, 0);
 
     // Remembrance bosses pairs    
     InitializeEvent(0, 11120000, 10000800, 14000800, 12030850);     //Godrick Rennala || Fortisax
@@ -743,7 +743,15 @@ $Event(11100084, Default, function() {
       || EventFlag(76302) //Erdtree Gazing Hill
       || EventFlag(76300) //Abandoned Coffin
       || EventFlag(76303) //Altus Highway Junction
-      || EventFlag(76354)); //Seethwater River
+      || EventFlag(76354) //Seethwater River
+      || EventFlag(76303) //Altus Highway Junction
+      || EventFlag(76320) //Shaded Castle Ramparts
+      || EventFlag(76321) //Shaded Castle Inner Gate
+      || EventFlag(76309) //Outer Wall Phantom Tree
+      || EventFlag(76312) //Outer Wall Battleground
+      || EventFlag(76304) //Forest, Spanning Greatbridge
+      || EventFlag(76306) //Bower of Bounty
+      ); 
     
     const progressiveGracesTier1 = [
         //        Area            - Grace Name
@@ -924,10 +932,10 @@ $Event(11100091, Default, function() {
     WaitFor(EventFlag(76508));
     
     // 71309    Crumbling Farum Azula - Dragon Temple Rooftop
-    SetEventFlagID(71309, ON);
+    //SetEventFlagID(71309, ON);
     
     // 71309    Crumbling Farum Azula - Crumbling Beast Grave
-    //SetEventFlagID(71303, ON);
+    SetEventFlagID(71303, ON);
     
     // Dragon Temple Rooftop grace has been unlocked
     //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
@@ -935,20 +943,21 @@ $Event(11100091, Default, function() {
     SetThisEventSlot(ON);
 });
 
-//$Event(11100092, Default, function() {
-//    EndIf(ThisEventSlot());
-//    
-//    // 76508    Crumbling Farum Azula - Dragon Temple
-//    WaitFor(EventFlag(71306));
-//    
-//    // 71309    Crumbling Farum Azula - Beside the Greatbridge
-//    SetEventFlagID(71310, ON);
-//    
-//    // Dragon Temple Rooftop grace has been unlocked
-//    //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-//  
-//    SetThisEventSlot(ON);
-//});
+$Event(11100092, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    // 76508    Crumbling Farum Azula - Dragon Temple
+    WaitFor(EventFlag(71306));
+    
+    // 71309 - Crumbling Farum Azula - Dragon Temple Rooftop
+    // 71310 - Crumbling Farum Azula - Beside the Greatbridge
+    SetEventFlagID(71309, ON);
+    SetEventFlagID(71310, ON);
+    // Dragon Temple Rooftop grace has been unlocked
+    //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+  
+    SetThisEventSlot(ON);
+});
 
 
 $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
