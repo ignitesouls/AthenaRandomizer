@@ -81,6 +81,18 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 		<None Remove="Resources\Assets\Athena.ico" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\common.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\common_func.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m10_01_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m11_10_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m12_02_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m12_03_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m13_00_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m18_00_00_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m60_45_52_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m60_47_56_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m60_48_57_00.emevd.dcx" />
+		<None Remove="Resources\me3-v0.8.0\basedlc\event_vcc\m60_51_36_00.emevd.dcx" />
 		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\common.emevd.dcx" />
 		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\common_func.emevd.dcx" />
 		<None Remove="Resources\me3-v0.8.0\dlc\event_anamnesis\m10_01_00_00.emevd.dcx" />

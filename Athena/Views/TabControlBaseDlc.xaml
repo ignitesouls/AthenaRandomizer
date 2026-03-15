@@ -23,7 +23,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Athena.Converters"
+
+             xmlns:services="clr-namespace:Athena.Services"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="600">
+
+    <UserControl.Resources>
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+    </UserControl.Resources>
+
     <StackPanel Margin="8" HorizontalAlignment="Center" MaxWidth="400">
         <TextBlock Text="Base + DLC Equipment Randomizer"
                FontSize="20"
@@ -50,5 +58,34 @@
                 Height="40" Width="120"
                 Margin="0,8,0,0"
                 Command="{Binding LaunchCommand}" />
+
+
+        <GroupBox Header="Base + DLC Mode"
+            Margin="0,30,0,0"
+            Padding="8"
+            BorderBrush="LightGray"
+            BorderThickness="1"
+            HorizontalAlignment="Center"
+            Width="180">
+                <Grid HorizontalAlignment="Left" Margin="1,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+            
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+            
+                    <RadioButton Grid.Row="0" Grid.Column="0" Content="Regular"
+                            GroupName="BaseDlcModeGroup"
+                            IsChecked="{Binding BaseDlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:BaseDlcMode.Default}}" />
+
+                     <RadioButton Grid.Row="0" Grid.Column="1" Content="VCC" Margin="17,0,-17,15" Grid.RowSpan="2"
+                            GroupName="BaseDlcModeGroup"
+                            IsChecked="{Binding BaseDlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:BaseDlcMode.VCC}}" />
+            </Grid>
+        </GroupBox>
     </StackPanel>
 </UserControl>
