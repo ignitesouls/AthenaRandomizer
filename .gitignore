@@ -369,7 +369,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-#No .bak or .js files
-*.bak
-*.js
