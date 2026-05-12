@@ -91,6 +91,24 @@ public class TabViewModelDlc : ModeTabViewModelBase, INotifyPropertyChanged
         }
     }
 
+    private List<string> _weaponsInTheStarlightShop = new List<string>();
+    public List<string> WeaponsInTheStarlightShop
+    {
+        get => _weaponsInTheStarlightShop;
+        set
+        {
+            if (_weaponsInTheStarlightShop != value)
+            {
+                _weaponsInTheStarlightShop = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasWeapons));
+                OnPropertyChanged(nameof(WeaponsDisplayText));
+            }
+        }
+    }
+    public bool HasWeapons => WeaponsInTheStarlightShop != null && WeaponsInTheStarlightShop.Count > 0;
+    public string WeaponsDisplayText => WeaponsInTheStarlightShop != null && WeaponsInTheStarlightShop.Count > 0 ? string.Join(" | ", WeaponsInTheStarlightShop) : string.Empty;
+
     public int? ParsedBaseSeed =>
         int.TryParse(BaseSeedInput, out int parsed) ? parsed : null;
     
@@ -110,37 +128,44 @@ public class TabViewModelDlc : ModeTabViewModelBase, INotifyPropertyChanged
         _launcherService = new EldenRingLauncherService();
 
         RandomizeCommand = new RelayCommand(() => _randomizerService.RandomizeDlc(
-            ParsedBaseSeed,
-            DlcMode,
-            newSeed =>
-            {
+    ParsedBaseSeed,
+    DlcMode,
+    newSeed =>
+    {
 #if DEBUG
-                Debug.WriteLine($"baseSeed: {newSeed}");
+        Debug.WriteLine($"baseSeed: {newSeed}");
 #endif
-                BaseSeed = newSeed;
-                BaseSeedInput = newSeed.ToString();
-                _config.LastUsedSeedDlc = newSeed;
-                ConfigService.Save(_config);
-            },
-            newRandomizedSeed =>
-            {
+        BaseSeed = newSeed;
+        BaseSeedInput = newSeed.ToString();
+        _config.LastUsedSeedDlc = newSeed;
+        ConfigService.Save(_config);
+    },
+    newRandomizedSeed =>
+    {
 #if DEBUG
-                Debug.WriteLine($"randomizedSeed: {newRandomizedSeed}");
+        Debug.WriteLine($"randomizedSeed: {newRandomizedSeed}");
 #endif
-                RandomizedSeed = newRandomizedSeed;
-                _config.LastRandomizedSeedDlc = newRandomizedSeed;
-                ConfigService.Save(_config);
-            },
-            newRandomizedDlcMode =>
-            {
+        RandomizedSeed = newRandomizedSeed;
+        _config.LastRandomizedSeedDlc = newRandomizedSeed;
+        ConfigService.Save(_config);
+    },
+    newRandomizedDlcMode =>
+    {
 #if DEBUG
-                Debug.WriteLine($"randomizedDlcMode: {newRandomizedDlcMode}");
+        Debug.WriteLine($"randomizedDlcMode: {newRandomizedDlcMode}");
 #endif
-                RandomizedDlcMode = newRandomizedDlcMode;
-                _config.LastRandomizedModeDlc = newRandomizedDlcMode;
-                ConfigService.Save(_config);
-            }),
-            () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedDlcMode == DlcMode)));
+        RandomizedDlcMode = newRandomizedDlcMode;
+        _config.LastRandomizedModeDlc = newRandomizedDlcMode;
+        ConfigService.Save(_config);
+    },
+    weaponsList =>  // <-- ADD THIS COMMA AND NEW CALLBACK
+    {
+#if DEBUG
+        Debug.WriteLine($"Weapons in shop: {string.Join(", ", weaponsList)}");
+#endif
+        WeaponsInTheStarlightShop = weaponsList;
+    }),
+    () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedDlcMode == DlcMode)));
 
         LaunchCommand = new RelayCommand(
             () => _launcherService.LaunchEldenRing(LaunchMode.DLC),

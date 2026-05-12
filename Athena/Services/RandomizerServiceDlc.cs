@@ -14,7 +14,8 @@ public enum DlcMode
     Default,
     Moonwalk,
     Omenveil,
-    Anamnesis
+    Anamnesis,
+    Eldensquares
 }
 
 public class RandomizerServiceDlc
@@ -25,6 +26,12 @@ public class RandomizerServiceDlc
     private RandomizerServiceStartingClass randomizerServiceStartingClass = new();
     RandomizerServiceStartingClass.ClassStatAllocation startingStats;
     private int[] anamnesisStarlightWeapons;
+    
+    // Weapons that are in the Starlight Shard Shop
+    List<string> weaponsInTheStarlightShop = new List<string>();
+
+    // Using this property for the UI
+    public List<string> WeaponsInTheStarlightShop => weaponsInTheStarlightShop;
 
 
     public RandomizerServiceDlc(string appVersion)
@@ -38,7 +45,8 @@ public class RandomizerServiceDlc
                              DlcMode mode,
                              Action<int?>? updateBaseSeedCallback,
                              Action<int?>? updateRandomizedSeedCallback,
-                             Action<DlcMode?>? updateRandomizedModeDlcCallback)
+                             Action<DlcMode?>? updateRandomizedModeDlcCallback,
+                             Action<List<string>>? updateWeaponsListCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeDlc");
         //SimulationUtils.SimulateDlcToFile(10_000);
@@ -114,6 +122,7 @@ public class RandomizerServiceDlc
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
         updateRandomizedModeDlcCallback?.Invoke(mode);
+        updateWeaponsListCallback?.Invoke(weaponsInTheStarlightShop);
     }
 
     private void InitStartingClassesDlc(ParamsEditor editor, DlcMode mode = DlcMode.Default)
@@ -205,6 +214,12 @@ public class RandomizerServiceDlc
                 editor.SetInitialMaxFpFlasks(charaInitId, 1);
 
             }
+            else if (mode == DlcMode.Eldensquares)
+            {
+                editor.SetInitialMaxHpFlasks(charaInitId, 7);
+                editor.SetInitialMaxFpFlasks(charaInitId, 1);
+
+            }
 
         }
     }
@@ -216,6 +231,7 @@ public class RandomizerServiceDlc
         string shopItemsFilePath = $"{Constants.Misc}/dlc/shop_items.csv";
         string shopArmorSetsFilePath;
         string shopWeaponsFilePath;
+        Random random = new Random();
 
         switch (mode)
         {
@@ -237,6 +253,25 @@ public class RandomizerServiceDlc
                     shopItemsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_items.csv";
                     shopArmorSetsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_armor_sets.csv";
                     shopWeaponsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_weapons.csv";
+                    break;
+                }
+            case DlcMode.Eldensquares:
+                { 
+                    int somberOrSmithingWeapon = random.Next(0, 2);
+                    int tier = random.Next(1, 4);
+
+                    // This will be Smithing
+                    if (somberOrSmithingWeapon == 0)
+                    {
+                        shopWeaponsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_weapons_smithing_tier_{tier}.csv";
+                    }
+                    //This will be Somber
+                    else
+                    {
+                        shopWeaponsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_weapons_somber_tier_{tier}.csv";
+                    }
+
+                    shopArmorSetsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_armor_sets.csv";
                     break;
                 }
             default:
@@ -359,7 +394,15 @@ public class RandomizerServiceDlc
         currentShopLineupId = 9200000;
         currentEventFlagID = 1056457000;
 
-        int numberOfShopWeapons = mode == DlcMode.Anamnesis ? 4 : 3;
+        //int numberOfShopWeapons = mode == DlcMode.Anamnesis ? 4 : 3;
+
+        // Change for the different DLC modes for Bingo. Determines on how many weapons are in the shop. 
+        int numberOfShopWeapons = mode switch
+        {
+            DlcMode.Anamnesis => 4,
+            DlcMode.Eldensquares => 5,
+            _ => 3
+        };
 
         int GraftedDragonItemId = 21060009;
 
@@ -369,6 +412,7 @@ public class RandomizerServiceDlc
         OptimizedRandomizationGroup merchantMillicentWeapons = new(numberOfShopWeapons, starlightWeapons.Count);
         urr.AddGroup("merchantMillicentWeapons", merchantMillicentWeapons);
         int[] replacementIndexes = urr.RandomizeGroup("merchantMillicentWeapons");
+        weaponsInTheStarlightShop = new List<string>();
 
         for (int i = 0; i < replacementIndexes.Length; i++)
         {
@@ -435,8 +479,10 @@ public class RandomizerServiceDlc
             editor.SetShopLineupNumSold(shopLineupId, starlightWeaponNumSold);
             editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellQuantity);
             editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
+
+            weaponsInTheStarlightShop.Add(weapon.Name);
         }
-        
+
         List<ShopItemModel> physickTears = new();
         List<ShopItemModel> talismans = new();
         for (int i = 0; i < shopItems.Count; i++)
