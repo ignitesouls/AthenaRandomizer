@@ -233,6 +233,9 @@ public class RandomizerServiceDlc
         string shopWeaponsFilePath;
         Random random = new Random();
 
+        int baseSeed = urr.GetBaseSeed();
+        SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed); // Moved earlier so tier selection uses the shared seed manager
+
         switch (mode)
         {
             case DlcMode.Moonwalk:
@@ -256,9 +259,10 @@ public class RandomizerServiceDlc
                     break;
                 }
             case DlcMode.Eldensquares:
-                { 
-                    int somberOrSmithingWeapon = random.Next(0, 2);
-                    int tier = random.Next(1, 4);
+                {
+                    Random tierRng = seedManager.GetRandomByKey("StartingTier");
+                    int somberOrSmithingWeapon = tierRng.Next(0, 2);
+                    int tier = tierRng.Next(1, 4);
 
                     // This will be Smithing
                     if (somberOrSmithingWeapon == 0)
@@ -316,8 +320,6 @@ public class RandomizerServiceDlc
 
         // Setup the randomized armor set in the runes shop.
         List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>(shopArmorSetsFilePath);
-        int baseSeed = urr.GetBaseSeed();
-        SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed);
         Random rng = seedManager.GetRandomByKey("armor_sets.csv");
         ArmorSetModel armor = armorGroup[rng.Next(armorGroup.Count)];
 
