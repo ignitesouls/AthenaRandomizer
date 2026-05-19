@@ -23,6 +23,7 @@ public class RandomizerServiceDlc
     private string SeedManagerPrefix;
     private const int StarlightShopMenuTextId = 508000;
 
+    ModeService modeService = new();
     private RandomizerServiceStartingClass randomizerServiceStartingClass = new();
     RandomizerServiceStartingClass.ClassStatAllocation startingStats;
     private int[] anamnesisStarlightWeapons;
@@ -77,6 +78,12 @@ public class RandomizerServiceDlc
                 {
                     seedManagerPrefix = SeedManagerPrefix + "_anamnesis";
                     randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/anamnesis";
+                    break;
+                }
+            case DlcMode.Eldensquares:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_eldensquares";
+                    randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/eldensquares";
                     break;
                 }
             default:
@@ -155,6 +162,13 @@ public class RandomizerServiceDlc
                 {
                     // default
                     GlintstoneStaffItemId = 33090000 + 10; //Carian Regal Scepter
+                    startingStats = new(Stats: new int[] { 40, 10, 10, 10, 10, 10, 10, 10 });
+                    break;
+                }
+            case DlcMode.Eldensquares:
+                {
+                    // default
+                    GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
                     startingStats = new(Stats: new int[] { 40, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
@@ -667,6 +681,14 @@ public class RandomizerServiceDlc
                     legId = 770300;
                     break;
                 }
+            case DlcMode.Eldensquares:
+                {
+                    helmId = 730000;
+                    torsoId = 730100;
+                    armId = 730200;
+                    legId = 730300;
+                    break;
+                }
             default:
                 {
                     // Millicent's Set (including custom missing arm)
@@ -688,65 +710,22 @@ public class RandomizerServiceDlc
     {
         //Anamnesis-only Title Screen
         string menuPath = Path.Combine(Constants.MenuBndOutDlc, "menu");
-        string menuAnamnesisPath = Path.Combine(Constants.MenuBndOutDlc, "menu_anamnesis");
-        UpdateFolder(
+        string menuAnamnesisPath = Path.Combine(Constants.ModeFolders, "menu_anamnesis");
+        modeService.UpdateFolder(
             targetPath: menuPath,
             sourcePath: mode == DlcMode.Anamnesis ? menuAnamnesisPath : null
         );
 
         // Events (default vs Anamnesis)
         string eventPath = Path.Combine(Constants.MenuBndOutDlc, "event");
-        string eventDefaultPath = Path.Combine(Constants.MenuBndOutDlc, "event_default");
-        string eventAnamnesisPath = Path.Combine(Constants.MenuBndOutDlc, "event_anamnesis");
+        string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_default");
+        string eventAnamnesisPath = Path.Combine(Constants.ModeFolders, "event_anamnesis");
 
-        UpdateFolder(
+        modeService.UpdateFolder(
             targetPath: eventPath,
             sourcePath: mode == DlcMode.Anamnesis
                 ? eventAnamnesisPath
                 : eventDefaultPath
         );
     }
-
-    private static void UpdateFolder(string targetPath, string? sourcePath)
-    {
-        if (sourcePath != null &&
-            Path.GetFullPath(sourcePath) == Path.GetFullPath(targetPath))
-        {
-            return;
-        }
-
-
-        Directory.CreateDirectory(targetPath);
-
-        // clear target
-        foreach (var file in Directory.GetFiles(targetPath))
-        {
-            File.SetAttributes(file, FileAttributes.Normal);
-            File.Delete(file);
-        }
-
-        foreach (var dir in Directory.GetDirectories(targetPath))
-        {
-            Directory.Delete(dir, true);
-        }
-
-        // populate if source exists
-        if (sourcePath == null || !Directory.Exists(sourcePath))
-            return;
-
-        foreach (var dir in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            Directory.CreateDirectory(dir.Replace(sourcePath, targetPath));
-        }
-
-        foreach (var file in Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            string dest = file.Replace(sourcePath, targetPath);
-            Directory.CreateDirectory(Path.GetDirectoryName(dest)!);
-            File.Copy(file, dest, true);
-        }
-    }
-
-
-
 }

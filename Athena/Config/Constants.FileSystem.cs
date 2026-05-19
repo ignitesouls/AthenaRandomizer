@@ -44,4 +44,6 @@ internal partial class Constants
     public static string GameData = Path.Combine("Resources", "GameData");
 
     public static string Misc = Path.Combine("Resources", "Misc");
+
+    public static string ModeFolders = Path.Combine("Resources", "ModeFolders");
 }

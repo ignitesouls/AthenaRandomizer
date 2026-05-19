@@ -113,7 +113,6 @@
                      Content="Elden Squares"
                      Margin="3"
                      FontSize="11"
-                     HorizontalAlignment="Center"
                      GroupName="DlcModeGroup"
                      IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Eldensquares}}" />
             </Grid>

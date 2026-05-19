@@ -86,6 +86,7 @@ $Event(0, Default, function() {
     $InitializeEvent(0, 11102651, 710700, 1700, 9125, 69250);
     $InitializeEvent(0, 11102650, 710720, 1720, 9128, 69280);
     $InitializeEvent(0, 11102652, 710780, 1780, 9132, 69320);
+    $InitializeEvent(0, 11100042); // initialize in roundtable hold
 });
 
 // プリコンストラクタ -- preconstructor
@@ -142,6 +143,177 @@ $Event(11100031, Default, function() {
     WaitFor(PlayerIsInOwnWorld() && EventFlag(120));
     SetEventFlagID(71900, OFF);
     SetEventFlagID(121, ON);
+});
+
+// initialization
+$Event(11100042, Default, function() {
+    EndIf(ThisEventSlot());
+    // Fix the initial spawn point (or else memory of grace or dying to alberich will take the player to chapel)
+    SetPlayerRespawnPoint(11102020);
+    
+    const initialFlags = [
+        // Story related flags
+        100,  // Story Start
+        101,  // Reached tutorial
+        102,  // Reached Limgrave
+        104,  // Reached Roundtable Hold
+        105,  // Roundtable hold introduction
+        
+        4680, // Allow Leveling Up at Grace
+        4681, // Accepted Melina's request to take her to the Erdtree
+        
+        951,  // Prevents the Melina torrent cutscene event from happening
+        953,  // <- These values are set when the event happens
+        9021, // <- where she offers you an accord
+        
+        10009655, // Melina has offered to take you to roundtable hold
+        11108548, // The door to the two fingers / Enia is open already
+        12030800, // Fia's Champions is defeated already
+        
+        // Tutorial flags
+        10010030, // Event Flag that teleports player after Grafted Scion battle starts (whenever player dies)
+        10010801, // Event flag that gets triggered after Grafted Scion flies into arena the first time (now he stands there)
+        18000020, // Tutorial event is completed
+        9021,     // Set within the tutorial event
+        
+        // Map Related Flags
+        62000, // Allow Map Display
+        62001, // Allow Underground Map Display
+        82001, // Show underground
+        82002, // Show DLC Map
+        
+        // MAPS - This lets player see the map in these regions
+        62010, // Limgrave, West
+        62011, // Weeping Peninsula
+        62012, // Limgrave, East
+        62022, // Liurnia, West
+        62021, // Liurnia, North
+        62020, // Liurnia, East
+        62031, // Leyndell, Royal Capital
+        62030, // Altus Plateur
+        62032, // Mt. Gelmir
+        62041, // Dragonbarrow
+        62040, // Caelid
+        62052, // Mountaintops of the Giants, North
+        62051, // Mountaintops of the Giants, East
+        62050, // Mountaintops of the Giants, West
+        62063, // Siofra River
+        62062, // Mohgwyn Palace
+        62061, // Lake of Rot
+        62060, // Ainsel River
+        62064, // Deeprooth Depths
+        62103, // Stormfoot Catacombs
+        62102, // Fringefolk Hero's Cave
+        62084, // Abyss
+        62083, // Rauh Ruins
+        62082, // Southern Shore
+        62081, // Scadu Altus
+        62080, // Gravesite Plain
+        
+        // MAP ICONS (Base Game Only)
+        62100, 62300, 62820, 62700, 62200, 62550, 62551, 62360, 62101, 62102, 62880, 62881, 62890, 62891,
+        62980, 62981, 62870, 62871, 62860, 62150, 62151, 62103, 62202, 62105, 62201, 62203, 62314, 62310,
+        62311, 62312, 62104, 62313, 62315, 62410, 62411, 62412, 62510, 62511, 62512, 62560, 62152, 62153,
+        62106, 62107, 62204, 62205, 62206, 62316, 662201, 62203, 62314, 62310, 62311, 62312, 62104, 62313,
+        62315, 62410, 62411, 62412, 62510, 62511, 62512, 62560, 62152, 62153, 62106, 62107, 62204, 62205,
+        62206, 62316, 62317, 62413, 62460, 62513, 62108, 62109, 62318, 62319, 62414, 62415, 62514, 62154,
+        62110, 62207, 62320, 62322, 62416, 62417, 62515, 62111, 62208, 62209, 62321, 62323, 622317, 62413,
+        62460, 62513, 62108, 62109, 62318, 62319, 62414, 62415, 62514, 62154, 62110, 62207, 62320, 62322,
+        62416, 62417, 62515, 62111, 62208, 62209, 62321, 62323, 62461, 62516, 62710, 62324, 62325, 62823,
+        62915, 62965, 62800, 62916, 62850, 62822, 62918, 62943, 62917, 62919, 62821, 62720, 62730, 62740,
+        62173, 62170, 62180, 62121, 62130, 62177, 62178, 62181, 62120, 62126, 62132, 62138, 62129, 62183,
+        62184, 62171, 62182, 62125, 62172, 62174, 62133, 62176, 62131, 62124, 62128, 62175, 62134, 62123,
+        62137, 62127, 62135, 62122, 62283, 62281, 62248, 62231, 62238, 62252, 62282, 62284, 62241, 62251,
+        62226, 62243, 62244, 62254, 62245, 62285, 62232, 62280, 62222, 62242, 62247, 62228, 62229, 62223,
+        62239, 62227, 62250, 62221, 62224, 62237, 62235, 62230, 62240, 62253, 62233, 62249, 62236, 62220,
+        62225, 62234, 62246, 62383, 62348, 62386, 62389, 62331, 62382, 62384, 62330, 62335, 62385, 62381,
+        62344, 62332, 62342, 62345, 62336, 62380, 62338, 62334, 62346, 62341, 62339, 62340, 62343, 62333,
+        62337, 62347, 62420, 62427, 62424, 62429, 62423, 62437, 62426, 62421, 62425, 62470, 62430, 62432,
+        62471, 62434, 62428, 62422, 62435, 62436, 62438, 62473, 62474, 62475, 62472, 62571, 62570, 62572,
+        62522, 62528, 62524, 62574, 62573, 62521, 62523, 62529, 62527, 62530, 62526, 62525, 62531, 62520,
+        62610, 62620, 62621, 62622, 62631, 62632, 62633, 62634, 62640, 62630,
+        
+        // MAP ICONS (DLC only)
+        62811, 62806, 62843, 62809, 62815, 62812, 62805, 62810, 62813, 62814, 62807, 62830, 62831, 62842,
+        62841, 62808, 62826, 62825, 62855, 62827, 62840, 62844, 62865, 62920, 62921, 62950, 62904, 62905,
+        62900, 62901, 62902, 62903, 62907, 62931, 62932, 62909, 62910, 62962, 62960, 62970, 62961, 62906,
+        62911, 62908, 62912, 62941, 62942,
+        
+        // GRACES - Players can warp to these graces
+        //        Area      - Grace Name
+        //        ----        ----------
+        //71801, // Limgrave  - Stranded Graveyard
+        //76111, // Limgrave  - Gatefront
+        //76154, // Weeping   - Ailing Village Outskirts
+        //76413, // Caelid    - Inner Aeonia
+        //76205, // Liurnia   - South Raya Lucaria Gate
+        //76244, // Liurnia   - Liurnia Highway South
+    
+        // 76119, // Limgrave  - Summonwater Village
+        // 76409, // Caelid    - Smoldering Wall
+        
+        // 76400, // Caelid    - Smoldering Church
+        // 76203, // Liurnia   - Scenic Isle
+        // 76225, // Liurnia   - Ruined Labyrinth
+    ];
+    
+    // Set all of the above flags
+    for (let i = 0; i < initialFlags.length; i++) {
+        SetEventFlagID(initialFlags[i], ON);
+    }
+    
+    // Cursemark of Death & !Weathered Daggar
+    DirectlyGivePlayerItem(ItemType.Goods, 8191, 6001, 1);
+    //DirectlyGivePlayerItem(ItemType.Goods, 8980, 6001, 1);
+    
+    // talisman pouches
+    SetEventFlagID(60500, ON);
+    SetEventFlagID(60510, ON);
+    SetEventFlagID(60520, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 10040, 3);
+    for (let i = 0; i < 3; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 10040, 6001, 1);
+    }
+    
+    // estus flasks
+    SetEventFlagID(60000, ON);
+    for (let i = 0; i <= 25; i++) {
+        RemoveItemFromPlayer(ItemType.Goods, 1000 + i, 14);
+        RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
+    }
+    for (let i = 0; i < 3; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 1001, 6001, 1);
+    }
+    DirectlyGivePlayerItem(ItemType.Goods, 1051, 6001, 1);
+    
+    // steed whistle
+    SetEventFlagID(60100, ON);
+    RemoveItemFromPlayer(ItemType.Goods, 130, 1);
+    DirectlyGivePlayerItem(ItemType.Goods, 130, 6001, 1);
+    
+    // whetstone knife
+    SetEventFlagID(60130, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8590, 6001, 1);
+    
+    // lantern
+    DirectlyGivePlayerItem(ItemType.Goods, 2070, 6001, 1);
+    
+    // crafting kit
+    SetEventFlagID(60120, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8500, 6001, 1);
+    
+    // Dark Moon Ring
+    SetEventFlagID(114, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8121, 6001, 1);
+    
+    // Flask of Wondrous Physick
+    SetEventFlagID(6700, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
+    
+    // Some early graces were unlocked
+    DisplayGenericDialog(30067, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
 });
 
 // 炎上時の変化 -- Changes during a fire

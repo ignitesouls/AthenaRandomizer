@@ -1,13 +1,14 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Windows;
 using Athena.Config;
 using Athena.Models;
 using Athena.Utilities;
 using DotNext;
 using EldenRingParamsEditor;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Windows;
 using UniversalReplacementRandomizer;
 
 namespace Athena.Services;
@@ -23,6 +24,7 @@ public class RandomizerServiceBaseDlc
 {
     private string SeedManagerPrefix;
     RandomizerServiceStartingClass randomizerServiceStartingClass = new();
+    ModeService modeService = new();
 
     public RandomizerServiceBaseDlc(string appVersion)
     {
@@ -35,7 +37,8 @@ public class RandomizerServiceBaseDlc
                                  BaseDlcMode mode,
                                  Action<int?>? updateBaseSeedCallback,
                                  Action<int?>? updateRandomizedSeedCallback,
-                                 Action<BaseDlcMode?>? updatedRandomizedModeBaseDlcCallback)
+                                 Action<BaseDlcMode?>? updatedRandomizedModeBaseDlcCallback,
+                                 Action<List<string>> updateGracesListCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeBaseDlc");
 
@@ -69,7 +72,7 @@ public class RandomizerServiceBaseDlc
         //When the Mode is Set to VCC Randomize the Graces within the Pool
         if (mode == BaseDlcMode.VCC)
         {
-            RandomizeGrace(editor, urr);
+            RandomizeGrace(editor, urr, updateGracesListCallback);
         }
 
         // Generate stats and starting equipment
@@ -306,10 +309,10 @@ public class RandomizerServiceBaseDlc
     {
         // Events (default vs VCC)
         string eventPath = Path.Combine(Constants.MenuBndOutBaseDlcVCC, "event");
-        string eventDefaultPath = Path.Combine(Constants.MenuBndOutBaseDlcVCC, "event_default");
-        string eventVCCPath = Path.Combine(Constants.MenuBndOutBaseDlcVCC, "event_vcc");
+        string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_basedlc");
+        string eventVCCPath = Path.Combine(Constants.ModeFolders, "event_vcc");
 
-        UpdateFolder(
+        modeService.UpdateFolder(
             targetPath: eventPath,
             sourcePath: mode == BaseDlcMode.VCC
                 ? eventVCCPath
@@ -317,202 +320,98 @@ public class RandomizerServiceBaseDlc
         );
     }
 
-    private static void UpdateFolder(string targetPath, string? sourcePath)
+    public void RandomizeGrace(
+        ParamsEditor editor,
+        OptimizedReplacementRandomizer urr,
+        Action<List<string>> setRandomizedGraces)
     {
-        if (sourcePath != null &&
-            Path.GetFullPath(sourcePath) == Path.GetFullPath(targetPath))
-        {
-            return;
-        }
+        List<string> selectedGraceNames = new();
 
-
-        Directory.CreateDirectory(targetPath);
-
-        // clear target
-        foreach (var file in Directory.GetFiles(targetPath))
-        {
-            File.SetAttributes(file, FileAttributes.Normal);
-            File.Delete(file);
-        }
-
-        foreach (var dir in Directory.GetDirectories(targetPath))
-        {
-            Directory.Delete(dir, true);
-        }
-
-        // populate if source exists
-        if (sourcePath == null || !Directory.Exists(sourcePath))
-            return;
-
-        foreach (var dir in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            Directory.CreateDirectory(dir.Replace(sourcePath, targetPath));
-        }
-
-        foreach (var file in Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            string dest = file.Replace(sourcePath, targetPath);
-            Directory.CreateDirectory(Path.GetDirectoryName(dest)!);
-            File.Copy(file, dest, true);
-        }
-    }
-
-    public void RandomizeGrace(ParamsEditor editor, OptimizedReplacementRandomizer urr)
-    {
         // Limgrave: pick 1 from Limgrave1 and 1 from Limgrave2
         {
-            var rng = urr.GetSeedManager().GetRandomByKey("grace_Limgrave");
+            Random rng = urr.GetSeedManager().GetRandomByKey("grace_Limgrave");
 
-            int[] aPool = GracePools["Limgrave1"];
-            int[] bPool = GracePools["Limgrave2"];
+            List<GracePoolModel> aPool = GracePools["Limgrave1"];
+            List<GracePoolModel> bPool = GracePools["Limgrave2"];
 
-            int first = aPool[rng.Next(aPool.Length)];
+            GracePoolModel first = aPool[rng.Next(aPool.Count)];
 
-            int second;
+            GracePoolModel second;
             int guard = 0;
+
             do
             {
-                second = bPool[rng.Next(bPool.Length)];
+                second = bPool[rng.Next(bPool.Count)];
                 guard++;
-            } while (second == first && guard < 100);
+            }
+            while (second.ID == first.ID && guard < 100);
 
-            editor.SetGraceEventFlagId(first);
-            editor.SetGraceEventFlagId(second);
+            editor.SetGraceEventFlagId(first.ID);
+            editor.SetGraceEventFlagId(second.ID);
+
+            selectedGraceNames.Add(first.GraceName);
+            selectedGraceNames.Add(second.GraceName);
         }
 
-        // Liurnia: Pick 2 out of a North+South or East+West
+        // Liurnia: Pick 2 out of North+South or East+West
         {
-            var rng = urr.GetSeedManager().GetRandomByKey("grace_Liurnia");
+            Random rng = urr.GetSeedManager().GetRandomByKey("grace_Liurnia");
 
             bool useNorthSouth = rng.Next(2) == 0;
 
-            int[] aPool = useNorthSouth ? GracePools["Liurnia_North"] : GracePools["Liurnia_East"];
-            int[] bPool = useNorthSouth ? GracePools["Liurnia_South"] : GracePools["Liurnia_West"];
+            List<GracePoolModel> aPool = useNorthSouth
+                ? GracePools["Liurnia_North"]
+                : GracePools["Liurnia_East"];
 
-            int first = aPool[rng.Next(aPool.Length)];
+            List<GracePoolModel> bPool = useNorthSouth
+                ? GracePools["Liurnia_South"]
+                : GracePools["Liurnia_West"];
 
-            int second;
+            GracePoolModel first = aPool[rng.Next(aPool.Count)];
+
+            GracePoolModel second;
             int guard = 0;
+
             do
             {
-                second = bPool[rng.Next(bPool.Length)];
+                second = bPool[rng.Next(bPool.Count)];
                 guard++;
-            } while (second == first && guard < 100);
+            }
+            while (second.ID == first.ID && guard < 100);
 
-            editor.SetGraceEventFlagId(first);
-            editor.SetGraceEventFlagId(second);
+            editor.SetGraceEventFlagId(first.ID);
+            editor.SetGraceEventFlagId(second.ID);
+
+            selectedGraceNames.Add(first.GraceName);
+            selectedGraceNames.Add(second.GraceName);
         }
 
         // All other pools: pick 1 each
         foreach (var (poolName, pool) in GracePools)
         {
-            // skip Limgrave paired pools already handled above
             if (poolName == "Limgrave1") continue;
             if (poolName == "Limgrave2") continue;
 
-            // skip Liurnia paired pools already handled above
             if (poolName.StartsWith("Liurnia_")) continue;
 
             Random rng = urr.GetSeedManager().GetRandomByKey($"grace_{poolName}");
-            int selectedGrace = pool[rng.Next(pool.Length)];
-            editor.SetGraceEventFlagId(selectedGrace);
+
+            GracePoolModel selectedGrace = pool[rng.Next(pool.Count)];
+
+            editor.SetGraceEventFlagId(selectedGrace.ID);
+
+            selectedGraceNames.Add(selectedGrace.GraceName);
         }
+
+        setRandomizedGraces(selectedGraceNames);
     }
 
-    private static readonly Dictionary<string, int[]> GracePools = new()
-    {
-        ["Limgrave1"] = new[]
-        {
-            61413800, // Stormhill Shack
-            61423800, // Warmaster Shack
-            61433900, // Saintsbridge
-            61463800, // Third Church of Marika
-            61423700, // Gatefront
-            61433700, // Agheel Lake North
-            61443900, // Summoning Village Outskirts
-            61443800, // Artist Shack
-            61443500, // Agheel Lake South
-            61433500, // Seaside Ruins
-            61433800, // Murkwater Coast
-        },
-            ["Limgrave2"] = new[]
-        {
-            //61423600, // Church of Elleh
-            //61423601, // First Step
-            180001,   // Stranded Graveyard
-        },
 
-        // LIURNIA 
-        ["Liurnia_North"] = new[]
-        {
-            62364901, // The Ravine
-            62384800, // Frenzied Flame Village Outskirts
-            62354700, // East Gate Bridge Trestle
-            62344701, // Sorceror's Island
-            62364500, // Gate Town North
-            62334600, // Foot of the 4 Belfries
-            62344900, // Road to the Manor
-            62364800, // East Raya Lucaria Gate
-        },
-            ["Liurnia_South"] = new[]
-        {
-            62354500, // South Raya Lucaria Gate
-            62374400, // Academy Gate Town
-            62364301, // Fallen Ruins of the Lake
-            62374200, // Scenic Island
-            62394200, // Liurnia Highway North
-            62394100, // Liurnia Highway South
-            62384100, // Laskay Ruins
-            62384000, // Liurnia Lake Shore
-        },
-            ["Liurnia_East"] = new[]
-        {
-            62384300, // Gate Town Bridge
-            62384100, // Laskay Ruins
-            62374200, // Scenic Island
-            62374400, // Academy Gate Town
-            62394200, // Liurnia Highway North
-            62384000, // Liurnia Lake Shore
-            62384800, // Frenzied Flame Village Outskirts
-            62384501, // Eastern Liurnia Lake Shore
-        },
-        ["Liurnia_West"] = new[]
-        {
-            62344400, // Temple Quarter
-            62334600, // Foot of the 4 Belfries
-            62344900, // Road to the Manor
-            62344701, // Sorceror's Island
-            62354700, // East Gate Bridge Trestle
-            62364301, // Fallen Ruins of the Lake
-            62344600, // Crystallian Woods
-            62384500, // Artist Shack
-        },
-        // WEEPING 
-        ["Weeping1"] = new[]
-        {
-            61413200, // Isolated Merchant Shack
-            61443301, // South of the Lookout Tower
-            61433400, // Church of Pilgrimage
-            61443302, // Ailing Village Outskirts
-            61443400, // Bridge of Sacrifice
-            61443300, // Castle Morne Rampart
-            61413300, // Fourth Church of Marika
-            61423300, // Tombsward
-        },
-        // CAELID
-            ["Caelid1"] = new[]
-        {
-            64493801, // Inner Aeonia
-            64493902, // Sellia Understair
-            64493900, // Sellia Backstreets
-            64483800, // Aeonia Swamp Shore
-            64474000, // Caelem Ruins
-            64473900, // Fort Gael North
-            64493700, // Southern Aeonia Swamp Bank
-            64483801, // Astray from Caelid Highway North
-            64483900, // Smoldering Wall
-            64524100, // Lenna's Rise
-            64484001, // Dragonbarrow West
-        },
-    };
+    private static readonly Dictionary<string, List<GracePoolModel>> GracePools =
+        CsvReaderUtils.Read<GracePoolModel>(
+            Path.Combine(Constants.Misc, "basedlc", "grace_pools.csv"))
+        .GroupBy(x => x.GraceRegion)
+        .ToDictionary(
+            g => g.Key,
+            g => g.ToList());
 }

@@ -8,17 +8,10 @@
 // ==/EMEVD==
 
 $Event(0, Default, function() {
-    InitializeEvent(0, 1901, 1144448010, 1056460000, 60120);
-    InitializeEvent(1, 1901, 1144448020, 1056460010, 60130);
-    InitializeEvent(2, 1901, 1144448030, 1056460020, 65610);
-    InitializeEvent(3, 1901, 1144448040, 1056460030, 65640);
-    InitializeEvent(4, 1901, 1144448050, 1056460040, 65660);
-    InitializeEvent(5, 1901, 1144448060, 1056460050, 65680);
-    InitializeEvent(6, 1901, 1144448070, 1056460060, 65720);
     InitializeEvent(0, 701, 0);
     InitializeEvent(0, 707, 0);
     InitializeEvent(0, 705, 0);
-    InitializeEvent(0, 900, 0);
+    //InitializeEvent(0, 900, 0);
     InitializeEvent(0, 901, 0);
     InitializeEvent(0, 902, 0);
     InitializeEvent(0, 910, 0);
@@ -448,6 +441,31 @@ $Event(0, Default, function() {
     InitializeEvent(0, 9943, 0);
     InitializeEvent(0, 9940, 0);
     InitializeEvent(0, 1700, 0);
+    
+    // grace progression events
+    InitializeEvent(0, 11100084, 0);
+    InitializeEvent(0, 11100085, 0);
+    InitializeEvent(0, 11100086, 0);
+    InitializeEvent(0, 11100087, 0);
+    InitializeEvent(0, 11100088, 0);
+    InitializeEvent(0, 11100089, 0);
+    InitializeEvent(0, 11100090, 0);
+    InitializeEvent(0, 11100091, 0);
+    InitializeEvent(0, 11100092, 0);
+
+    // Remembrance bosses pairs    
+    InitializeEvent(0, 11120000, 10000800, 14000800, 12030850);     //Godrick Rennala || Fortisax
+    InitializeEvent(1, 11120000, 10000800, 1252380800, 12050800);   //Godrick Radahn  || Mohg, Lord of Blood
+    InitializeEvent(2, 11120000, 1252380800, 14000800, 15000800);   //Radahn Rennal   || Malenia
+    InitializeEvent(3, 11120000, 1252380800, 12040800, 1052520800); //Radahn Astel    || Fire Giant
+    InitializeEvent(4, 11120000, 10000800, 12040800, 12090800);     //Godrick Astel   || Regal
+    InitializeEvent(5, 11120000, 14000800, 12040800, 11000800);     //Rennala Astel   || Morgott
+    InitializeEvent(6, 11120000, 10000800, 16000800, 13000800);     //Godrick Rykard  || Maliketh
+    InitializeEvent(7, 11120000, 14000800, 16000800, 13000830);     //Rennala Rykard  || Placi
+    InitializeEvent(8, 11120000, 1252380800, 16000800, 12090800);   //Radahn Rykard   || Regal
+    InitializeEvent(9, 11120000, 12040800, 16000800, 12090800);     //Astel Rykard    || Regal    
+    
+    //InitializeEvent(0, 11120001, 4535, 16000800);     //Rellana Dancing Lion
 });
 
 $Event(50, Default, function() {
@@ -706,6 +724,282 @@ L0:
     InitializeEvent(0, 6910, 0);
     EndEvent();
 });
+
+// Unlock post-Altus graces (when Altus is reached)
+$Event(11100084, Default, function() {
+    //EndIf(ThisEventSlot());
+    EndIf(EventFlag(11107000));
+    // 9410 is one of the event flags for activating the teleporter at Impassable Great Bridge
+    // I tested by grabbing the first graces along the 3 ways into Altus, and it activated when
+    // I touched the grace, so I think it's fine. Gameplay may reveal a flaw in this event flag!
+    
+    
+    //Previous Version Checks for 9410, to allow for Radahn Festival I will be checking Altus Graces
+    //For Now, Previous line is WaitFor(EventFlag(9410));
+    //WaitFor(EventFlag(9410));
+    
+    WaitFor
+    (EventFlag(76301) //Altus Plateau
+      || EventFlag(76302) //Erdtree Gazing Hill
+      || EventFlag(76300) //Abandoned Coffin
+      || EventFlag(76303) //Altus Highway Junction
+      || EventFlag(76354) //Seethwater River
+      || EventFlag(76303) //Altus Highway Junction
+      || EventFlag(76320) //Shaded Castle Ramparts
+      || EventFlag(76321) //Shaded Castle Inner Gate
+      || EventFlag(76309) //Outer Wall Phantom Tree
+      || EventFlag(76312) //Outer Wall Battleground
+      || EventFlag(76304) //Forest, Spanning Greatbridge
+      || EventFlag(76306) //Bower of Bounty
+      ); 
+    
+    const progressiveGracesTier1 = [
+        //        Area            - Grace Name
+        //        ----              ----------
+        // 76303, // Altus           - Altus Highway Junction
+        76312, // Altus Plateau   - Outer Wall Battleground
+        76353, // Mt. Gelmir      - Road of Iniquity
+        76356, // Mt. Gelmir      - Craftsman's Shack
+        76521, // Mountaintops    - Snow Valley Ruins Overlook
+        76551, // Consecrated     - Inner Consecrated Snowfield
+        71234, // Deeproot Depths - Nameless Eternal City
+        71216, // Lake of Rot     - Lake of Rot Shoreside
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Golden Seeds and Sacred Tears
+    AwardItemLot(5310); // sets event flag 11107000
+    
+    // Some base game graces were unlocked, including underground
+    DisplayGenericDialog(30068, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    // SetThisEventSlot(ON);
+});
+
+// Unlock War-Dead Catacombs grace (when Radahn is defeated)
+$Event(11100085, Default, function() {
+    EndIf(ThisEventSlot());
+    // 9130 is the event flag for "Defeated Starscourge Radahn"
+    WaitFor(EventFlag(9130));
+    
+    const progressiveGracesTier1 = [
+        //        Area             - Grace Name
+        //        ----               ----------
+        73016, // Caelid           - Wardead Catacombs
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // War-Dead catacombs grace was unlocked
+    //DisplayGenericDialog(30073, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+// Unlock DLC graces. Currently unlocks when any 2 remembrance bosses are defeated
+$Event(11100086, Default, function() {
+    EndIf(ThisEventSlot());
+    // 9130 is the event flag for "Defeated Starscourge Radahn"
+    // 9182 is the event flag for "Defeated Elemer of the Briar"
+    // 182 is the event flag for "Acquired 2 Great Runes"
+    //WaitFor(EventFlag(9130) || EventFlag(9182) || EventFlag(182));
+    
+    // Wait for 2 remembrances to be killed
+    WaitFor(EventFlag(11104088));
+    
+    const progressiveGracesTier1 = [
+        //        Area             - Grace Name
+        //        ----               ----------
+        76801, // Gravesite Plain  - Scorched Ruins
+        76902, // Scadu Altus      - Moorth Ruins
+        // 76833, // Cerulean Coast   - The Fissure
+        72801, // Midra's Manse    - Manse Hall
+        
+        // 76916, // Scadu Altus      - Castle Watering Hole
+        // 76841, // Charo's          - Charo's Hidden Grave
+        // 76835, // Cerulean Coast   - Cerulean Coast Cross
+        // 76913, // Rauh Base        - Temple Town Ruins
+        // 76940, // Ancient Rauh     - Viaduct Minor Tower
+        // 76905, // Scadu Altus      - Church District Highroad
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Some DLC graces were unlocked
+    //DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+// Unlock deeper DLC graces (when Ancient Dragon-Man is defeated)
+$Event(11100087, Default, function() {
+    EndIf(ThisEventSlot());
+    // 43010800 is the event flag for "Defeated Ancient Dragon-Man"
+    WaitFor(EventFlag(43010800));
+    
+    const progressiveGracesTier1 = [
+        //        Area                  - Grace Name
+        //        ----                    ----------
+        //76852, // Jagged Peak           - Jagged Peak Summit
+        // 76851, // Jagged Peak           - Jagged Peak Mountainside
+        76850, // Jagged Peak           - Foot of the Jagged Peak
+        76841, // Charo's Hidden Grave  - Charo's Hidden Grave
+        //76833, // Cerulean Coast   - The Fissure
+    ];
+    
+    for (let i = 0; i < progressiveGracesTier1.length; i++) {
+        SetEventFlagID(progressiveGracesTier1[i], ON);
+    }
+    
+    // Some south graces were unlocked
+    DisplayGenericDialog(30072, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+$Event(11100088, Default, function() {
+    EndIf(ThisEventSlot());
+   
+    // Wait until Haligtree Canopy grace has been activated
+    WaitFor(EventFlag(71506));
+   
+    // 71502 - Haligtree - Elphael Inner Wall
+    SetEventFlagID(71502, ON);
+    
+    // The Elphael Inner Wall grace was unlocked
+    DisplayGenericDialog(30076, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);    
+});
+
+$Event(11100089, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    WaitFor(EventFlag(330)); // Burned the Sealing Tree and warped to Enir-Ilim
+    
+    // 72016   Enir-Ilim - Divine Gate Front Staircase
+    SetEventFlagID(72016, ON);
+    
+    // The Divine Gate Front Staircase grace was unlocked
+    DisplayGenericDialog(30075, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    SetThisEventSlot(ON);
+});
+
+//$Event(11100090, Default, function() {
+//    EndIf(ThisEventSlot());
+//    
+//    // 72106    Shadow Keep, Church District - Church District Entrance
+//    WaitFor(EventFlag(21000850)); // Hippo is dead 
+//    
+//    // 76940    Ancient Ruins of Rauh - Viaduct Minor Tower
+//    SetEventFlagID(76940, ON);
+//    
+//    // Viaduct Minor Tower grace has been unlocked
+//    DisplayGenericDialog(30077, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+//  
+//    SetThisEventSlot(ON);
+//});
+
+$Event(11100090, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    WaitFor(PlayerHasItemIncludingBBox(ItemType.Goods, 8105) || PlayerHasItemIncludingBBox(ItemType.Goods, 8106));
+    //If the Player has Dectus Left -> Turn on Fort Faroth Grace
+    if (PlayerHasItemIncludingBBox(ItemType.Goods, 8105)) {
+        SetEventFlagID(76453, ON); //Turn on Fort Faroth Grace
+    }
+    
+    //If the Player has Dectus Right -> Turn on Fort Haight Grace
+    if (PlayerHasItemIncludingBBox(ItemType.Goods, 8106)) {
+        SetEventFlagID(76105, ON); // Turn on Forth Haight West Grace
+    }
+    
+    SetThisEventSlot(ON);
+});
+
+$Event(11100091, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    // 76508    Mountaintops of the Giants - Flame Peak - Foot of the Forge
+    WaitFor(EventFlag(76508));
+    
+    // 71309    Crumbling Farum Azula - Dragon Temple Rooftop
+    //SetEventFlagID(71309, ON);
+    
+    // 71309    Crumbling Farum Azula - Crumbling Beast Grave
+    SetEventFlagID(71303, ON);
+    
+    // Dragon Temple Rooftop grace has been unlocked
+    //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+  
+    SetThisEventSlot(ON);
+});
+
+$Event(11100092, Default, function() {
+    EndIf(ThisEventSlot());
+    
+    // 76508    Crumbling Farum Azula - Dragon Temple
+    WaitFor(EventFlag(71306));
+    
+    // 71309 - Crumbling Farum Azula - Dragon Temple Rooftop
+    // 71310 - Crumbling Farum Azula - Beside the Greatbridge
+    SetEventFlagID(71309, ON);
+    SetEventFlagID(71310, ON);
+    // Dragon Temple Rooftop grace has been unlocked
+    //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+  
+    SetThisEventSlot(ON);
+});
+
+
+$Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
+    EndIf(EventFlag(11104088));
+    WaitFor(
+    (EventFlag(firstMembie) && EventFlag(secondMembie)) || (EventFlag(singleMembie)) // our condition
+        || EventFlag(11104088)                 // whether another of these events has triggered
+    );
+    
+    // For any other live events that are waiting (can this even trigger?)
+    if (EventFlag(11104088)) {
+      EndEvent();
+    }
+    
+    // Flask of Wondrous Physick is for sale at roundtable
+    SetEventFlagID(11109774, ON);
+    // Some DLC graces and Capital were unlocked
+    DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    // Golden Seeds and Sacred Tears
+    AwardItemLot(5300);
+    
+    // This event has triggered
+    SetEventFlagID(11104088, ON);
+});
+
+
+//$Event(11120001, Default, function(firstMembie, secondMembie) {
+//    EndIf(EventFlag(11104089));
+//    WaitFor(
+//    (EventFlag(firstMembie) && EventFlag(secondMembie)) // our condition
+//        || EventFlag(11104089)                 // whether another of these events has triggered
+//    );
+//    
+//    // For any other live events that are waiting (can this even trigger?)
+//    if (EventFlag(11104089)) {
+//      EndEvent();
+//    }
+//    
+//    // This event has triggered
+//    SetEventFlagID(11104089, ON);
+//});
 
 
 $Event(130, Default, function(X0_4) {
@@ -1424,7 +1718,9 @@ $Event(910, Default, function() {
         SetSpEffect(10000, 4282);
         if (!EventFlag(9417)) {
             WaitFixedTimeSeconds(0.5);
-            DisplayGenericDialog(30140, PromptType.OKCANCEL, NumberofOptions.OneButton, 0, 5);
+            // War-Dead Catacombs was unlocked
+            DisplayGenericDialog(30073, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+            //DisplayGenericDialog(30140, PromptType.OKCANCEL, NumberofOptions.OneButton, 0, 5);
             SetEventFlagID(9417, ON);
         }
         WaitFor(EventFlag(76422) || EventFlag(73016));
@@ -2389,7 +2685,6 @@ L10:
     }
 });
 
-
 $Event(1600, Default, function(X0_4, X4_4, X8_4, X12_4) {
     DisableNetworkSync();
     if (!PlayerIsInOwnWorld()) {
@@ -2778,17 +3073,6 @@ $Event(1801, Restart, function() {
             && EventFlag(9430));
     SetEventFlagID(9421, ON);
     SetCharacterFaceParamOverride(10000, 1, 80000);
-});
-
-// activate a flag conditionally upon another flag's activation
-$Event(1901, Restart, function(X0_4, X4_4, X8_4) {
-    // X0_4 - eventflag for this specific event to run only once
-    // X4_4 - eventflag to wait for activation
-    // X8_4 - eventflag to activate
-    EndIf(EventFlag(X0_4));
-    WaitFor(EventFlag(X4_4));
-    SetEventFlagID(X8_4, ON);
-    SetEventFlagID(X0_4, ON);
 });
 
 $Event(6800, Restart, function(X0_4, X4_4) {
@@ -3735,9 +4019,10 @@ $Event(9390, Restart, function(X0_4, X4_4, X8_4, X12_4, X16_4, X20_4) {
 $Event(9440, Default, function() {
     if (PlayerIsInOwnWorld()) {
         EndIf(EventFlag(9440));
-        WaitFor(EventFlag(2053460600) && EventFlag(2050400600) && PlayerIsInOwnWorld());
+        WaitFor(EventFlag(2053460600) || EventFlag(2050400600) && PlayerIsInOwnWorld());
         if (PlayerIsInOwnWorld()) {
             SetNetworkconnectedEventFlagID(9440, ON);
+            DisableAsset(2051451500);
         }
         EndEvent();
     }
@@ -3869,9 +4154,9 @@ $Event(3040, Default, function() {
 L20:
         if (!EventFlag(9411)) {
             if (!EventFlag(9410)) {
-                WaitFor(
-                    PlayerIsInOwnWorld()
-                        && (EventFlag(1044369223) || EventFlag(1034499224) || EventFlag(3063)));
+                //Remove this to allow for the Radahn Festival to be active by default
+                //WaitFor(PlayerIsInOwnWorld() && (EventFlag(1044369223) || EventFlag(1034499224) || EventFlag(3063)));
+                WaitFor(PlayerIsInOwnWorld());
                 if (PlayerIsInOwnWorld()) {
                     SetNetworkconnectedEventFlagID(9410, ON);
                 }
@@ -8827,13 +9112,15 @@ $Event(4858, Restart, function(X0_4, X4_4, X8_4, X12_4) {
     EndEvent();
 });
 
+//Changed Metyr to only be 1 horn by changing F5 and F6 and F7 to be OR statements
+//This removes the Ymir talk interaction for Beloved Stardust
 $Event(4859, Restart, function(X0_4, X4_4, X8_4, X12_4, X16_4, X20_4, X24_4) {
     SetEventFlagID(X0_4, OFF);
     if ((EventFlag(X4_4)
         && !EventFlag(X8_4)
         && !EventFlag(X12_4)
         && !(EventFlag(X16_4) && EventFlag(X20_4)))
-        || (EventFlag(X16_4) && EventFlag(X20_4) && EventFlag(X24_4))) {
+        || ((EventFlag(X16_4) || EventFlag(X20_4)) || EventFlag(X24_4))) {
         SetEventFlagID(X0_4, ON);
     }
     EndEvent();
