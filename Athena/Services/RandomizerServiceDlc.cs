@@ -230,7 +230,7 @@ public class RandomizerServiceDlc
             }
             else if (mode == DlcMode.Eldensquares)
             {
-                editor.SetInitialMaxHpFlasks(charaInitId, 7);
+                editor.SetInitialMaxHpFlasks(charaInitId, 6);
                 editor.SetInitialMaxFpFlasks(charaInitId, 1);
 
             }
@@ -276,8 +276,16 @@ public class RandomizerServiceDlc
                 {
                     Random tierRng = seedManager.GetRandomByKey("StartingTier");
                     int somberOrSmithingWeapon = tierRng.Next(0, 2);
-                    int tier = tierRng.Next(1, 4);
 
+                    bool isSmithing = tierRng.Next(0, 2) == 0;
+
+                    shopWeaponsFilePath = isSmithing
+                        ? $"{Constants.Misc}/dlc/eldensquares/shop_weapons_smithing.csv"
+                        : $"{Constants.Misc}/dlc/eldensquares/shop_weapons_somber.csv";
+
+                    /*
+                    //int tier = tierRng.Next(1, 4);
+                    
                     // This will be Smithing
                     if (somberOrSmithingWeapon == 0)
                     {
@@ -288,7 +296,10 @@ public class RandomizerServiceDlc
                     {
                         shopWeaponsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_weapons_somber_tier_{tier}.csv";
                     }
+                    */
 
+
+                    shopItemsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_items.csv";
                     shopArmorSetsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_armor_sets.csv";
                     break;
                 }
@@ -416,15 +427,41 @@ public class RandomizerServiceDlc
         int numberOfShopWeapons = mode switch
         {
             DlcMode.Anamnesis => 4,
-            DlcMode.Eldensquares => 5,
+            DlcMode.Eldensquares => 4,
             _ => 3
         };
 
         int GraftedDragonItemId = 21060009;
 
-        // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
+        // Setup the randomized weapons in the Starlight Shards shop.
         // The Starlight Shards shop may share weapons from the common pool (there can be duplicates if the csv has duplicates)
-        List<GameItemModel> starlightWeapons = CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+        // If mode is Eldensquares, it generates a window from the weapon pool and then picks weapons from window instead of whole csv.
+
+        List<GameItemModel> starlightWeapons;
+
+        if (mode == DlcMode.Eldensquares)
+        {
+            List<GameItemModel> fullWeaponPool =
+                CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+
+            Random windowRng = seedManager.GetRandomByKey("WeaponWindow");
+
+            // This determines the window of weapons picked.
+            int windowSize = 7;
+            int maxStartIndex = fullWeaponPool.Count - windowSize;
+            int startIndex = windowRng.Next(0, maxStartIndex + 1);
+
+            starlightWeapons = fullWeaponPool
+                .Skip(startIndex)
+                .Take(windowSize)
+                .ToList();
+        }
+        else
+        {
+            starlightWeapons =
+                CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+        }
+
         OptimizedRandomizationGroup merchantMillicentWeapons = new(numberOfShopWeapons, starlightWeapons.Count);
         urr.AddGroup("merchantMillicentWeapons", merchantMillicentWeapons);
         int[] replacementIndexes = urr.RandomizeGroup("merchantMillicentWeapons");
@@ -716,16 +753,35 @@ public class RandomizerServiceDlc
             sourcePath: mode == DlcMode.Anamnesis ? menuAnamnesisPath : null
         );
 
-        // Events (default vs Anamnesis)
+        // Events (default vs Anamnesis/EldenSquares)
         string eventPath = Path.Combine(Constants.MenuBndOutDlc, "event");
-        string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_default");
+        string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_dlc");
         string eventAnamnesisPath = Path.Combine(Constants.ModeFolders, "event_anamnesis");
+        string eventEldensquaresPath = Path.Combine(Constants.ModeFolders, "event_eldensquares");
 
         modeService.UpdateFolder(
             targetPath: eventPath,
-            sourcePath: mode == DlcMode.Anamnesis
-                ? eventAnamnesisPath
-                : eventDefaultPath
+            sourcePath: mode switch
+            {
+                DlcMode.Anamnesis => eventAnamnesisPath,
+                DlcMode.Eldensquares => eventEldensquaresPath,
+                _ => eventDefaultPath
+            }
         );
+
+        // Talk Scripts (default vs Elden Squares)
+        string scriptPath = Path.Combine(Constants.MenuBndOutDlc, "script");
+        string scriptDefaultPath = Path.Combine(Constants.ModeFolders, "script_dlc");
+        string scriptEldensquaresPath = Path.Combine(Constants.ModeFolders, "script_eldensquares");
+
+        modeService.UpdateFolder(
+            targetPath: scriptPath,
+            sourcePath: mode == DlcMode.Eldensquares
+                ? scriptEldensquaresPath
+                : scriptDefaultPath
+        );
+
+        // Regulation for Weapon Reqs (default vs Elden Squares)
+
     }
 }

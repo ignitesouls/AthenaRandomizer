@@ -82,7 +82,7 @@
                 </Grid.RowDefinitions>
 
                 <RadioButton Grid.Row="0" Grid.Column="0" 
-                     Content="Regular"
+                     Content="Original"
                      Margin="3"
                      FontSize="11"
                      GroupName="DlcModeGroup"
