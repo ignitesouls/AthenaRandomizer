@@ -81,5 +81,23 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 10167,Somber Smithing Stone [8],20000,Upgrade Stone,Good,3,,-1
 10200,Somber Smithing Stone [9],25000,Upgrade Stone,Good,3,,-1
 30200,Ash of War: Parry,600,Ash of War,Gem,4,100820,1
-10020,Sacred Tear,15000,Flask Upgrade,Good,3,,-1
-10010,Golden Seed,5000,Flask Upgrade,Good,3,,-1
+10020,Sacred Tear,15000,Flask Upgrade,Good,3,,6
+10010,Golden Seed,10000,Flask Upgrade,Good,3,,7
+10900,Grave Glovewort [1],800,Upgrade Stone,Good,3,,-1
+10901,Grave Glovewort [2],1200,Upgrade Stone,Good,3,,-1
+10902,Grave Glovewort [3],1600,Upgrade Stone,Good,3,,-1
+10903,Grave Glovewort [4],2400,Upgrade Stone,Good,3,,-1
+10904,Grave Glovewort [5],3200,Upgrade Stone,Good,3,,-1
+10905,Grave Glovewort [6],4000,Upgrade Stone,Good,3,,-1
+10906,Grave Glovewort [7],5000,Upgrade Stone,Good,3,,-1
+10907,Grave Glovewort [8],6000,Upgrade Stone,Good,3,,-1
+10908,Grave Glovewort [9],8000,Upgrade Stone,Good,3,,-1
+10910,Ghost Glovewort [1],1200,Upgrade Stone,Good,3,,-1
+10911,Ghost Glovewort [2],1800,Upgrade Stone,Good,3,,-1
+10912,Ghost Glovewort [3],2400,Upgrade Stone,Good,3,,-1
+10913,Ghost Glovewort [4],3600,Upgrade Stone,Good,3,,-1
+10914,Ghost Glovewort [5],4800,Upgrade Stone,Good,3,,-1
+10915,Ghost Glovewort [6],6000,Upgrade Stone,Good,3,,-1
+10916,Ghost Glovewort [7],7500,Upgrade Stone,Good,3,,-1
+10917,Ghost Glovewort [8],9000,Upgrade Stone,Good,3,,-1
+10918,Ghost Glovewort [9],12000,Upgrade Stone,Good,3,,-1

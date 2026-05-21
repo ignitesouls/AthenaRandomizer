@@ -432,6 +432,9 @@ public class RandomizerServiceDlc
         };
 
         int GraftedDragonItemId = 21060009;
+        int SerpentFlailItemId = 13500009;
+        int PolebladeBudItemId = 18510009;
+        int FlowerstoneGavelId = 11500000;
 
         // Setup the randomized weapons in the Starlight Shards shop.
         // The Starlight Shards shop may share weapons from the common pool (there can be duplicates if the csv has duplicates)
@@ -510,8 +513,11 @@ public class RandomizerServiceDlc
                 equipID = materialId == 2200 ? equipID + 9 : equipID + 24;
             }
 
-            //Dual-Wielding Grafted Dragons
-            if (equipID == GraftedDragonItemId)
+            //Dual-Wielding Weapons
+            if (equipID == GraftedDragonItemId ||
+                equipID == SerpentFlailItemId ||
+                equipID == PolebladeBudItemId ||
+                equipID == FlowerstoneGavelId)
             {
                 starlightWeaponNumSold = (ushort)2;
                 //editor.SetEquipWeaponMaxAmmunition(21060000, 0);
