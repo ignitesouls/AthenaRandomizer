@@ -104,8 +104,11 @@ public class RandomizerServiceDlc
 
         InitDlcShop(editor, urr, mode);
 
-        InitAnamnesisRemembrances(editor, urr);
-        
+        if (mode == DlcMode.Anamnesis)
+        {
+            InitAnamnesisRemembrances(editor, urr);
+        }
+
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
         Dictionary<int, List<int>> weaponIdsToShopLineup = editor.GetWeaponIdsToShopLineup();
@@ -434,7 +437,7 @@ public class RandomizerServiceDlc
         int GraftedDragonItemId = 21060009;
         int SerpentFlailItemId = 13500009;
         int PolebladeBudItemId = 18510009;
-        int FlowerstoneGavelId = 11500000;
+        int FlowerstoneGavelId = 11500009;
 
         // Setup the randomized weapons in the Starlight Shards shop.
         // The Starlight Shards shop may share weapons from the common pool (there can be duplicates if the csv has duplicates)

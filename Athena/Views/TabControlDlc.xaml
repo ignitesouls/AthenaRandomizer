@@ -110,7 +110,7 @@
                      IsChecked="{Binding DlcMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static services:DlcMode.Anamnesis}}" />
 
                 <RadioButton Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                     Content="Elden Squares"
+                     Content="League"
                      Margin="3"
                      FontSize="11"
                      GroupName="DlcModeGroup"
