@@ -14,7 +14,8 @@ public enum DlcMode
     Default,
     Moonwalk,
     Omenveil,
-    Anamnesis
+    Anamnesis,
+    Eldensquares
 }
 
 public class RandomizerServiceDlc
@@ -22,9 +23,16 @@ public class RandomizerServiceDlc
     private string SeedManagerPrefix;
     private const int StarlightShopMenuTextId = 508000;
 
+    ModeService modeService = new();
     private RandomizerServiceStartingClass randomizerServiceStartingClass = new();
     RandomizerServiceStartingClass.ClassStatAllocation startingStats;
     private int[] anamnesisStarlightWeapons;
+    
+    // Weapons that are in the Starlight Shard Shop
+    List<string> weaponsInTheStarlightShop = new List<string>();
+
+    // Using this property for the UI
+    public List<string> WeaponsInTheStarlightShop => weaponsInTheStarlightShop;
 
 
     public RandomizerServiceDlc(string appVersion)
@@ -38,7 +46,8 @@ public class RandomizerServiceDlc
                              DlcMode mode,
                              Action<int?>? updateBaseSeedCallback,
                              Action<int?>? updateRandomizedSeedCallback,
-                             Action<DlcMode?>? updateRandomizedModeDlcCallback)
+                             Action<DlcMode?>? updateRandomizedModeDlcCallback,
+                             Action<List<string>>? updateWeaponsListCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeDlc");
         //SimulationUtils.SimulateDlcToFile(10_000);
@@ -71,6 +80,12 @@ public class RandomizerServiceDlc
                     randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/anamnesis";
                     break;
                 }
+            case DlcMode.Eldensquares:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_eldensquares";
+                    randomizationGroupsDirPath = $"{Constants.RandomizationGroupsDlc}/eldensquares";
+                    break;
+                }
             default:
                 {
                     seedManagerPrefix = SeedManagerPrefix;
@@ -89,8 +104,11 @@ public class RandomizerServiceDlc
 
         InitDlcShop(editor, urr, mode);
 
-        InitAnamnesisRemembrances(editor, urr);
-        
+        if (mode == DlcMode.Anamnesis)
+        {
+            InitAnamnesisRemembrances(editor, urr);
+        }
+
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
         Dictionary<int, List<int>> weaponIdsToShopLineup = editor.GetWeaponIdsToShopLineup();
@@ -114,6 +132,7 @@ public class RandomizerServiceDlc
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
         updateRandomizedModeDlcCallback?.Invoke(mode);
+        updateWeaponsListCallback?.Invoke(weaponsInTheStarlightShop);
     }
 
     private void InitStartingClassesDlc(ParamsEditor editor, DlcMode mode = DlcMode.Default)
@@ -146,6 +165,13 @@ public class RandomizerServiceDlc
                 {
                     // default
                     GlintstoneStaffItemId = 33090000 + 10; //Carian Regal Scepter
+                    startingStats = new(Stats: new int[] { 40, 10, 10, 10, 10, 10, 10, 10 });
+                    break;
+                }
+            case DlcMode.Eldensquares:
+                {
+                    // default
+                    GlintstoneStaffItemId = Constants.GlintstoneStaffItemId + 25;
                     startingStats = new(Stats: new int[] { 40, 10, 10, 10, 10, 10, 10, 10 });
                     break;
                 }
@@ -205,6 +231,12 @@ public class RandomizerServiceDlc
                 editor.SetInitialMaxFpFlasks(charaInitId, 1);
 
             }
+            else if (mode == DlcMode.Eldensquares)
+            {
+                editor.SetInitialMaxHpFlasks(charaInitId, 6);
+                editor.SetInitialMaxFpFlasks(charaInitId, 1);
+
+            }
 
         }
     }
@@ -216,6 +248,10 @@ public class RandomizerServiceDlc
         string shopItemsFilePath = $"{Constants.Misc}/dlc/shop_items.csv";
         string shopArmorSetsFilePath;
         string shopWeaponsFilePath;
+        Random random = new Random();
+
+        int baseSeed = urr.GetBaseSeed();
+        SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed); // Moved earlier so tier selection uses the shared seed manager
 
         switch (mode)
         {
@@ -237,6 +273,37 @@ public class RandomizerServiceDlc
                     shopItemsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_items.csv";
                     shopArmorSetsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_armor_sets.csv";
                     shopWeaponsFilePath = $"{Constants.Misc}/dlc/anamnesis/shop_weapons.csv";
+                    break;
+                }
+            case DlcMode.Eldensquares:
+                {
+                    Random tierRng = seedManager.GetRandomByKey("StartingTier");
+                    int somberOrSmithingWeapon = tierRng.Next(0, 2);
+
+                    bool isSmithing = tierRng.Next(0, 2) == 0;
+
+                    shopWeaponsFilePath = isSmithing
+                        ? $"{Constants.Misc}/dlc/eldensquares/shop_weapons_smithing.csv"
+                        : $"{Constants.Misc}/dlc/eldensquares/shop_weapons_somber.csv";
+
+                    /*
+                    //int tier = tierRng.Next(1, 4);
+                    
+                    // This will be Smithing
+                    if (somberOrSmithingWeapon == 0)
+                    {
+                        shopWeaponsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_weapons_smithing_tier_{tier}.csv";
+                    }
+                    //This will be Somber
+                    else
+                    {
+                        shopWeaponsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_weapons_somber_tier_{tier}.csv";
+                    }
+                    */
+
+
+                    shopItemsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_items.csv";
+                    shopArmorSetsFilePath = $"{Constants.Misc}/dlc/eldensquares/shop_armor_sets.csv";
                     break;
                 }
             default:
@@ -281,8 +348,6 @@ public class RandomizerServiceDlc
 
         // Setup the randomized armor set in the runes shop.
         List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>(shopArmorSetsFilePath);
-        int baseSeed = urr.GetBaseSeed();
-        SeedManager seedManager = new SeedManager(SeedManagerPrefix, baseSeed);
         Random rng = seedManager.GetRandomByKey("armor_sets.csv");
         ArmorSetModel armor = armorGroup[rng.Next(armorGroup.Count)];
 
@@ -359,16 +424,54 @@ public class RandomizerServiceDlc
         currentShopLineupId = 9200000;
         currentEventFlagID = 1056457000;
 
-        int numberOfShopWeapons = mode == DlcMode.Anamnesis ? 4 : 3;
+        //int numberOfShopWeapons = mode == DlcMode.Anamnesis ? 4 : 3;
+
+        // Change for the different DLC modes for Bingo. Determines on how many weapons are in the shop. 
+        int numberOfShopWeapons = mode switch
+        {
+            DlcMode.Anamnesis => 4,
+            DlcMode.Eldensquares => 4,
+            _ => 3
+        };
 
         int GraftedDragonItemId = 21060009;
+        int SerpentFlailItemId = 13500009;
+        int PolebladeBudItemId = 18510009;
+        int FlowerstoneGavelId = 11500009;
 
-        // Setup the randomized weapons in the Starlight Shards shop. It has 3 total.
+        // Setup the randomized weapons in the Starlight Shards shop.
         // The Starlight Shards shop may share weapons from the common pool (there can be duplicates if the csv has duplicates)
-        List<GameItemModel> starlightWeapons = CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+        // If mode is Eldensquares, it generates a window from the weapon pool and then picks weapons from window instead of whole csv.
+
+        List<GameItemModel> starlightWeapons;
+
+        if (mode == DlcMode.Eldensquares)
+        {
+            List<GameItemModel> fullWeaponPool =
+                CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+
+            Random windowRng = seedManager.GetRandomByKey("WeaponWindow");
+
+            // This determines the window of weapons picked.
+            int windowSize = 7;
+            int maxStartIndex = fullWeaponPool.Count - windowSize;
+            int startIndex = windowRng.Next(0, maxStartIndex + 1);
+
+            starlightWeapons = fullWeaponPool
+                .Skip(startIndex)
+                .Take(windowSize)
+                .ToList();
+        }
+        else
+        {
+            starlightWeapons =
+                CsvReaderUtils.Read<GameItemModel>(shopWeaponsFilePath);
+        }
+
         OptimizedRandomizationGroup merchantMillicentWeapons = new(numberOfShopWeapons, starlightWeapons.Count);
         urr.AddGroup("merchantMillicentWeapons", merchantMillicentWeapons);
         int[] replacementIndexes = urr.RandomizeGroup("merchantMillicentWeapons");
+        weaponsInTheStarlightShop = new List<string>();
 
         for (int i = 0; i < replacementIndexes.Length; i++)
         {
@@ -413,8 +516,11 @@ public class RandomizerServiceDlc
                 equipID = materialId == 2200 ? equipID + 9 : equipID + 24;
             }
 
-            //Dual-Wielding Grafted Dragons
-            if (equipID == GraftedDragonItemId)
+            //Dual-Wielding Weapons
+            if (equipID == GraftedDragonItemId ||
+                equipID == SerpentFlailItemId ||
+                equipID == PolebladeBudItemId ||
+                equipID == FlowerstoneGavelId)
             {
                 starlightWeaponNumSold = (ushort)2;
                 //editor.SetEquipWeaponMaxAmmunition(21060000, 0);
@@ -435,8 +541,10 @@ public class RandomizerServiceDlc
             editor.SetShopLineupNumSold(shopLineupId, starlightWeaponNumSold);
             editor.SetShopLineupSellQuantity(shopLineupId, starlightWeaponSellQuantity);
             editor.SetShopLineupMenuTextId(shopLineupId, StarlightShopMenuTextId);
+
+            weaponsInTheStarlightShop.Add(weapon.Name);
         }
-        
+
         List<ShopItemModel> physickTears = new();
         List<ShopItemModel> talismans = new();
         for (int i = 0; i < shopItems.Count; i++)
@@ -619,6 +727,14 @@ public class RandomizerServiceDlc
                     legId = 770300;
                     break;
                 }
+            case DlcMode.Eldensquares:
+                {
+                    helmId = 730000;
+                    torsoId = 730100;
+                    armId = 730200;
+                    legId = 730300;
+                    break;
+                }
             default:
                 {
                     // Millicent's Set (including custom missing arm)
@@ -640,65 +756,41 @@ public class RandomizerServiceDlc
     {
         //Anamnesis-only Title Screen
         string menuPath = Path.Combine(Constants.MenuBndOutDlc, "menu");
-        string menuAnamnesisPath = Path.Combine(Constants.MenuBndOutDlc, "menu_anamnesis");
-        UpdateFolder(
+        string menuAnamnesisPath = Path.Combine(Constants.ModeFolders, "menu_anamnesis");
+        modeService.UpdateFolder(
             targetPath: menuPath,
             sourcePath: mode == DlcMode.Anamnesis ? menuAnamnesisPath : null
         );
 
-        // Events (default vs Anamnesis)
+        // Events (default vs Anamnesis/EldenSquares)
         string eventPath = Path.Combine(Constants.MenuBndOutDlc, "event");
-        string eventDefaultPath = Path.Combine(Constants.MenuBndOutDlc, "event_default");
-        string eventAnamnesisPath = Path.Combine(Constants.MenuBndOutDlc, "event_anamnesis");
+        string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_dlc");
+        string eventAnamnesisPath = Path.Combine(Constants.ModeFolders, "event_anamnesis");
+        string eventEldensquaresPath = Path.Combine(Constants.ModeFolders, "event_eldensquares");
 
-        UpdateFolder(
+        modeService.UpdateFolder(
             targetPath: eventPath,
-            sourcePath: mode == DlcMode.Anamnesis
-                ? eventAnamnesisPath
-                : eventDefaultPath
+            sourcePath: mode switch
+            {
+                DlcMode.Anamnesis => eventAnamnesisPath,
+                DlcMode.Eldensquares => eventEldensquaresPath,
+                _ => eventDefaultPath
+            }
         );
+
+        // Talk Scripts (default vs Elden Squares)
+        string scriptPath = Path.Combine(Constants.MenuBndOutDlc, "script");
+        string scriptDefaultPath = Path.Combine(Constants.ModeFolders, "script_dlc");
+        string scriptEldensquaresPath = Path.Combine(Constants.ModeFolders, "script_eldensquares");
+
+        modeService.UpdateFolder(
+            targetPath: scriptPath,
+            sourcePath: mode == DlcMode.Eldensquares
+                ? scriptEldensquaresPath
+                : scriptDefaultPath
+        );
+
+        // Regulation for Weapon Reqs (default vs Elden Squares)
+
     }
-
-    private static void UpdateFolder(string targetPath, string? sourcePath)
-    {
-        if (sourcePath != null &&
-            Path.GetFullPath(sourcePath) == Path.GetFullPath(targetPath))
-        {
-            return;
-        }
-
-
-        Directory.CreateDirectory(targetPath);
-
-        // clear target
-        foreach (var file in Directory.GetFiles(targetPath))
-        {
-            File.SetAttributes(file, FileAttributes.Normal);
-            File.Delete(file);
-        }
-
-        foreach (var dir in Directory.GetDirectories(targetPath))
-        {
-            Directory.Delete(dir, true);
-        }
-
-        // populate if source exists
-        if (sourcePath == null || !Directory.Exists(sourcePath))
-            return;
-
-        foreach (var dir in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            Directory.CreateDirectory(dir.Replace(sourcePath, targetPath));
-        }
-
-        foreach (var file in Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            string dest = file.Replace(sourcePath, targetPath);
-            Directory.CreateDirectory(Path.GetDirectoryName(dest)!);
-            File.Copy(file, dest, true);
-        }
-    }
-
-
-
 }

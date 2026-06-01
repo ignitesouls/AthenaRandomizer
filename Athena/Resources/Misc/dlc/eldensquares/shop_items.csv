@@ -15,7 +15,7 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 11023,Intelligence-knot Crystal Tear,10000,Physick Tear,Good,3,65230,1
 11024,Faith-knot Crystal Tear,10000,Physick Tear,Good,3,65240,1
 11025,Cerulean Hidden Tear,5000,Physick Tear,Good,3,65250,1
-11026,Stonebarb Cracked Tear,30000,Physick Tear,Good,3,65260,1
+11026,Stonebarb Cracked Tear,40000,Physick Tear,Good,3,65260,1
 11028,Flame-Shrouding Cracked Tear,40000,Physick Tear,Good,3,65280,1
 11029,Magic-Shrouding Cracked Tear,40000,Physick Tear,Good,3,65290,1
 11030,Lightning-Shrouding Cracked Tear,40000,Physick Tear,Good,3,65300,1
@@ -30,7 +30,7 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 1022,Viridian Amber Medallion +2,5000,Talisman,Accessory,2,15007350,1
 1032,Great-Jar's Arsenal,10000,Talisman,Accessory,2,400470,1
 1042,Erdtree's Favor +2,10000,Talisman,Accessory,2,11057100,1
-1150,Green Turtle Talisman,40000,Talisman,Accessory,2,1045397120,1
+1150,Green Turtle Talisman,30000,Talisman,Accessory,2,1045397120,1
 1191,Prince of Death's Cyst,10000,Talisman,Accessory,2,12037990,1
 1201,Mottled Necklace +1,5000,Talisman,Accessory,2,12027620,1
 1230,Warrior Jar Shard,50000,Talisman,Accessory,2,400173,1
@@ -59,7 +59,7 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 4032,Boltdrake Talisman +2,10000,Talisman,Accessory,2,13007760,1
 4042,Haligdrake Talisman +2,10000,Talisman,Accessory,2,12057370,1
 4052,Pearldrake Talisman +2,10000,Talisman,Accessory,2,15007220,1
-4090,Ritual Shield Talisman,50000,Talisman,Accessory,2,11007996,1
+4090,Ritual Shield Talisman,30000,Talisman,Accessory,2,11007996,1
 5000,Crimson Seed Talisman,50000,Talisman,Accessory,2,30087010,1
 5050,Assassin's Crimson Dagger,10000,Talisman,Accessory,2,520030,1
 6020,Carian Filigreed Crest,10000,Talisman,Accessory,2,120290,1
@@ -82,4 +82,22 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 10200,Somber Smithing Stone [9],25000,Upgrade Stone,Good,3,,-1
 30200,Ash of War: Parry,600,Ash of War,Gem,4,100820,1
 10020,Sacred Tear,15000,Flask Upgrade,Good,3,,6
-10010,Golden Seed,5000,Flask Upgrade,Good,3,,26
+10010,Golden Seed,10000,Flask Upgrade,Good,3,,7
+10900,Grave Glovewort [1],800,Upgrade Stone,Good,3,,-1
+10901,Grave Glovewort [2],1200,Upgrade Stone,Good,3,,-1
+10902,Grave Glovewort [3],1600,Upgrade Stone,Good,3,,-1
+10903,Grave Glovewort [4],2400,Upgrade Stone,Good,3,,-1
+10904,Grave Glovewort [5],3200,Upgrade Stone,Good,3,,-1
+10905,Grave Glovewort [6],4000,Upgrade Stone,Good,3,,-1
+10906,Grave Glovewort [7],5000,Upgrade Stone,Good,3,,-1
+10907,Grave Glovewort [8],6000,Upgrade Stone,Good,3,,-1
+10908,Grave Glovewort [9],8000,Upgrade Stone,Good,3,,-1
+10910,Ghost Glovewort [1],1200,Upgrade Stone,Good,3,,-1
+10911,Ghost Glovewort [2],1800,Upgrade Stone,Good,3,,-1
+10912,Ghost Glovewort [3],2400,Upgrade Stone,Good,3,,-1
+10913,Ghost Glovewort [4],3600,Upgrade Stone,Good,3,,-1
+10914,Ghost Glovewort [5],4800,Upgrade Stone,Good,3,,-1
+10915,Ghost Glovewort [6],6000,Upgrade Stone,Good,3,,-1
+10916,Ghost Glovewort [7],7500,Upgrade Stone,Good,3,,-1
+10917,Ghost Glovewort [8],9000,Upgrade Stone,Good,3,,-1
+10918,Ghost Glovewort [9],12000,Upgrade Stone,Good,3,,-1

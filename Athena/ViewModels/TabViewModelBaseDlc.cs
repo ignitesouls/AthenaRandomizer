@@ -95,6 +95,34 @@ public class TabViewModelBaseDlc : ModeTabViewModelBase, INotifyPropertyChanged
     public int? ParsedBaseSeed =>
         int.TryParse(BaseSeedInput, out int parsed) ? parsed : null;
 
+    private List<string> _randomizedGraces = new();
+
+    public List<string> RandomizedGraces
+    {
+        get => _randomizedGraces;
+        set
+        {
+            if (_randomizedGraces != value)
+            {
+                _randomizedGraces = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasRandomizedGraces));
+                OnPropertyChanged(nameof(RandomizedGracesDisplayText));
+            }
+        }
+    }
+
+    public bool HasRandomizedGraces =>
+    RandomizedGraces != null &&
+    RandomizedGraces.Count > 0;
+
+    public string RandomizedGracesDisplayText =>
+        RandomizedGraces != null &&
+        RandomizedGraces.Count > 0
+            ? string.Join(" | ", RandomizedGraces)
+            : string.Empty;
+
     public ICommand RandomizeCommand { get; }
     public ICommand LaunchCommand { get; }
 
@@ -134,7 +162,16 @@ public class TabViewModelBaseDlc : ModeTabViewModelBase, INotifyPropertyChanged
                  RandomizedBaseDlcMode = newRandomizedBaseDlcMode;
                  _config.LastRandomizedModeBaseDlc = newRandomizedBaseDlcMode;
                  ConfigService.Save(_config);
+            },
+            graceList =>
+            {
+    #if DEBUG
+                Debug.WriteLine($"Randomized graces: {string.Join(", ", graceList)}");
+    #endif
+
+                RandomizedGraces = graceList;
             }),
+
             () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedBaseDlcMode == BaseDlcMode)));
 
         LaunchCommand = new RelayCommand(

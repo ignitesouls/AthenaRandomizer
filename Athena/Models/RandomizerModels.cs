@@ -59,3 +59,8 @@ public record StatAllocationModel(string? ClassName,
                                   int Arcane);
 
 public record WeaponModel(string WeaponClass, int ID, string Name, byte EquipType, int Category, int WepType): IGameItem;
+
+public record GracePoolModel(
+    int ID,
+    string GraceName,
+    string GraceRegion);
