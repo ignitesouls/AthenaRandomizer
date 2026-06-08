@@ -10,6 +10,7 @@ using Athena.Utilities;
 using DotNext;
 using EldenRingParamsEditor;
 using UniversalReplacementRandomizer;
+using static SoulsFormats.MQB;
 
 namespace Athena.Services;
 
@@ -17,7 +18,8 @@ namespace Athena.Services;
 public enum BaseDlcMode
 {
     Default,
-    VCC
+    VCC, 
+    Incursion
 }
 
 public class RandomizerServiceBaseDlc
@@ -55,6 +57,11 @@ public class RandomizerServiceBaseDlc
                     seedManagerPrefix = SeedManagerPrefix + "_vcc";
                     break;
                 }
+            case BaseDlcMode.Incursion:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_incursion";
+                    break;
+                }
             default:
                 {
                     seedManagerPrefix = SeedManagerPrefix;
@@ -70,7 +77,7 @@ public class RandomizerServiceBaseDlc
         }
 
         //When the Mode is Set to VCC Randomize the Graces within the Pool
-        if (mode == BaseDlcMode.VCC)
+        if (mode == BaseDlcMode.VCC || mode == BaseDlcMode.Incursion)
         {
             RandomizeGrace(editor, urr, updateGracesListCallback);
         }
@@ -308,15 +315,32 @@ public class RandomizerServiceBaseDlc
     private void ModeCustomization(BaseDlcMode mode)
     {
         // Events (default vs VCC)
-        string eventPath = Path.Combine(Constants.MenuBndOutBaseDlcVCC, "event");
+        string eventPath = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc", "event");
         string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_basedlc");
         string eventVCCPath = Path.Combine(Constants.ModeFolders, "event_vcc");
+        string eventIncursionPath = Path.Combine(Constants.ModeFolders, "event_incursion");
 
         modeService.UpdateFolder(
             targetPath: eventPath,
-            sourcePath: mode == BaseDlcMode.VCC
-                ? eventVCCPath
-                : eventDefaultPath
+            sourcePath: mode switch
+            {
+                BaseDlcMode.VCC => eventVCCPath,
+                BaseDlcMode.Incursion => eventIncursionPath,
+                _ => eventDefaultPath
+            }
+        );
+
+        //Who Knows?
+        string consideration = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc");
+        string regulationObsolute = Path.Combine(Constants.ModeFolders, "regulation_incursion");
+
+        modeService.UpdateFolder(
+            targetPath: consideration,
+            sourcePath: mode switch
+            { 
+                BaseDlcMode.Incursion => regulationObsolute,
+                _ => Constants.RegulationInBaseDlc
+            }
         );
     }
 

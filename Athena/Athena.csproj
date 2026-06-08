@@ -80,216 +80,27 @@
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<None Remove="Resources\Assets\Athena.ico" />
 		<Content Include="oo2core_6_win64.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 		<Content Include="Resources\Assets\Athena.ico" />
-		<Content Include="Resources\ModeFolders\event_anamnesis\common.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_anamnesis\common_func.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_anamnesis\m10_01_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_anamnesis\m11_10_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_anamnesis\m61_46_40_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\common.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\common_func.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m10_01_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m11_10_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m12_03_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m13_00_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m18_00_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m60_45_52_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m60_47_56_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_basedlc\m60_48_57_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_dlc\common.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_dlc\common_func.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_dlc\m10_01_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_dlc\m11_10_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_dlc\m61_46_40_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_eldensquares\common.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_eldensquares\common_func.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_eldensquares\m10_01_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_eldensquares\m11_10_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_eldensquares\m61_46_40_00.emevd.dcx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\common.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\common_func.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m10_01_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m11_10_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m12_02_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m12_03_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m13_00_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m18_00_00_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m60_45_52_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m60_47_56_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m60_48_57_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\event_vcc\m60_51_36_00.emevd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\menu_anamnesis\05_001_title_logo.gfx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\menu_anamnesis\hi\01_common.tpf.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\script_dlc\talk\m00_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\script_dlc\talk\m61_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\script_eldensquares\talk\m00_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\script_eldensquares\talk\m61_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
+    <Content Include="Resources\ModeFolders\**\*.dcx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Resources\ModeFolders\menu_anamnesis\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Resources\ModeFolders\**\regulation.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -314,36 +125,6 @@
 	<ItemGroup>
 	  <None Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\05_001_title_logo.gfx">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\common.emevd.dcx.bak">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\common.emevd.dcx.js">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\common_func.emevd.dcx.bak">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\common_func.emevd.dcx.js">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\m10_01_00_00.emevd.dcx.bak">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\m10_01_00_00.emevd.dcx.js">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\m11_10_00_00.emevd.dcx.bak">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\m11_10_00_00.emevd.dcx.js">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\m61_46_40_00.emevd.dcx.bak">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\ModeFolders\event_dlc\m61_46_40_00.emevd.dcx.js">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 </Project>

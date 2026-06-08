@@ -111,6 +111,15 @@
                              IsChecked="{Binding BaseDlcMode,
                                                  Converter={StaticResource EnumToBooleanConverter},
                                                  ConverterParameter={x:Static services:BaseDlcMode.VCC}}" />
+                <RadioButton Grid.Row="1"
+                             Grid.Column="2"
+                             Content="Incursion"
+                             Margin="3"
+                             FontSize="11"
+                             GroupName="BaseDlcModeGroup"
+                             IsChecked="{Binding BaseDlcMode,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter={x:Static services:BaseDlcMode.Incursion}}" />
             </Grid>
         </GroupBox>
 
