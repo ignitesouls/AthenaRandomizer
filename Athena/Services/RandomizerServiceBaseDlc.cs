@@ -331,17 +331,17 @@ public class RandomizerServiceBaseDlc
         );
 
         //Who Knows?
-        string consideration = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc");
-        string regulationObsolute = Path.Combine(Constants.ModeFolders, "regulation_incursion");
-
-        modeService.UpdateFolder(
-            targetPath: consideration,
-            sourcePath: mode switch
-            { 
-                BaseDlcMode.Incursion => regulationObsolute,
-                _ => Constants.RegulationInBaseDlc
-            }
-        );
+        //string consideration = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc");
+        //string regulationObsolute = Path.Combine(Constants.ModeFolders, "regulation_incursion");
+        //
+        //modeService.UpdateFolder(
+        //    targetPath: consideration,
+        //    sourcePath: mode switch
+        //    { 
+        //        BaseDlcMode.Incursion => regulationObsolute,
+        //        _ => Constants.RegulationInBaseDlc
+        //    }
+        //);
     }
 
     public void RandomizeGrace(
