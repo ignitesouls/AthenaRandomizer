@@ -13,9 +13,16 @@ namespace Athena.Services;
 public class RandomizerServiceStartingClass
 {
     private const int TotalStats = 8;
-    private const int TotalPoints = 88;
+
+    private const int DefaultTotalPoints = 88;
+    private const int IncursionNonVigorTotalPoints = 80;
+
     private const int MinStat = 5;
     private const int MaxStat = 16;
+
+    private const int IncursionVigor = 20;
+    private const int VigorIndex = 0;
+
     private const int NumClasses = 10;
 
     // vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane
@@ -31,18 +38,32 @@ public class RandomizerServiceStartingClass
                                       int AmmunitionID,
                                       ushort AmmunitionCount);
 
-    public List<ClassStatAllocation> GenerateAllClassStats(OptimizedReplacementRandomizer urr)
+    public List<ClassStatAllocation> GenerateAllClassStats(OptimizedReplacementRandomizer urr, bool fixedVigor20WithOtherStatsTotal80 = false)
     {
         Random rng = urr.GetSeedManager().GetRandomByKey("starting_class_stats");
+
         List<ClassStatAllocation> results = new();
 
         for (int i = 0; i < NumClasses; i++)
         {
             int[] stats = i switch
             {
-                4 => GenerateRandomStatDistribution(rng, enforceIntelligenceMin: 9), // astrologer
-                5 => GenerateRandomStatDistribution(rng, enforceFaithMin: 9),        // prophet
-                _ => GenerateRandomStatDistribution(rng)
+                4 => GenerateRandomStatDistribution(
+                    rng,
+                    enforceIntelligenceMin: 9,
+                    fixedVigor20WithOtherStatsTotal80: fixedVigor20WithOtherStatsTotal80
+                ), // astrologer
+
+                5 => GenerateRandomStatDistribution(
+                    rng,
+                    enforceFaithMin: 9,
+                    fixedVigor20WithOtherStatsTotal80: fixedVigor20WithOtherStatsTotal80
+                ), // prophet
+
+                _ => GenerateRandomStatDistribution(
+                    rng,
+                    fixedVigor20WithOtherStatsTotal80: fixedVigor20WithOtherStatsTotal80
+                )
             };
 
             results.Add(new ClassStatAllocation(stats));
@@ -51,28 +72,86 @@ public class RandomizerServiceStartingClass
         return results;
     }
 
-    private int[] GenerateRandomStatDistribution(Random rng, int enforceIntelligenceMin = -1, int enforceFaithMin = -1)
+    private int[] GenerateRandomStatDistribution(
+                  Random rng,
+                  int enforceIntelligenceMin = -1,
+                  int enforceFaithMin = -1,
+                  bool fixedVigor20WithOtherStatsTotal80 = false)
     {
-        int[] stats = Enumerable.Repeat(MinStat, TotalStats).ToArray();
-        int remaining = TotalPoints - TotalStats * MinStat;
+        int[] stats = new int[TotalStats];
 
-        while (remaining > 0)
+        if (fixedVigor20WithOtherStatsTotal80)
         {
-            int index = rng.Next(TotalStats);
-            if (stats[index] < MaxStat)
+            stats[VigorIndex] = IncursionVigor;
+
+            // Only the non-vigor stats start at MinStat.
+            for (int i = 0; i < TotalStats; i++)
             {
-                stats[index]++;
-                remaining--;
+                if (i == VigorIndex)
+                {
+                    continue;
+                }
+
+                stats[i] = MinStat;
+            }
+
+            int remaining = IncursionNonVigorTotalPoints - stats
+                .Where((_, index) => index != VigorIndex)
+                .Sum();
+
+            while (remaining > 0)
+            {
+                int index = rng.Next(TotalStats);
+
+                // Vigor is locked to 20 in Incursion.
+                if (index == VigorIndex)
+                {
+                    continue;
+                }
+
+                if (stats[index] < MaxStat)
+                {
+                    stats[index]++;
+                    remaining--;
+                }
+            }
+        }
+        else
+        {
+            stats = Enumerable.Repeat(MinStat, TotalStats).ToArray();
+
+            int remaining = DefaultTotalPoints - stats.Sum();
+
+            while (remaining > 0)
+            {
+                int index = rng.Next(TotalStats);
+
+                if (stats[index] < MaxStat)
+                {
+                    stats[index]++;
+                    remaining--;
+                }
             }
         }
 
         if (enforceIntelligenceMin >= 0 && stats[5] < enforceIntelligenceMin)
         {
-            return GenerateRandomStatDistribution(rng, enforceIntelligenceMin, enforceFaithMin);
+            return GenerateRandomStatDistribution(
+                rng,
+                enforceIntelligenceMin,
+                enforceFaithMin,
+                fixedVigor20WithOtherStatsTotal80
+            );
         }
+
         if (enforceFaithMin >= 0 && stats[6] < enforceFaithMin)
         {
-            return GenerateRandomStatDistribution(rng, enforceIntelligenceMin, enforceFaithMin);
+            return GenerateRandomStatDistribution(
+                rng,
+                enforceIntelligenceMin,
+                enforceFaithMin,
+                fixedVigor20WithOtherStatsTotal80
+            );
         }
 
         return stats;
