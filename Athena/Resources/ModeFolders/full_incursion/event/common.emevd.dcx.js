@@ -452,14 +452,15 @@ $Event(0, Default, function() {
     InitializeEvent(0, 11100090, 0);
     InitializeEvent(0, 11100091, 0);
     InitializeEvent(0, 11100092, 0);
+    InitializeEvent(0, 11100093, 0);
     
     // Great Rune Restoration to Ashen Capital
-    InitializeEvent(0, 11100093, 191); // Restoring Godrick's Great Rune
-    InitializeEvent(1, 11100093, 192); // Restoring Radahn's Great Rune
-    InitializeEvent(2, 11100093, 193); // Restoring Morgott's Great Rune
-    InitializeEvent(3, 11100093, 194); // Restoring Rykard's Great Rune
-    InitializeEvent(4, 11100093, 195); // Restoring Mohg's Great Rune
-    InitializeEvent(5, 11100093, 196); // Restoring Malenia's Great Rune
+    InitializeEvent(0, 11100094, 191); // Restoring Godrick's Great Rune
+    InitializeEvent(1, 11100094, 192); // Restoring Radahn's Great Rune
+    InitializeEvent(2, 11100094, 193); // Restoring Morgott's Great Rune
+    InitializeEvent(3, 11100094, 194); // Restoring Rykard's Great Rune
+    InitializeEvent(4, 11100094, 195); // Restoring Mohg's Great Rune
+    InitializeEvent(5, 11100094, 196); // Restoring Malenia's Great Rune
 
     // Remembrance bosses pairs    
     InitializeEvent(0, 11120000, 10000800, 14000800, 12030850);     //Godrick Rennala || Fortisax
@@ -825,7 +826,7 @@ $Event(11100086, Default, function() {
         //        ----               ----------
         76801, // Gravesite Plain  - Scorched Ruins
         76902, // Scadu Altus      - Moorth Ruins
-        // 76833, // Cerulean Coast   - The Fissure
+        76833, // Cerulean Coast   - The Fissure
         72801, // Midra's Manse    - Manse Hall
         
         // 76916, // Scadu Altus      - Castle Watering Hole
@@ -859,7 +860,7 @@ $Event(11100087, Default, function() {
         // 76851, // Jagged Peak          - Jagged Peak Mountainside
         76850, // Jagged Peak             - Foot of the Jagged Peak
         76841, // Charo's Hidden Grave    - Charo's Hidden Grave
-        76833, // Cerulean Coast          - The Fissure
+        //76833, // Cerulean Coast          - The Fissure
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {
@@ -901,20 +902,6 @@ $Event(11100089, Default, function() {
     SetThisEventSlot(ON);
 });
 
-//$Event(11100090, Default, function() {
-//    EndIf(ThisEventSlot());
-//    
-//    // 72106    Shadow Keep, Church District - Church District Entrance
-//    WaitFor(EventFlag(21000850)); // Hippo is dead 
-//    
-//    // 76940    Ancient Ruins of Rauh - Viaduct Minor Tower
-//    SetEventFlagID(76940, ON);
-//    
-//    // Viaduct Minor Tower grace has been unlocked
-//    DisplayGenericDialog(30077, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-//  
-//    SetThisEventSlot(ON);
-//});
 
 $Event(11100090, Default, function() {
     EndIf(ThisEventSlot());
@@ -935,19 +922,16 @@ $Event(11100090, Default, function() {
 
 $Event(11100091, Default, function() {
     EndIf(ThisEventSlot());
-    
+
     // 76508    Mountaintops of the Giants - Flame Peak - Foot of the Forge
     WaitFor(EventFlag(76508));
-    
-    // 71309    Crumbling Farum Azula - Dragon Temple Rooftop
-    //SetEventFlagID(71309, ON);
-    
+
     // 71309    Crumbling Farum Azula - Crumbling Beast Grave
     SetEventFlagID(71303, ON);
-    
-    // Dragon Temple Rooftop grace has been unlocked
-    //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
-  
+
+    // Crumbling Beast Grave grace has been unlocked
+    DisplayGenericDialog(30152, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+
     SetThisEventSlot(ON);
 });
 
@@ -957,24 +941,37 @@ $Event(11100092, Default, function() {
     // 76508    Crumbling Farum Azula - Dragon Temple
     WaitFor(EventFlag(71306));
     
-    // 71309 - Crumbling Farum Azula - Dragon Temple Rooftop
-    // 71310 - Crumbling Farum Azula - Beside the Greatbridge
     SetEventFlagID(71309, ON); //Dragon Temple Rooftop
     SetEventFlagID(71310, ON); //Beside the Greatbridge
     SetEventFlagID(71311, ON); //Placi Grace
-    // Dragon Temple Rooftop grace has been unlocked
-    //DisplayGenericDialog(30078, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    
+    // Further Farum Azula graces have been unlocked
+    DisplayGenericDialog(30153, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
   
     SetThisEventSlot(ON);
 });
 
+//Wait For The Player to be Near Roundtable Fia (Where Fia is standing over D's Death Body)
+//Set the Prince of Death's Throne Grace On
+$Event(11100093, Default, function() {
+    EndIf(ThisEventSlot());
+
+    WaitFor(EntityInRadiusOfEntity(10000, 11101716, 10, 1));
+    
+    // Set the Prince of Death's Throne Grace On
+    DisplayGenericDialog(30154, PromptType.YESNO, NumberofOptions.NoButtons, 0, 5);
+    SetEventFlagID(71230, ON);
+    
+    SetThisEventSlot(ON);
+});
+
 //Checks for if Player has Restored a Great Rune and Turns on The Queen's Bedchamber Grace
-$Event(11100093, Default, function(restoredGreatRune) {
+$Event(11100094, Default, function(restoredGreatRune) {
     WaitFor(EventFlag(restoredGreatRune));
     EndIf(EventFlag(71124));
     SetEventFlagID(71124, ON);
+    DisplayGenericDialog(30151, PromptType.YESNO, NumberofOptions.NoButtons, 0, 5);
 });
-
 
 $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
     EndIf(EventFlag(11104088));

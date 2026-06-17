@@ -204,6 +204,7 @@ Remembrance of the Twin Moon Knight
 [Sage's Cave - Black Knife Assassin] Concealing Veil
 [Goal Cave - Frenzied Duelist] Putrid Corpse Ashes
 [Dragonbarrow Cave - Beastman of Farum Azula] Flamedrake Talisman +2
+[Bernie Bingo] Flamedrake Talisman +2
 [Abandoned Cave - Cleanrot Knight Duo] Gold Scarab
 [Sellia Hideaway - Putrid Crystalians] Crystal Torrent
 [Cave of the Forlorn - Misbegotten Crusader] Golden Order Greatsword
@@ -243,6 +244,8 @@ Dragon-Hunter's Great Katana
 [Liurnia - Field - Erdtree Avatar] Magic-Shrouding Cracked Tear
 [Liurnia - Field - Erdtree Avatar] Lightning-Shrouding Cracked Tear
 [Liurnia - Field - Erdtree Avatar] Holy-Shrouding Cracked Tear
+[Bernie Bingo] Lightning-Shrouding Cracked Tear
+[Bernie Bingo] Holy-Shrouding Cracked Tear
 [Liurnia - Field - Erdtree Avatar] Cerulean Crystal Tear
 [Liurnia - Field - Erdtree Avatar] Ruptured Crystal Tear
 [Liurnia - Field - Glintstone Dragon Smarag] Dragon Heart
@@ -283,6 +286,7 @@ Dragon-Hunter's Great Katana
 [Caelid - Field - Commander O'Neil] Unalloyed Gold Needle
 [Caelid - Field - Erdtree Avatar] Greenburst Crystal Tear
 [Caelid - Field - Erdtree Avatar] Flame-Shrouding Cracked Tear
+[Bernie Bingo] Flame-Shrouding Cracked Tear
 [Caelid - Field - Putrid Avatar] Opaline Hardtear
 [Caelid - Field - Putrid Avatar] Stonebarb Cracked Tear
 [Caelid - Field - Flying Dragon Greyll] Dragon Heart
@@ -1501,6 +1505,7 @@ Flask of Wondrous Physick
 [LD - Stormveil] Smoldering Butterfly
 [LD - Stormveil] Fire Grease
 [LD - Stormveil] Claw Talisman
+[Bernie Bingo] Claw Talisman
 [LD - Stormveil] Golden Rune [2]
 [LD - Stormveil] Arteria Leaf
 [LD - Stormveil] Throwing Dagger
@@ -2076,6 +2081,7 @@ Flask of Wondrous Physick
 [LD - Mohgwyn] Clarifying Boluses
 [LD - Mohgwyn] Rot Grease
 [LD - Mohgwyn] Haligdrake Talisman +2
+[Bernie Bingo] Haligdrake Talisman +2
 [LD - Mohgwyn] Golden Rune [1]
 [LD - Mohgwyn] Golden Rune [1]
 [LD - Mohgwyn] Golden Rune [1]
@@ -2254,6 +2260,7 @@ Flask of Wondrous Physick
 [LD - Crumbling Farum Azula] Golden Rune [12]
 [LD - Crumbling Farum Azula]
 [LD - Crumbling Farum Azula] Boltdrake Talisman +2
+[Bernie Bingo] Boltdrake Talisman +2
 [LD - Crumbling Farum Azula] Somber Smithing Stone [7]
 [LD - Crumbling Farum Azula]
 [LD - Crumbling Farum Azula] Somberstone Miner's Bell Bearing [5]
@@ -2380,6 +2387,7 @@ Flask of Wondrous Physick
 [LD - Elphael / Miquella's Haligtree] Golden Rune [10]
 [LD - Elphael / Miquella's Haligtree] Rot Grease
 [LD - Elphael / Miquella's Haligtree] Pearldrake Talisman +2
+[Bernie Bingo] Pearldrake Talisman +2
 [LD - Elphael / Miquella's Haligtree] Smithing Stone [8]
 [LD - Elphael / Miquella's Haligtree] Golden Rune [13]
 [LD - Elphael / Miquella's Haligtree] Hefty Beast Bone
@@ -3097,6 +3105,7 @@ Revered Spirit Ash
 [Forbidden Lands - Hidden Path to the Haligtree] Root Resin
 [Forbidden Lands - Hidden Path to the Haligtree] Freezing Grease
 [Forbidden Lands - Hidden Path to the Haligtree] Spelldrake Talisman +2
+[Bernie Bingo] Spelldrake Talisman +2
 [Forbidden Lands - Hidden Path to the Haligtree] Silver Scarab
 [Forbidden Lands - Hidden Path to the Haligtree] Deathroot
 [Limgrave - Murkwater Cave] Mushroom
@@ -3136,6 +3145,7 @@ Glass Shard
 [Liurnia - Lakeside Crystal Cave] Lump of Flesh
 [Liurnia - Lakeside Crystal Cave] Arteria Leaf
 [Liurnia - Lakeside Crystal Cave] Spear Talisman
+[Bernie Bingo] Spear Talisman
 [Liurnia - Academy Crystal Cave] Cuckoo Glintstone
 [Liurnia - Academy Crystal Cave] Stonesword Key
 [Liurnia - Academy Crystal Cave] Rune Arc

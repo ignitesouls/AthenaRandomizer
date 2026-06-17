@@ -119,6 +119,11 @@ $Event(1035443701, Restart, function(chrEntityId) {
 $Event(1035443702, Restart, function() {
     EndIf(EventFlag(1036290000));
     WaitFor(ActionButtonInArea(9330, 1035441702));
-    DisplayGenericDialog(61021, PromptType.YESNO, NumberofOptions.NoButtons, 1035441702, 5);
+    ForceAnimationPlayback(10000, 67080, false, false, false);
+    SpawnOneshotSFX(TargetEntityType.Asset, 1035441702, -1, 302200);
+    WaitFixedTimeSeconds(3.5);
+    SpawnOneshotSFX(TargetEntityType.Asset, 1035441702, -1, 451503);
+    WaitFixedTimeSeconds(3);
+    DisplayGenericDialog(30079, PromptType.YESNO, NumberofOptions.NoButtons, 1035441702, 5);
     SetEventFlagID(1036290000, ON);
 });
