@@ -826,7 +826,7 @@ $Event(11100086, Default, function() {
         //        ----               ----------
         76801, // Gravesite Plain  - Scorched Ruins
         76902, // Scadu Altus      - Moorth Ruins
-        76833, // Cerulean Coast   - The Fissure
+        //76833, // Cerulean Coast   - The Fissure
         72801, // Midra's Manse    - Manse Hall
         
         // 76916, // Scadu Altus      - Castle Watering Hole
@@ -842,7 +842,7 @@ $Event(11100086, Default, function() {
     }
     
     // Some DLC graces were unlocked
-    //DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
     
     SetThisEventSlot(ON);
 });
@@ -860,7 +860,7 @@ $Event(11100087, Default, function() {
         // 76851, // Jagged Peak          - Jagged Peak Mountainside
         76850, // Jagged Peak             - Foot of the Jagged Peak
         76841, // Charo's Hidden Grave    - Charo's Hidden Grave
-        //76833, // Cerulean Coast          - The Fissure
+        76833, // Cerulean Coast          - The Fissure
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {
@@ -996,23 +996,6 @@ $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
     // This event has triggered
     SetEventFlagID(11104088, ON);
 });
-
-
-//$Event(11120001, Default, function(firstMembie, secondMembie) {
-//    EndIf(EventFlag(11104089));
-//    WaitFor(
-//    (EventFlag(firstMembie) && EventFlag(secondMembie)) // our condition
-//        || EventFlag(11104089)                 // whether another of these events has triggered
-//    );
-//    
-//    // For any other live events that are waiting (can this even trigger?)
-//    if (EventFlag(11104089)) {
-//      EndEvent();
-//    }
-//    
-//    // This event has triggered
-//    SetEventFlagID(11104089, ON);
-//});
 
 
 $Event(130, Default, function(X0_4) {

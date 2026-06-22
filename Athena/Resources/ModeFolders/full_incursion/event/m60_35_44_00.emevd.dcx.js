@@ -123,7 +123,7 @@ $Event(1035443702, Restart, function() {
     SpawnOneshotSFX(TargetEntityType.Asset, 1035441702, -1, 302200);
     WaitFixedTimeSeconds(3.5);
     SpawnOneshotSFX(TargetEntityType.Asset, 1035441702, -1, 451503);
-    WaitFixedTimeSeconds(3);
+    WaitFixedTimeSeconds(3.2);
     DisplayGenericDialog(30079, PromptType.YESNO, NumberofOptions.NoButtons, 1035441702, 5);
     SetEventFlagID(1036290000, ON);
 });
