@@ -81,7 +81,7 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 10167,Somber Smithing Stone [8],20000,Upgrade Stone,Good,3,,-1
 10200,Somber Smithing Stone [9],25000,Upgrade Stone,Good,3,,-1
 30200,Ash of War: Parry,600,Ash of War,Gem,4,100820,1
-10020,Sacred Tear,15000,Flask Upgrade,Good,3,,6
+10020,Sacred Tear,15000,Flask Upgrade,Good,3,,4
 10010,Golden Seed,10000,Flask Upgrade,Good,3,,7
 10900,Grave Glovewort [1],800,Upgrade Stone,Good,3,,-1
 10901,Grave Glovewort [2],1200,Upgrade Stone,Good,3,,-1

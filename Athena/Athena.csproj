@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyName>Athena Randomizer v0.21</AssemblyName>
+		<AssemblyName>Athena Randomizer v0.22</AssemblyName>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<SelfContained>true</SelfContained>
@@ -81,6 +81,8 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 		<None Remove="Resources\Assets\Athena.ico" />
+		<None Remove="Resources\ModeFolders\script_eldensquares\talk\m00_00_00_00.talkesdbnd.dcx" />
+		<None Remove="Resources\ModeFolders\script_eldensquares\talk\m61_00_00_00.talkesdbnd.dcx" />
 		<Content Include="oo2core_6_win64.dll">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
@@ -281,14 +283,14 @@
 		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
 		<Content Include="Resources\ModeFolders\script_eldensquares\talk\m00_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
 		<Content Include="Resources\ModeFolders\script_eldensquares\talk\m61_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
 	</ItemGroup>
 
@@ -307,6 +309,9 @@
 
 	<ItemGroup>
 	  <Content Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\hi\01_common.tpf.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\Regulation\basedlc\regulation.bin">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
