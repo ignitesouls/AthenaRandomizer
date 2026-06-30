@@ -148,10 +148,10 @@ $Event(2046400600, Default, function() {
         RemoveItemFromPlayer(ItemType.Goods, 1050 + i, 14);
     }
     for (let i = 0; i < 6; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1013, 6001, 1);
+        DirectlyGivePlayerItem(ItemType.Goods, 1017, 6001, 1);
     }
     for (let i = 0; i < 1; i++) {
-        DirectlyGivePlayerItem(ItemType.Goods, 1063, 6001, 1);
+        DirectlyGivePlayerItem(ItemType.Goods, 1067, 6001, 1);
     }
     
     // physick flask
@@ -176,7 +176,7 @@ $Event(2046400600, Default, function() {
     DirectlyGivePlayerItem(ItemType.Goods, 2070, 6001, 1);
     
     // give starlight shards
-    for (let i = 0; i < 5; i++ ) {
+    for (let i = 0; i < 3; i++ ) {
         DirectlyGivePlayerItem(ItemType.Goods, 1290, 6001, 1);
     }
     

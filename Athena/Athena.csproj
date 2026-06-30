@@ -280,16 +280,6 @@
 		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
-		<Content Include="Resources\ModeFolders\script_eldensquares\talk\m00_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<Content Include="Resources\ModeFolders\script_eldensquares\talk\m61_00_00_00.talkesdbnd.dcx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -344,6 +334,12 @@
 	  </None>
 	  <None Update="Resources\ModeFolders\event_dlc\m61_46_40_00.emevd.dcx.js">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\ModeFolders\script_eldensquares\talk\m00_00_00_00.talkesdbnd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\ModeFolders\script_eldensquares\talk\m61_00_00_00.talkesdbnd.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 </Project>
