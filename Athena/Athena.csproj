@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyName>Athena Randomizer v0.21</AssemblyName>
+		<AssemblyName>Athena Randomizer v0.22</AssemblyName>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<SelfContained>true</SelfContained>
@@ -118,6 +118,9 @@
 
 	<ItemGroup>
 	  <Content Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\hi\01_common.tpf.dcx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\Regulation\basedlc\regulation.bin">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>

@@ -349,82 +349,90 @@ public class RandomizerServiceDlc
         // Setup the randomized armor set in the runes shop.
         List<ArmorSetModel> armorGroup = CsvReaderUtils.Read<ArmorSetModel>(shopArmorSetsFilePath);
         Random rng = seedManager.GetRandomByKey("armor_sets.csv");
-        ArmorSetModel armor = armorGroup[rng.Next(armorGroup.Count)];
 
         byte armorEquipType = 1;
         short armorSellQuantity = 1;
-        int helmSellPrice = 3000;
-        int torsoSellPrice = 4500;
-        int gauntletsSellPrice = 3000;
-        int greavesSellPrice = 3000;
-        
-        if (armor.HelmID != null)
+        int helmSellPrice = 0;
+        int torsoSellPrice = 0;
+        int gauntletsSellPrice = 0;
+        int greavesSellPrice = 0;
+
+        int armorSetCount = mode == DlcMode.Eldensquares ? 2 : 1;
+
+        for (int i = 0; i < armorSetCount; i++)
         {
-            int shopLineupId = currentShopLineupId++;
-            string name = $"[Merchant Millicent - Armor] {armor.Name} Helm";
-            int equipID = (int)armor.HelmID;
-            uint eventFlagForQuantity = currentEventFlagID;
-            currentEventFlagID += eventFlagStepSize;
-            editor.CreateNewShopLineupRow(shopLineupId, name);
-            editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
-            editor.SetShopLineupSellPrice(shopLineupId, helmSellPrice);
-            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
-            editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
-        }
-        if (armor.TorsoID != null)
-        {
-            int shopLineupId = currentShopLineupId++;
-            string name = $"[Merchant Millicent - Armor] {armor.Name} Torso";
-            int equipID = (int)armor.TorsoID;
-            uint eventFlagForQuantity = currentEventFlagID;
-            currentEventFlagID += eventFlagStepSize;
-            editor.CreateNewShopLineupRow(shopLineupId, name);
-            editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
-            editor.SetShopLineupSellPrice(shopLineupId, torsoSellPrice);
-            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
-            editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
-        }
-        if (armor.GauntletsID != null)
-        {
-            int shopLineupId = currentShopLineupId++;
-            string name = $"[Merchant Millicent - Armor] {armor.Name} Gauntlets";
-            int equipID = (int)armor.GauntletsID;
-            uint eventFlagForQuantity = currentEventFlagID;
-            currentEventFlagID += eventFlagStepSize;
-            editor.CreateNewShopLineupRow(shopLineupId, name);
-            editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
-            editor.SetShopLineupSellPrice(shopLineupId, gauntletsSellPrice);
-            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
-            editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
-        }
-        if (armor.GreavesID != null)
-        {
-            int shopLineupId = currentShopLineupId++;
-            string name = $"[Merchant Millicent - Armor] {armor.Name} Greaves";
-            int equipID = (int)armor.GreavesID;
-            uint eventFlagForQuantity = currentEventFlagID;
-            currentEventFlagID += eventFlagStepSize;
-            editor.CreateNewShopLineupRow(shopLineupId, name);
-            editor.SetShopLineupEquipId(shopLineupId, equipID);
-            editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
-            editor.SetShopLineupSellPrice(shopLineupId, greavesSellPrice);
-            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
-            editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
+            ArmorSetModel armor = armorGroup[rng.Next(armorGroup.Count)];
+            if (armor.HelmID != null)
+            {
+                int shopLineupId = currentShopLineupId++;
+                string name = $"[Merchant Millicent - Armor] {armor.Name} Helm";
+                int equipID = (int)armor.HelmID;
+                uint eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+                editor.CreateNewShopLineupRow(shopLineupId, name);
+                editor.SetShopLineupEquipId(shopLineupId, equipID);
+                editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
+                editor.SetShopLineupSellPrice(shopLineupId, helmSellPrice);
+                editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+                editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
+            }
+            if (armor.TorsoID != null)
+            {
+                int shopLineupId = currentShopLineupId++;
+                string name = $"[Merchant Millicent - Armor] {armor.Name} Torso";
+                int equipID = (int)armor.TorsoID;
+                uint eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+                editor.CreateNewShopLineupRow(shopLineupId, name);
+                editor.SetShopLineupEquipId(shopLineupId, equipID);
+                editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
+                editor.SetShopLineupSellPrice(shopLineupId, torsoSellPrice);
+                editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+                editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
+            }
+            if (armor.GauntletsID != null)
+            {
+                int shopLineupId = currentShopLineupId++;
+                string name = $"[Merchant Millicent - Armor] {armor.Name} Gauntlets";
+                int equipID = (int)armor.GauntletsID;
+                uint eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+                editor.CreateNewShopLineupRow(shopLineupId, name);
+                editor.SetShopLineupEquipId(shopLineupId, equipID);
+                editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
+                editor.SetShopLineupSellPrice(shopLineupId, gauntletsSellPrice);
+                editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+                editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
+            }
+            if (armor.GreavesID != null)
+            {
+                int shopLineupId = currentShopLineupId++;
+                string name = $"[Merchant Millicent - Armor] {armor.Name} Greaves";
+                int equipID = (int)armor.GreavesID;
+                uint eventFlagForQuantity = currentEventFlagID;
+                currentEventFlagID += eventFlagStepSize;
+                editor.CreateNewShopLineupRow(shopLineupId, name);
+                editor.SetShopLineupEquipId(shopLineupId, equipID);
+                editor.SetShopLineupEquipType(shopLineupId, armorEquipType);
+                editor.SetShopLineupSellPrice(shopLineupId, greavesSellPrice);
+                editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+                editor.SetShopLineupSellQuantity(shopLineupId, armorSellQuantity);
+            }
+
         }
         
         // Setup the Starlight Shards shop.
         byte starlightShardCostType = 2;
         short starlightWeaponSellQuantity = 1;
         ushort starlightWeaponNumSold;
-        int starlightWeaponCost = 5;
+        
         int currentCustomWeaponId = 9600069;
         currentShopLineupId = 9200000;
         currentEventFlagID = 1056457000;
 
         //int numberOfShopWeapons = mode == DlcMode.Anamnesis ? 4 : 3;
+
+        int starlightWeaponCost = mode == DlcMode.Eldensquares ? 3 : 5;
 
         // Change for the different DLC modes for Bingo. Determines on how many weapons are in the shop. 
         int numberOfShopWeapons = mode switch

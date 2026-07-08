@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:Athena"
         xmlns:views="clr-namespace:Athena.Views"
         xmlns:viewModels="clr-namespace:Athena.ViewModels"
-        Title="Athena Randomizer v0.21" Height="420" Width="800"
+        Title="Athena Randomizer v0.22" Height="420" Width="800"
         ResizeMode="CanMinimize"
         WindowStyle="SingleBorderWindow"
         >
@@ -22,7 +22,11 @@
     </Window.Resources>
 
     <Grid>
-        <DockPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2">
             <TabControl ItemsSource="{Binding ModeTabs}"
                         SelectedItem="{Binding SelectedTab}"
                         DockPanel.Dock="Top"
@@ -60,6 +64,6 @@
             Height="30"
             Width="60"
             Padding="4"
-            Click="AboutButton_Click" />
+            Click="AboutButton_Click" Grid.Column="1" />
     </Grid>
 </Window>
