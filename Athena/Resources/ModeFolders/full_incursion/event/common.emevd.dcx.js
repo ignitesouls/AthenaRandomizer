@@ -472,7 +472,8 @@ $Event(0, Default, function() {
     InitializeEvent(6, 11120000, 10000800, 16000800, 13000800);     //Godrick Rykard  || Maliketh
     InitializeEvent(7, 11120000, 14000800, 16000800, 13000830);     //Rennala Rykard  || Placi
     InitializeEvent(8, 11120000, 1252380800, 16000800, 12090800);   //Radahn Rykard   || Regal
-    InitializeEvent(9, 11120000, 12040800, 16000800, 12090800);     //Astel Rykard    || Regal    
+    InitializeEvent(9, 11120000, 12040800, 16000800, 12090800);     //Astel Rykard    || Regal
+    InitializeEvent(10, 11120000, 12040800, 16000800, 11050800);    //Astel Rykard    || Hoarah Loux
     
     //InitializeEvent(0, 11120001, 4535, 16000800);     //Rellana Dancing Lion
 });
@@ -956,7 +957,7 @@ $Event(11100092, Default, function() {
 $Event(11100093, Default, function() {
     EndIf(ThisEventSlot());
 
-    WaitFor(EntityInRadiusOfEntity(10000, 11101716, 10, 1));
+    WaitFor(EntityInRadiusOfEntity(10000, 11101716, 4, 1));
     
     // Set the Prince of Death's Throne Grace On
     DisplayGenericDialog(30154, PromptType.YESNO, NumberofOptions.NoButtons, 0, 5);
@@ -9050,16 +9051,20 @@ L20:
     EndEvent();
 });
 
+//Change The DLC Great Rune Breaking
 $Event(4852, Restart, function() {
     EndIf(!PlayerIsInOwnWorld());
     EndIf(EventFlag(4927) && EventFlag(4903));
     WaitFor(EventFlag(4927));
     WaitFixedTimeSeconds(6);
-    DisplayGenericDialogAndSetEventFlags(1030040, PromptType.OKCANCEL, NumberofOptions.OneButton, 0, 100, 2048452713, 2048452712, 2048452712);
-    WaitFor(EventFlag(2048452713) || EventFlag(2048452712));
-    WaitFixedTimeSeconds(0.5);
+    //First Message 
+    DisplayBlinkingMessageWithPriority(1030040, 1, false);
+    //DisplayGenericDialogAndSetEventFlags(1030040, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 100, 2048452713, 2048452712, 2048452712);
+    //WaitFor(EventFlag(2048452713) || EventFlag(2048452712));
+    WaitFixedTimeSeconds(5.0);
     SetNetworkconnectedEventFlagID(4903, ON);
-    DisplayGenericDialog(1030041, PromptType.OKCANCEL, NumberofOptions.OneButton, 0, 100);
+    DisplayBlinkingMessageWithPriority(1030041, 1, false);
+    //DisplayGenericDialog(1030041, PromptType.OKCANCEL, NumberofOptions.OneButton, 0, 100);
 });
 
 $Event(4853, Restart, function(X0_4, X4_4) {

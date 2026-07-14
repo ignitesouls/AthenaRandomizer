@@ -262,9 +262,8 @@ $Event(11100042, Default, function() {
         SetEventFlagID(initialFlags[i], ON);
     }
     
-    // Cursemark of Death & !Weathered Daggar
+    // Cursemark of Death 
     DirectlyGivePlayerItem(ItemType.Goods, 8191, 6001, 1);
-    //DirectlyGivePlayerItem(ItemType.Goods, 8980, 6001, 1);
     
     // talisman pouches
     SetEventFlagID(60500, ON);

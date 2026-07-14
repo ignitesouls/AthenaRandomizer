@@ -23,6 +23,12 @@ $Event(0, Default, function() {
     $InitializeEvent(0, 19002830);
     $InitializeEvent(0, 19002849);
     $InitializeEvent(0, 19002900);
+    
+    $InitializeEvent(0, 19002910); //Initialized Event for Fake-Door Handoff
+    $InitializeEvent(0, 19002911); // Custom BGM
+    $InitializeEvent(0, 19002913); // Custom completion cleanup
+    $InitializeEvent(0, 19002914); // Maintain battle flags
+    
 });
 
 // プリコンストラクタ -- preconstructor
@@ -232,6 +238,7 @@ $Event(19002682, Restart, function() {
     MoveBloodstainAndDroppedItems(19002682, 19002683);
 });
 
+
 // ラスボス撃破 -- Defeat the final boss
 $Event(19002800, Restart, function() {
     if (!(PlayerIsInOwnWorld() && InArea(10000, 19002815) && EventFlag(19000804))) {
@@ -410,12 +417,69 @@ $Event(19002830, Restart, function() {
 });
 
 // ラスボス_イベント起動 -- Last boss_event activation
+//$Event(19002849, Restart, function() {
+//    $InitializeCommonEvent(0, 9005800, 19000800, 19001800, 19002800, 19002805, 19005800, 10000, 19002801, 0);
+//    $InitializeCommonEvent(0, 9005801, 19000800, 19001800, 19002800, 19002805, 19002806, 10000);
+//    $InitializeCommonEvent(0, 9005811, 19000800, 19001800, 5, 19002801);
+//    $InitializeCommonEvent(0, 9005822, 19000800, 219000, 19002805, 19002806, 0, 19002803, 0, 1);
+//});
+
+// Final boss common-event setup
 $Event(19002849, Restart, function() {
-    $InitializeCommonEvent(0, 9005800, 19000800, 19001800, 19002800, 19002805, 19005800, 10000, 19002801, 0);
-    $InitializeCommonEvent(0, 9005801, 19000800, 19001800, 19002800, 19002805, 19002806, 10000);
-    $InitializeCommonEvent(0, 9005811, 19000800, 19001800, 5, 19002801);
-    $InitializeCommonEvent(0, 9005822, 19000800, 219000, 19002805, 19002806, 0, 19002803, 0, 1);
+    if (EventFlag(11053735)) {
+        // The custom entrance uses custom battle/BGM events.
+        EndEvent();
+    }
+
+    // Original Erdtree entrance.
+    $InitializeCommonEvent(
+        0,
+        9005800,
+        19000800,
+        19001800,
+        19002800,
+        19002805,
+        19005800,
+        10000,
+        19002801,
+        0
+    );
+
+    $InitializeCommonEvent(
+        0,
+        9005801,
+        19000800,
+        19001800,
+        19002800,
+        19002805,
+        19002806,
+        10000
+    );
+
+    $InitializeCommonEvent(
+        0,
+        9005811,
+        19000800,
+        19001800,
+        5,
+        19002801
+    );
+
+    $InitializeCommonEvent(
+        0,
+        9005822,
+        19000800,
+        219000,
+        19002805,
+        19002806,
+        0,
+        19002803,
+        0,
+        1
+    );
 });
+
+
 
 // 供犠台ワープ -- sacrificial stand warp
 $Event(19002900, Restart, function() {
@@ -424,4 +488,96 @@ $Event(19002900, Restart, function() {
     WarpCharacterAndCopyFloorWithFadeout(10000, TargetEntityType.Area, 19002900, -1, 10000, false, false);
 });
 
+// Fake Radabeast entrance handoff
+$Event(19002910, Restart, function() {
+    EndIf(EventFlag(19000800));
 
+    WaitFor(
+        PlayerIsInOwnWorld()
+            && PlayerInMap(19, 0, 0, 0)
+            && EventFlag(11053734)
+            && EventFlag(11053735)
+    );
+
+    // Keep battle mode active through both phases.
+    SetNetworkconnectedEventFlagID(19002805, ON);
+
+    // Only clear the one-time handoff.
+    SetNetworkconnectedEventFlagID(11053734, OFF);
+
+    // Do not clear 11053735 or 19002805 here.
+});
+
+// Custom Radagon and Elden Beast BGM
+$Event(19002911, Restart, function() {
+    DisableNetworkSync();
+
+    EndIf(EventFlag(19000800));
+
+    WaitFor(
+        PlayerIsInOwnWorld()
+            && EventFlag(11053735)
+            && EventFlag(19002805)
+            && EventFlag(19002806)
+            && !EventFlag(19000800)
+    );
+
+    // Begin Radagon BGM.
+    SetBossBGM(219000, BossBGMState.Start);
+
+    // Wait for the Elden Beast phase or fight completion.
+    WaitFor(
+        EventFlag(19002803)
+            || EventFlag(19000800)
+            || !EventFlag(11053735)
+    );
+
+    if (EventFlag(19000800) || !EventFlag(11053735)) {
+        SetBossBGM(219000, BossBGMState.Stop1);
+        EndEvent();
+    }
+
+    // Reassert the BGM after the phase-transition cutscene.
+    WaitFixedTimeRealFrames(1);
+    SetBossBGM(219000, BossBGMState.HeatUp);
+    
+    WaitFor(
+        EventFlag(19000800)
+            || !EventFlag(11053735)
+    );
+
+    SetBossBGM(219000, BossBGMState.Stop1);
+});
+
+// Clear custom Radabeast mode after completion
+$Event(19002913, Restart, function() {
+    EndIf(!EventFlag(11053735));
+
+    WaitFor(EventFlag(19000800));
+
+    SetBossBGM(219000, BossBGMState.Stop1);
+
+    SetNetworkconnectedEventFlagID(19002805, OFF);
+    SetNetworkconnectedEventFlagID(19002806, OFF);
+
+    SetNetworkconnectedEventFlagID(11053734, OFF);
+    SetNetworkconnectedEventFlagID(11053735, OFF);
+});
+
+// Maintain custom Radabeast battle state
+$Event(19002914, Restart, function() {
+    EndIf(EventFlag(19000800));
+
+    WaitFor(
+        PlayerIsInOwnWorld()
+            && EventFlag(11053735)
+            && !EventFlag(19000800)
+    );
+
+    SetNetworkconnectedEventFlagID(19002805, ON);
+    SetNetworkconnectedEventFlagID(19002806, ON);
+
+    WaitFixedTimeSeconds(0.5);
+
+    RestartEvent();
+});

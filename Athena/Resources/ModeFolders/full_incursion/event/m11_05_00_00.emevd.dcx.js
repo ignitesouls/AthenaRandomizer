@@ -67,6 +67,8 @@ $Event(0, Default, function() {
     
     $InitializeEvent(0, 11053732, 11051802, 19000800);
     $InitializeEvent(0, 11053733, 11052849, 11051849);
+    $InitializeEvent(0, 11053734);
+    $InitializeEvent(0, 11053740);
 });
 
 // プリコンストラクタ -- preconstructor
@@ -666,12 +668,47 @@ $Event(11053731, Restart, function(entityId) {
 
 // Fake Radabeast Door
 $Event(11053732, Restart, function(fogWallEntityId, radabeastId) {
-    CreateAssetfollowingSFX(fogWallEntityId, 101, 1530);
     EndIf(EventFlag(radabeastId));
-    WaitFor(ActionButtonInArea(9501, fogWallEntityId));
+
+    CreateAssetfollowingSFX(fogWallEntityId, 101, 1530);
+
+    WaitFor(
+        PlayerIsInOwnWorld()
+            && !EventFlag(radabeastId)
+            && ActionButtonInArea(9501, fogWallEntityId)
+    );
+
+    SendInvadingPhantomsHome(0);
+
     ForceAnimationPlayback(10000, 67080, false, false, false);
-    WaitFixedTimeSeconds(5.0);
-    PlayCutsceneToPlayerAndWarp(19000040, CutscenePlayMode.SkippableWithWhiteFadeOut, 19002810, 19000000, 10000, 19000, false); 
+
+    WaitFixedTimeSeconds(2.4);
+    CreateAssetfollowingSFX(fogWallEntityId, 101, 1531);
+
+    WaitFixedTimeSeconds(3.6);
+
+    SetNetworkconnectedEventFlagID(19002500, ON);
+    SetEventFlagID(9021, ON);
+
+    // One-time handoff.
+    SetNetworkconnectedEventFlagID(11053734, ON);
+
+    // Persistent marker for the entire custom Radabeast fight.
+    SetNetworkconnectedEventFlagID(11053735, ON);
+
+    if (!EventFlag(119)) {
+        SetEventFlagID(119, ON);
+    }
+
+    PlayCutsceneToPlayerAndWarp(
+        19000040,
+        CutscenePlayMode.SkippableWithWhiteFadeOut,
+        19002810,
+        19000000,
+        10000,
+        19000,
+        false
+    );
 });
 
 $Event(11053733, Restart, function(regionId, warpDestinationId) {
@@ -681,5 +718,28 @@ $Event(11053733, Restart, function(regionId, warpDestinationId) {
     RestartEvent();
 });
 
+// Reset fake Radabeast state when back in Leyndell
+$Event(11053734, Restart, function() {
+    WaitFor(
+        PlayerIsInOwnWorld()
+            && PlayerInMap(11, 5, 0, 0)
+            && EventFlag(11053735)
+    );
+
+    SetNetworkconnectedEventFlagID(11053734, OFF);
+    SetNetworkconnectedEventFlagID(11053735, OFF);
+});
 
 
+$Event(11053740, Restart, function() {
+    WaitFor(
+        PlayerIsInOwnWorld()
+            && PlayerInMap(11, 5, 0, 0)
+            && EventFlag(11053735)
+    );
+
+    WaitFixedTimeSeconds(2);
+
+    SetNetworkconnectedEventFlagID(11053734, OFF);
+    SetNetworkconnectedEventFlagID(11053735, OFF);
+});

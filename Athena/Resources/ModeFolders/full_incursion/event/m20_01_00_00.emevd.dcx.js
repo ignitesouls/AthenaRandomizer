@@ -2397,7 +2397,7 @@ $Event(20010763, Restart, function(chrEntityId, eventFlagId, chrEntityId2) {
     DisableCharacter(chrEntityId);
 });
 
-//When PCR is active, the Scadu Blessing of the player is added +20
+//When PCR is active, the Scadu Blessing of the player is added +10
 $Event(20010764, Restart, function() {
     EndIf(EventFlag(20010800));
     WaitFor(CharacterAIState(20010801, AIStateType.Combat) 
