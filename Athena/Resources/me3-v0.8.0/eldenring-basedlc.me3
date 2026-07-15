@@ -9,3 +9,6 @@ path = "basedlc"
 
 [[natives]]
 path = 'StutterFix/DINPUT8.DLL'
+
+[[natives]]
+path = 'Menu/MenuInputDelayFix.dll'
