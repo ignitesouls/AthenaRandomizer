@@ -8853,7 +8853,7 @@ Scadutree Fragment: 17
 Scadutree Fragment: 18
 Scadutree Fragment: 19
 Scadutree Fragment: 20
-Scadutree Fragment: 10 PCR Infinite Fragments
+Scadutree Fragment: 5 PCR Infinite Fragments
 Revered Spirit Ash: 0
 Revered Spirit Ash: 1
 Revered Spirit Ash: 2

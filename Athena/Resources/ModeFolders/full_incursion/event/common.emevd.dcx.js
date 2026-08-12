@@ -474,7 +474,7 @@ $Event(0, Default, function() {
     InitializeEvent(8, 11120000, 1252380800, 16000800, 12090800);   //Radahn Rykard   || Regal
     InitializeEvent(9, 11120000, 12040800, 16000800, 12090800);     //Astel Rykard    || Regal
     InitializeEvent(10, 11120000, 12040800, 16000800, 11050800);    //Astel Rykard    || Hoarah Loux
-    
+
     //InitializeEvent(0, 11120001, 4535, 16000800);     //Rellana Dancing Lion
 });
 
@@ -784,7 +784,7 @@ $Event(11100084, Default, function() {
     AwardItemLot(5310); // sets event flag 11107000
     
     // Some base game graces were unlocked, including underground
-    DisplayGenericDialog(30068, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30068, 1, false);
     
     // SetThisEventSlot(ON);
 });
@@ -843,7 +843,8 @@ $Event(11100086, Default, function() {
     }
     
     // Some DLC graces were unlocked
-    DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30069, 1, false);
+    
     
     SetThisEventSlot(ON);
 });
@@ -869,7 +870,7 @@ $Event(11100087, Default, function() {
     }
     
     // Some south graces were unlocked
-    DisplayGenericDialog(30072, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30072, 1, false);
     
     SetThisEventSlot(ON);
 });
@@ -884,7 +885,7 @@ $Event(11100088, Default, function() {
     SetEventFlagID(71502, ON);
     
     // The Elphael Inner Wall grace was unlocked
-    DisplayGenericDialog(30076, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30076, 1, false);
     
     SetThisEventSlot(ON);    
 });
@@ -898,7 +899,7 @@ $Event(11100089, Default, function() {
     SetEventFlagID(72016, ON);
     
     // The Divine Gate Front Staircase grace was unlocked
-    DisplayGenericDialog(30075, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30075, 1, false);
     
     SetThisEventSlot(ON);
 });
@@ -911,11 +912,13 @@ $Event(11100090, Default, function() {
     //If the Player has Dectus Left -> Turn on Fort Faroth Grace
     if (PlayerHasItemIncludingBBox(ItemType.Goods, 8105)) {
         SetEventFlagID(76453, ON); //Turn on Fort Faroth Grace
+        DisplayBlinkingMessageWithPriority(30155, 1, false);
     }
     
     //If the Player has Dectus Right -> Turn on Fort Haight Grace
     if (PlayerHasItemIncludingBBox(ItemType.Goods, 8106)) {
         SetEventFlagID(76105, ON); // Turn on Forth Haight West Grace
+        DisplayBlinkingMessageWithPriority(30156, 1, false);
     }
     
     SetThisEventSlot(ON);
@@ -931,7 +934,7 @@ $Event(11100091, Default, function() {
     SetEventFlagID(71303, ON);
 
     // Crumbling Beast Grave grace has been unlocked
-    DisplayGenericDialog(30152, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30152, 1, false);
 
     SetThisEventSlot(ON);
 });
@@ -947,7 +950,7 @@ $Event(11100092, Default, function() {
     SetEventFlagID(71311, ON); //Placi Grace
     
     // Further Farum Azula graces have been unlocked
-    DisplayGenericDialog(30153, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30153, 1, false);
   
     SetThisEventSlot(ON);
 });
@@ -960,7 +963,8 @@ $Event(11100093, Default, function() {
     WaitFor(EntityInRadiusOfEntity(10000, 11101716, 4, 1));
     
     // Set the Prince of Death's Throne Grace On
-    DisplayGenericDialog(30154, PromptType.YESNO, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30154, 1, false);
+    
     SetEventFlagID(71230, ON);
     
     SetThisEventSlot(ON);
@@ -971,7 +975,7 @@ $Event(11100094, Default, function(restoredGreatRune) {
     WaitFor(EventFlag(restoredGreatRune));
     EndIf(EventFlag(71124));
     SetEventFlagID(71124, ON);
-    DisplayGenericDialog(30151, PromptType.YESNO, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30151, 1, false);
 });
 
 $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
@@ -989,7 +993,7 @@ $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
     // Flask of Wondrous Physick is for sale at roundtable
     SetEventFlagID(11109774, ON);
     // Some DLC graces and Capital were unlocked
-    DisplayGenericDialog(30069, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30069, 1, false);
     
     // Golden Seeds and Sacred Tears
     AwardItemLot(5300);

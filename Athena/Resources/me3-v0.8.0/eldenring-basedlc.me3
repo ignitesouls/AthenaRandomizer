@@ -11,4 +11,4 @@ path = "basedlc"
 path = 'StutterFix/DINPUT8.DLL'
 
 [[natives]]
-path = 'Menu/MenuInputDelayFix.dll'
+path = 'CrashFix/RandomizerCrashFix.dll'

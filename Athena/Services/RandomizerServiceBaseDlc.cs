@@ -360,8 +360,6 @@ public class RandomizerServiceBaseDlc
         List<string> selectedGraceNames = new();
 
         // Limgrave: pick 1 from Limgrave1 and 1 from Limgrave2
-        //61423600, // Church of Elleh
-        //61423601, // First Step
         {
             Random rng = urr.GetSeedManager().GetRandomByKey("grace_Limgrave");
 

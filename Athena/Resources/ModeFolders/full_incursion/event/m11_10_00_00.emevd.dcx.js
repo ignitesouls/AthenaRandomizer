@@ -83,6 +83,7 @@ $Event(0, Default, function() {
     $InitializeEvent(0, 11100795);
     $InitializeEvent(0, 11100796);
     $InitializeEvent(0, 11100797);
+    $InitializeEvent(0, 11100798);
     $InitializeEvent(0, 11102651, 710700, 1700, 9125, 69250);
     $InitializeEvent(0, 11102650, 710720, 1720, 9128, 69280);
     $InitializeEvent(0, 11102652, 710780, 1780, 9132, 69320);
@@ -310,7 +311,7 @@ $Event(11100042, Default, function() {
     DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
     
     // Some early graces were unlocked
-    DisplayGenericDialog(30067, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
+    DisplayBlinkingMessageWithPriority(30067, 1, false);
     
     SetThisEventSlot(ON);
 });
@@ -1524,4 +1525,28 @@ $Event(11100797, Default, function() {
     SetEventFlagID(11109777, ON);
     SetEventFlagID(11109785, ON);
     EndEvent();
+});
+
+
+// Roundtable Chair EE
+$Event(11100798, Restart, function() {
+    WaitFor(
+        AssetDestroyed(11100707) &&
+        AssetDestroyed(11100708) &&
+        AssetDestroyed(11100709) &&
+        AssetDestroyed(11100713) &&
+        AssetDestroyed(11100714) &&
+        AssetDestroyed(11100716)
+    );
+    DisableAsset(11100718);
+    DisableAsset(11100719);
+    DisableAsset(11100721);
+    DisableAsset(11100722);
+    DisableAsset(11100723);
+    DisableAsset(11100724);
+    DisableAsset(11100727);
+    DisableAsset(11100728);
+    DisableAsset(11100729);
+    DisableAsset(11100731);
+    DisableAsset(11100732);
 });

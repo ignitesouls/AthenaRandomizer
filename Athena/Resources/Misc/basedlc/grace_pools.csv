@@ -12,6 +12,7 @@ ID,GraceName,GraceRegion
 61433800,Murkwater Coast,Limgrave1
 180001,Stranded Graveyard,Limgrave2
 62364901,The Ravine,Liurnia_North
+62385001,Ravine-Veiled Village, Liurnia_North
 62384800,Frenzied Flame Village Outskirts,Liurnia_North
 62354700,East Gate Bridge Trestle,Liurnia_North
 62344701,Sorcerer's Isle,Liurnia_North
@@ -23,6 +24,7 @@ ID,GraceName,GraceRegion
 62374400,Academy Gate Town,Liurnia_South
 62364301,Fallen Ruins of the Lake,Liurnia_South
 62374200,Scenic Isle,Liurnia_South
+62364300,Boilprawn Shack,Liurnia_South
 62394200,Liurnia Highway North,Liurnia_South
 62394100,Liurnia Highway South,Liurnia_South
 62384100,Laskyar Ruins,Liurnia_South
@@ -35,6 +37,7 @@ ID,GraceName,GraceRegion
 62384000,Liurnia Lake Shore,Liurnia_East
 62384800,Frenzied Flame Village Outskirts,Liurnia_East
 62384501,Eastern Liurnia Lake Shore,Liurnia_East
+62384500,Artist's Shack,Liurnia_East
 62344400,Temple Quarter,Liurnia_West
 62334600,Foot of the Four Belfries,Liurnia_West
 62344900,Road to the Manor,Liurnia_West
@@ -42,7 +45,6 @@ ID,GraceName,GraceRegion
 62354700,East Gate Bridge Trestle,Liurnia_West
 62364301,Fallen Ruins of the Lake,Liurnia_West
 62344600,Crystalline Woods,Liurnia_West
-62384500,Artist's Shack,Liurnia_West
 61413200,Isolated Merchant's Shack,Weeping1
 61443301,South of the Lookout Tower,Weeping1
 61433400,Church of Pilgrimage,Weeping1
