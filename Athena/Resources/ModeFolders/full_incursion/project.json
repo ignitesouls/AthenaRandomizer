@@ -1,0 +1,18 @@
+{
+  "ProjectName": "VCC-Incursion",
+  "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
+  "GameType": 8,
+  "PinnedParams": [],
+  "PinnedRows": {
+    "CharaInitParam": [
+      23268
+    ],
+    "ItemLotParam_map": [
+      2047450920
+    ]
+  },
+  "PinnedFields": {},
+  "UseLooseParams": false,
+  "PartialParams": false,
+  "LastFmgLanguageUsed": ""
+}

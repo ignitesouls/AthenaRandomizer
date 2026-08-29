@@ -19,6 +19,7 @@ Axe,15010000,Warped Axe,0,2,17
 Backhand Blade,64500000,Backhand Blade,0,2,92
 Backhand Blade,64520000,Curseblade's Cirque,0,2,92
 Backhand Blade,64510000,Smithscript Cirque,0,2,92
+Backhand Blade,64530000,Reverse-Bladed Sword,0,2,92
 Ballista,44000000,Hand Ballista,0,2,56
 Ballista,44010000,Jar Cannon,0,2,56
 Ballista,44500000,Rabbath's Cannon,0,2,56
@@ -85,6 +86,7 @@ Curved Greatsword,8070000,Monk's Flameblade,0,2,11
 Curved Greatsword,8060000,Omen Cleaver,0,2,11
 Curved Greatsword,8010000,Onyx Lord's Greatsword,0,2,11
 Curved Greatsword,8050000,Zamor Curved Sword,0,2,11
+Curved Greatsword,8530000,Hefty Scimitar,0,2,11
 Curved Sword,7040000,Bandit's Curved Sword,0,2,9
 Curved Sword,7010000,Beastman's Curved Sword,0,2,9
 Curved Sword,7520000,Dancing Blade of Ranah,0,2,9
@@ -140,6 +142,7 @@ Flail,13020000,Family Heads,0,2,24
 Flail,13010000,Flail,0,2,24
 Flail,13000000,Nightrider Flail,0,2,24
 Flail,13500000,Serpent Flail,0,2,24
+Flail,13510000,Golden Order Flail,0,2,24
 Great Hammer,12020000,Battle Hammer,0,2,23
 Great Hammer,12150000,Beastclaw Greathammer,0,2,23
 Great Hammer,12520000,Black Steel Greathammer,0,2,23
@@ -159,6 +162,7 @@ Great Hammer,12500000,Smithscript Greathammer,0,2,23
 Great Katana,66510000,Dragon-Hunter's Great Katana,0,2,94
 Great Katana,66500000,Great Katana,0,2,94
 Great Katana,66520000,Rakshasa's Great Katana,0,2,94
+Great Katana,66530000,Reed Great Katana,0,2,94
 Great Spear,17520000,Barbed Staff-Spear,0,2,28
 Great Spear,16550000,Bloodfiend's Sacred Spear,0,2,28
 Great Spear,17060000,Lance,0,2,28
@@ -229,6 +233,7 @@ Greatsword,3030000,Lordsworn's Greatsword,0,2,5
 Greatsword,3150000,Marais Executioner's Sword,0,2,5
 Greatsword,3060000,Ordovis's Greatsword,0,2,5
 Greatsword,3160000,Sword of Milos,0,2,5
+Greatsword,3560000,Leontiel's Greatsword,0,2,5
 Halberd,18030000,Banished Knight's Halberd,0,2,29
 Halberd,18040000,Commander's Standard,0,2,29
 Halberd,18140000,Dragon Halberd,0,2,29
@@ -284,6 +289,7 @@ Light Bow,40020000,Red Branch Shortbow,0,2,50
 Light Bow,40000000,Shortbow,0,2,50
 Light Greatsword,67510000,Leda's Sword,0,2,93
 Light Greatsword,67500000,Milady,0,2,93
+Light Greatsword,67530000,Idus Sword,0,2,93
 Medium Shield,31040000,Albinauric Shield,0,2,67
 Medium Shield,31030000,Banished Knight's Shield,0,2,67
 Medium Shield,31280000,Beast Crest Heater Shield,0,2,67
@@ -315,6 +321,7 @@ Medium Shield,31060000,Silver Mirrorshield,0,2,67
 Medium Shield,31050000,Sun Realm Shield,0,2,67
 Medium Shield,31090000,Twinbird Kite Shield,0,2,67
 Medium Shield,31510000,Wolf Crest Shield,0,2,67
+Medium Shield,31540000,Silver Grooved Shield,0,2,67
 Perfume Bottle,61510000,Chilling Perfume Bottle,0,2,89
 Perfume Bottle,61540000,Deadly Poison Perfume Bottle,0,2,89
 Perfume Bottle,61500000,Firespark Perfume Bottle,0,2,89
@@ -388,6 +395,7 @@ Straight Sword,2050000,Weathered Straight Sword,0,2,3
 Throwing Blade,63500000,Smithscript Dagger,0,2,91
 Thrusting Shield,62510000,Carian Thrusting Shield,0,2,90
 Thrusting Shield,62500000,Dueling Shield,0,2,90
+Thrusting Shield,62520000,Ritual Thrusting Shield,0,2,90
 Thrusting Sword,5040000,Antspur Rapier,0,2,15
 Thrusting Sword,2530000,Carian Sorcery Sword,0,2,15
 Thrusting Sword,5010000,Cleanrot Knight's Sword,0,2,15

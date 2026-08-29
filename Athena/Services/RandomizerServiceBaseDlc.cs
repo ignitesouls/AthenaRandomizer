@@ -10,6 +10,7 @@ using Athena.Utilities;
 using DotNext;
 using EldenRingParamsEditor;
 using UniversalReplacementRandomizer;
+using static SoulsFormats.MQB;
 
 namespace Athena.Services;
 
@@ -17,7 +18,8 @@ namespace Athena.Services;
 public enum BaseDlcMode
 {
     Default,
-    VCC
+    VCC, 
+    Incursion
 }
 
 public class RandomizerServiceBaseDlc
@@ -45,6 +47,7 @@ public class RandomizerServiceBaseDlc
         var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInBaseDlc);
         var menuBndEditor = MenuBndEditorService.ReadFromMenuBndFilePath(Constants.MenuBndInBaseDlc);
 
+        //MetadataUtils.GenerateWeaponsMappings(editor);
         string seedManagerPrefix;
 
 
@@ -53,6 +56,11 @@ public class RandomizerServiceBaseDlc
             case BaseDlcMode.VCC:
                 {
                     seedManagerPrefix = SeedManagerPrefix + "_vcc";
+                    break;
+                }
+            case BaseDlcMode.Incursion:
+                {
+                    seedManagerPrefix = SeedManagerPrefix + "_incursion";
                     break;
                 }
             default:
@@ -69,14 +77,14 @@ public class RandomizerServiceBaseDlc
             updateBaseSeedCallback?.Invoke(urr.GetBaseSeed());
         }
 
-        //When the Mode is Set to VCC Randomize the Graces within the Pool
-        if (mode == BaseDlcMode.VCC)
+        //When the Mode is Set to VCC or Incursion Randomize the Graces within the Pool
+        if (mode == BaseDlcMode.VCC || mode == BaseDlcMode.Incursion)
         {
             RandomizeGrace(editor, urr, updateGracesListCallback);
         }
 
         // Generate stats and starting equipment
-        RandomizeStartingClassesBaseDlc(editor, menuBndEditor, urr);
+        RandomizeStartingClassesBaseDlc(editor, menuBndEditor, urr, mode);
 
         // Randomize weapons, spells, and incantations
         RandomizeAllGroupsBaseDlc(editor, urr);
@@ -99,11 +107,11 @@ public class RandomizerServiceBaseDlc
         updatedRandomizedModeBaseDlcCallback?.Invoke(mode); 
     }
 
-    private void RandomizeStartingClassesBaseDlc(ParamsEditor editor, MenuBndEditorService menuBndEditor, OptimizedReplacementRandomizer urr)
+    private void RandomizeStartingClassesBaseDlc(ParamsEditor editor, MenuBndEditorService menuBndEditor, OptimizedReplacementRandomizer urr, BaseDlcMode mode)
     {
         using DebugTimer _ = new DebugTimer("RandomizeStartingClassesBaseDlc");
 
-        var classStatAllocations = randomizerServiceStartingClass.GenerateAllClassStats(urr);
+        var classStatAllocations = randomizerServiceStartingClass.GenerateAllClassStats(urr, fixedVigor20WithOtherStatsTotal80: mode == BaseDlcMode.Incursion);
         var armorSetAllocations = randomizerServiceStartingClass.GenerateArmorSets(urr, $"{Constants.Misc}/basedlc/starting_classes");
         var weaponSetAllocations = randomizerServiceStartingClass.GenerateWeaponSets(urr, $"{Constants.Misc}/basedlc/starting_classes");
 
@@ -308,15 +316,40 @@ public class RandomizerServiceBaseDlc
     private void ModeCustomization(BaseDlcMode mode)
     {
         // Events (default vs VCC)
-        string eventPath = Path.Combine(Constants.MenuBndOutBaseDlcVCC, "event");
+        //string eventPath = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc", "event");
+        //string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_basedlc");
+        //string eventVCCPath = Path.Combine(Constants.ModeFolders, "event_vcc");
+        //string eventIncursionPath = Path.Combine(Constants.ModeFolders, "event_incursion");
+        //
+        //modeService.UpdateFolder(
+        //    targetPath: eventPath,
+        //    sourcePath: mode switch
+        //    {
+        //        BaseDlcMode.VCC => eventVCCPath,
+        //        BaseDlcMode.Incursion => eventIncursionPath,
+        //        _ => eventDefaultPath
+        //    }
+        //);
+
+
+        string targetEventPath = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc", "event");
+        string targetBasePath = Path.Combine(Constants.ModEngineWorkingDirectory, "basedlc");
+
         string eventDefaultPath = Path.Combine(Constants.ModeFolders, "event_basedlc");
         string eventVCCPath = Path.Combine(Constants.ModeFolders, "event_vcc");
+        string eventIncursionPath = Path.Combine(Constants.ModeFolders, "full_incursion");
 
         modeService.UpdateFolder(
-            targetPath: eventPath,
-            sourcePath: mode == BaseDlcMode.VCC
-                ? eventVCCPath
-                : eventDefaultPath
+            targetPath: mode == BaseDlcMode.Incursion
+                ? targetBasePath
+                : targetEventPath,
+
+            sourcePath: mode switch
+            {
+                BaseDlcMode.VCC => eventVCCPath,
+                BaseDlcMode.Incursion => eventIncursionPath,
+                _ => eventDefaultPath
+            }
         );
     }
 
@@ -328,8 +361,6 @@ public class RandomizerServiceBaseDlc
         List<string> selectedGraceNames = new();
 
         // Limgrave: pick 1 from Limgrave1 and 1 from Limgrave2
-        //61423600, // Church of Elleh
-        //61423601, // First Step
         {
             Random rng = urr.GetSeedManager().GetRandomByKey("grace_Limgrave");
 

@@ -4,11 +4,11 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 1012,Cerulean Amber Medallion +2,10000,Talisman,Accessory,2,1035417100,1
 1022,Viridian Amber Medallion +2,10000,Talisman,Accessory,2,15007350,1
 1042,Erdtree's Favor +2,10000,Talisman,Accessory,2,11057100,1
-4012,Spelldrake Talisman +2,10000,Talisman,Accessory,2,30207060,1
-4022,Flamedrake Talisman +2,10000,Talisman,Accessory,2,520440,1
-4032,Boltdrake Talisman +2,10000,Talisman,Accessory,2,13007760,1
-4042,Haligdrake Talisman +2,10000,Talisman,Accessory,2,12057370,1
-4052,Pearldrake Talisman +2,10000,Talisman,Accessory,2,15007220,1
+4111,Spelldrake Talisman +2,10000,Talisman,Accessory,2,1043630040,1
+4113,Flamedrake Talisman +2,10000,Talisman,Accessory,2,1043630000,1
+4114,Boltdrake Talisman +2,10000,Talisman,Accessory,2,1043630020,1
+4112,Haligdrake Talisman +2,10000,Talisman,Accessory,2,1043630010,1
+4115,Pearldrake Talisman +2,10000,Talisman,Accessory,2,1043630030,1
 1210,Bull-Goat's Talisman,10000,Talisman,Accessory,2,31107050,1
 6020,Carian Filigreed Crest,10000,Talisman,Accessory,2,120290,1
 1070,Prosthesis-Wearer Heirloom,10000,Talisman,Accessory,2,400320,1
@@ -23,3 +23,8 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 2081,Rotten Winged Sword Insignia,20000,Talisman,Accessory,2,400480,1
 5000,Crimson Seed Talisman,30000,Talisman,Accessory,2,30087010,1
 1700,Throwing Dagger,40,Consumable,Good,3,150070,-1
+11028, Flame-Shrouding Cracked Tear, 20000, Consumable, Good, 3, 1043630070, 1
+11030, Lightning-Shrouding Cracked Tear, 20000, Consumable, Good, 3, 1043630050, 1
+11031, Holy-Shrouding Cracked Tear, 20000, Consumable, Good, 3, 1043630060, 1,
+2180, Claw Talisman, 20000, Talisman, Accessory, 2, 1043630080, 1
+2060, Spear Talisman, 20000, Talisman, Accessory, 2, 1043630090, 1

@@ -104,6 +104,16 @@
 
                 <RadioButton Grid.Row="0"
                              Grid.Column="1"
+                             Content="VCC World Tour"
+                             Margin="3"
+                             FontSize="11"
+                             GroupName="BaseDlcModeGroup"
+                             IsChecked="{Binding BaseDlcMode,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter={x:Static services:BaseDlcMode.Incursion}}" />
+
+                <RadioButton Grid.Row="1"
+                             Grid.Column="2"
                              Content="VCC"
                              Margin="3"
                              FontSize="11"
@@ -113,6 +123,5 @@
                                                  ConverterParameter={x:Static services:BaseDlcMode.VCC}}" />
             </Grid>
         </GroupBox>
-
     </StackPanel>
 </UserControl>

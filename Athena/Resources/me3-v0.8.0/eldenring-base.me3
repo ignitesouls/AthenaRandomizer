@@ -9,3 +9,6 @@ path = "base"
 
 [[natives]]
 path = 'StutterFix/DINPUT8.DLL'
+
+[[natives]]
+path = 'CrashFix/RandomizerCrashFix.dll'

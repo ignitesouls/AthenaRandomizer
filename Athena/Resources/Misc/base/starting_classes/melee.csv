@@ -19,6 +19,7 @@ Axe,15010000,Warped Axe,0,2,17
 Backhand Blade,64500000,Backhand Blade,0,2,92
 Backhand Blade,64510000,Smithscript Cirque,0,2,92
 Backhand Blade,64520000,Curseblade's Cirque,0,2,92
+Backhand Blade,64530000,Reverse-Bladed Sword,0,2,92
 Beast Claw,68500000,Beast Claw,0,2,95
 Beast Claw,68510000,Red Bear's Claw,0,2,95
 Claw,22000000,Hookclaws,0,2,37
@@ -65,6 +66,7 @@ Curved Greatsword,8070000,Monk's Flameblade,0,2,11
 Curved Greatsword,8080000,Beastman's Cleaver,0,2,11
 Curved Greatsword,8510000,Freyja's Greatsword,0,2,11
 Curved Greatsword,8520000,Horned Warrior's Greatsword,0,2,11
+Curved Greatsword,8530000,Hefty Scimitar,0,2,11
 Curved Sword,2080000,Nox Flowing Sword,0,2,9
 Curved Sword,7000000,Falchion,0,2,9
 Curved Sword,7010000,Beastman's Curved Sword,0,2,9
@@ -120,6 +122,7 @@ Flail,13010000,Flail,0,2,24
 Flail,13020000,Family Heads,0,2,24
 Flail,13040000,Chainlink Flail,0,2,24
 Flail,13500000,Serpent Flail,0,2,24
+Flail,13510000,Golden Order Flail,0,2,24
 Great Hammer,12000000,Large Club,0,2,23
 Great Hammer,12010000,Greathorn Hammer,0,2,23
 Great Hammer,12020000,Battle Hammer,0,2,23
@@ -139,6 +142,7 @@ Great Hammer,12520000,Black Steel Greathammer,0,2,23
 Great Katana,66500000,Great Katana,0,2,94
 Great Katana,66510000,Dragon-Hunter's Great Katana,0,2,94
 Great Katana,66520000,Rakshasa's Great Katana,0,2,94
+Great Katana,66530000,Reed Great Katana,0,2,94
 Great Spear,16550000,Bloodfiend's Sacred Spear,0,2,28
 Great Spear,17020000,Siluria's Tree,0,2,28
 Great Spear,17050000,Vyke's War Spear,0,2,28
@@ -178,6 +182,7 @@ Greatsword,3200000,Death's Poker,0,2,5
 Greatsword,3210000,Gargoyle's Blackblade,0,2,5
 Greatsword,3520000,Lizard Greatsword,0,2,5
 Greatsword,3550000,Greatsword of Solitude,0,2,5
+Greatsword,3560000,Leontiel's Greatsword,0,2,5
 Halberd,18000000,Halberd,0,2,29
 Halberd,18010000,Pest's Glaive,0,2,29
 Halberd,18020000,Lucerne,0,2,29
@@ -227,6 +232,7 @@ Katana,9080000,Serpentbone Blade,0,2,13
 Katana,9500000,Sword of Night,0,2,13
 Light Greatsword,67500000,Milady,0,2,93
 Light Greatsword,67510000,Leda's Sword,0,2,93
+Light Greatsword,67530000,Idus Sword,0,2,93
 Perfume Bottle,61500000,Firespark Perfume Bottle,0,2,89
 Perfume Bottle,61510000,Chilling Perfume Bottle,0,2,89
 Perfume Bottle,61520000,Frenzyflame Perfume Bottle,0,2,89
@@ -281,6 +287,7 @@ Straight Sword,2560000,Sword of Darkness,0,2,3
 Throwing Blade,63500000,Smithscript Dagger,0,2,91
 Thrusting Shield,62500000,Dueling Shield,0,2,90
 Thrusting Shield,62510000,Carian Thrusting Shield,0,2,90
+Thrusting Sheild,62520000,Ritual Thrusting Shield,0,2,90
 Thrusting Sword,2530000,Carian Sorcery Sword,0,2,15
 Thrusting Sword,5000000,Estoc,0,2,15
 Thrusting Sword,5010000,Cleanrot Knight's Sword,0,2,15

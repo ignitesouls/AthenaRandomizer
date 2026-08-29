@@ -68,6 +68,7 @@ ID,Name,EquipType,Category
 3510000,Greatsword of Damnation,0,2
 3520000,Lizard Greatsword,0,2
 3550000,Greatsword of Solitude,0,2
+3560000,Leontiel's Greatsword,0,2
 4000000,Greatsword,0,2
 4010000,Watchdog's Greatsword,0,2
 4020000,Maliketh's Black Blade,0,2
@@ -126,6 +127,7 @@ ID,Name,EquipType,Category
 8500000,Putrescence Cleaver,0,2
 8510000,Freyja's Greatsword,0,2
 8520000,Horned Warrior's Greatsword,0,2
+8530000,Hefty Scimitar,0,2
 9000000,Uchigatana,0,2
 9010000,Nagakiba,0,2
 9020000,Hand of Malenia,0,2
@@ -183,6 +185,7 @@ ID,Name,EquipType,Category
 13030000,Bastard's Stars,0,2
 13040000,Chainlink Flail,0,2
 13500000,Serpent Flail,0,2
+13510000,Golden Order Flail,0,2
 14000000,Battle Axe,0,2
 14010000,Forked Hatchet,0,2
 14020000,Hand Axe,0,2
@@ -350,16 +353,20 @@ ID,Name,EquipType,Category
 61540000,Deadly Poison Perfume Bottle,0,2
 62500000,Dueling Shield,0,2
 62510000,Carian Thrusting Shield,0,2
+62520000,Ritual Thrusting Shield,0,2
 63500000,Smithscript Dagger,0,2
 64500000,Backhand Blade,0,2
 64510000,Smithscript Cirque,0,2
 64520000,Curseblade's Cirque,0,2
+64530000,Reverse-Bladed Sword,0,2
 66500000,Great Katana,0,2
 66510000,Dragon-Hunter's Great Katana,0,2
 66520000,Rakshasa's Great Katana,0,2
+66530000,Reed Great Katana,0,2
 67500000,Milady,0,2
 67510000,Leda's Sword,0,2
 67520000,Rellana's Twin Blades,0,2
+67530000,Idus Sword,0,2
 68500000,Beast Claw,0,2
 68510000,Red Bear's Claw,0,2
 33000000,Glintstone Staff,0,2
@@ -451,6 +458,7 @@ ID,Name,EquipType,Category
 31510000,Wolf Crest Shield,0,2
 31520000,Serpent Crest Shield,0,2
 31530000,Golden Lion Shield,0,2
+31540000,Silver Grooved Shield,0,2
 32000000,Dragon Towershield,0,2
 32020000,Distinguished Greatshield,0,2
 32030000,Crucible Hornshield,0,2
