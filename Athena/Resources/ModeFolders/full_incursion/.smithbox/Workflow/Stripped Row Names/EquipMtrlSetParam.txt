@@ -746,6 +746,8 @@ Traveling Maiden Robe * 1
 
 
 
+
+
 Elden Lord Armor * 1
 Radahn's Lion Armor * 1
 Lord of Blood's Robe * 1
@@ -818,6 +820,8 @@ Fia's Robe (Altered) * 1
 Alberich's Pointed Hat (Altered) * 1
 Alberich's Robe (Altered) * 1
 Traveling Maiden Robe (Altered) * 1
+
+
 
 
 

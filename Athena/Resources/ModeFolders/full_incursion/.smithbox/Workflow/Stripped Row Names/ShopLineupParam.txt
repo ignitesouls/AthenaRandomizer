@@ -204,6 +204,7 @@ Stonesword Key
 [Merchant - East Limgrave] Blue-Gold Kite Shield
 [Merchant - East Limgrave] St. Trina's Arrow
 [Merchant - East Limgrave] Smithing Stone [1]
+
 [Merchant - Coastal Cave] Armorer's Cookbook [2]
 [Merchant - Coastal Cave] Note: Stonedigger Trolls
 [Merchant - Coastal Cave] Note: Land Squirts
@@ -262,6 +263,10 @@ Stonesword Key
 [Isolated Merchant - Weeping Peninsula] Great Arrow
 [Isolated Merchant - Weeping Peninsula] Festering Bloody Finger
 [Isolated Merchant - Weeping Peninsula] Smithing Stone [2]
+
+
+
+
 [Merchant - Academy of Raya Lucaria] Fevor's Cookbook [2]
 [Merchant - Academy of Raya Lucaria] Trina's Lily
 [Merchant - Academy of Raya Lucaria] Eye of Yelough
@@ -283,6 +288,11 @@ Stonesword Key
 [Merchant - North Liurnia] Composite Bow
 [Merchant - North Liurnia] Rift Shield
 [Merchant - North Liurnia] Blue Crest Heater Shield
+
+
+
+
+
 [Merchant - North Liurnia] Rune Arc
 [Merchant - North Liurnia] Bewitching Branch
 [Merchant - North Liurnia] Arrow
@@ -570,6 +580,7 @@ Stonesword Key
 [Twin Maiden Husks] String
 [Twin Maiden Husks] Igon's Harpoon
 [Twin Maiden Husks] Rabbath's Greatbolt
+
 [Twin Maiden Husks] Enraged Divine Beast
 [Twin Maiden Husks] Ash of War: Divine Beast Frost Stomp
 [Remembrance of the Grafted] Axe of Godrick
@@ -805,6 +816,8 @@ Remembrance of Putrescence
 [Alteration] Armor of Solitude (Altered)
 [Alteration] Messmer Soldier Armor (Altered)
 [Alteration] Fire Knight Armor (Altered)
+
+
 [Alteration] Elden Lord Armor (Altered)
 [Alteration] Radahn's Lion Armor (Altered)
 [Alteration] Lord of Blood's Robe (Altered)
@@ -888,6 +901,8 @@ Remembrance of Putrescence
 [Reversion] Armor of Solitude
 [Reversion] Messmer Soldier Armor
 [Reversion] Fire Knight Armor
+
+
 [Reversion] Elden Lord Armor
 [Reversion] Radahn's Lion Armor
 [Reversion] Lord of Blood's Robe
@@ -971,6 +986,8 @@ Remembrance of Putrescence
 [Alteration] Armor of Solitude (Altered)
 [Alteration] Messmer Soldier Armor (Altered)
 [Alteration] Fire Knight Armor (Altered)
+
+
 [Alteration] Elden Lord Armor (Altered)
 [Alteration] Radahn's Lion Armor (Altered)
 [Alteration] Lord of Blood's Robe (Altered)
@@ -1054,6 +1071,8 @@ Remembrance of Putrescence
 [Reversion] Armor of Solitude
 [Reversion] Messmer Soldier Armor
 [Reversion] Fire Knight Armor
+
+
 [Reversion] Elden Lord Armor
 [Reversion] Radahn's Lion Armor
 [Reversion] Lord of Blood's Robe

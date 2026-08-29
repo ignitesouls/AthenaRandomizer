@@ -26,6 +26,12 @@ Class - Confessor
 Class - Samurai
 Class - Prisoner
 Class - Wretch
+Idus
+Heavy Knight
+
+
+
+
 
 
 
@@ -2188,11 +2194,12 @@ Sorcerer Rogier (Fia's Champions Boss)
 Knight Bernahl
 Recusant Bernahl
 Recusant Bernahl
-
+Bernie Bingo
 Moonwalk Jay
 Omenveil Strump
 Anamnesis Fun
-Scadubingo CHAMPION
+Scadubingo Jeff
+Psiphicodex
 Eleonora, Violet Bloody Finger
 Eleonora, Violet Bloody Finger
 Lionel the Lionhearted
@@ -2322,6 +2329,10 @@ Magnus the Beast Claw
 
 Stray Mimic Tear
 Mimic Tear
+
+
+
+
 Mimic Tear
 Stormhill Colosseum Silent Spirit
 Caria Manor Silent Spirit
@@ -2330,6 +2341,29 @@ Dragonbarrow Silent Spirit
 Human
 Human
 Human
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -461,7 +461,7 @@ $Event(0, Default, function() {
     InitializeEvent(3, 11100094, 194); // Restoring Rykard's Great Rune
     InitializeEvent(4, 11100094, 195); // Restoring Mohg's Great Rune
     InitializeEvent(5, 11100094, 196); // Restoring Malenia's Great Rune
-
+    
     // Remembrance bosses pairs    
     InitializeEvent(0, 11120000, 10000800, 14000800, 12030850);     //Godrick Rennala || Fortisax
     InitializeEvent(1, 11120000, 10000800, 1252380800, 12050800);   //Godrick Radahn  || Mohg, Lord of Blood
@@ -475,6 +475,8 @@ $Event(0, Default, function() {
     InitializeEvent(9, 11120000, 12040800, 16000800, 12090800);     //Astel Rykard    || Regal
     InitializeEvent(10, 11120000, 12040800, 16000800, 11050800);    //Astel Rykard    || Hoarah Loux
 
+    //Add Tarnished Edition
+    $InitializeEvent(0, 780);
     //InitializeEvent(0, 11120001, 4535, 16000800);     //Rellana Dancing Lion
 });
 
@@ -900,7 +902,7 @@ $Event(11100089, Default, function() {
     
     // The Divine Gate Front Staircase grace was unlocked
     DisplayBlinkingMessageWithPriority(30075, 1, false);
-    
+
     SetThisEventSlot(ON);
 });
 
@@ -920,6 +922,7 @@ $Event(11100090, Default, function() {
         SetEventFlagID(76105, ON); // Turn on Forth Haight West Grace
         DisplayBlinkingMessageWithPriority(30156, 1, false);
     }
+    
     
     SetThisEventSlot(ON);
 });
@@ -959,7 +962,11 @@ $Event(11100092, Default, function() {
 //Set the Prince of Death's Throne Grace On
 $Event(11100093, Default, function() {
     EndIf(ThisEventSlot());
-
+    
+    //Wait for Altus Access
+    WaitFor(EventFlag(11107000));
+    
+    //Wait for the player to be in range of the body
     WaitFor(EntityInRadiusOfEntity(10000, 11101716, 4, 1));
     
     // Set the Prince of Death's Throne Grace On
@@ -1412,6 +1419,11 @@ $Event(750, Default, function() {
     SetEventFlagID(9295, OFF);
     ForceAnimationPlayback(10000, 60456, false, false, false);
     WaitFor(WeatherLotActive(-1));
+});
+
+$Event(780, Default, function() {        
+    EndIf(AnyBatchEventFlags(6700, 6703));       
+    SetEventFlagID(6700, ON);        
 });
 
 $Event(810, Restart, function() {

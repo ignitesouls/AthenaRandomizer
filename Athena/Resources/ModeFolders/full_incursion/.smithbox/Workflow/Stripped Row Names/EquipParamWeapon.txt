@@ -534,7 +534,9 @@ Poison Lizard Greatsword
 Blood Lizard Greatsword
 Occult Lizard Greatsword
 Greatsword of Solitude
+
 [NPC] Greatsword of Solitude
+
 
 Greatsword
 Heavy Greatsword
@@ -963,6 +965,19 @@ Freyja's Poison Greatsword
 Freyja's Blood Greatsword
 Freyja's Occult Greatsword
 Horned Warrior's Greatsword
+
+
+
+
+
+
+
+
+
+
+
+
+
 [NPC] Freyja's Greatsword
 
 Uchigatana
@@ -1429,6 +1444,8 @@ Poison Chainlink Flail
 Blood Chainlink Flail
 Occult Chainlink Flail
 Serpent Flail
+
+
 Battle Axe
 Heavy Battle Axe
 Keen Battle Axe
@@ -2971,6 +2988,19 @@ Poison Serpent Crest Shield
 Blood Serpent Crest Shield
 Occult Serpent Crest Shield
 Golden Lion Shield
+
+
+
+
+
+
+
+
+
+
+
+
+
 [NPC] Golden Lion Shield
 Dragon Towershield
 Heavy Dragon Towershield
@@ -3448,6 +3478,19 @@ Cold Carian Thrusting Shield
 Poison Carian Thrusting Shield
 Blood Carian Thrusting Shield
 Occult Carian Thrusting Shield
+
+
+
+
+
+
+
+
+
+
+
+
+
 Smithscript Dagger
 Heavy Smithscript Dagger
 Keen Smithscript Dagger
@@ -3488,6 +3531,19 @@ Poison Smithscript Cirque
 Blood Smithscript Cirque
 Occult Smithscript Cirque
 Curseblade's Cirque
+
+
+
+
+
+
+
+
+
+
+
+
+
 Great Katana
 Heavy Great Katana
 Keen Great Katana
@@ -3503,6 +3559,19 @@ Blood Great Katana
 Occult Great Katana
 Dragon-Hunter's Great Katana
 Rakshasa's Great Katana
+
+
+
+
+
+
+
+
+
+
+
+
+
 [NPC] Rakshasa's Great Katana
 [NPC] Dragon-Hunter's Great Katana
 Milady
@@ -3520,6 +3589,19 @@ Blood Milady
 Occult Milady
 Leda's Sword
 Rellana's Twin Blades
+
+
+
+
+
+
+
+
+
+
+
+
+
 [NPC] Leda's Sword
 Beast Claw
 Heavy Beast Claw

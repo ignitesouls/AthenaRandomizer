@@ -24,6 +24,7 @@ Physical: STR + DEX + FTH | Magic: INT | Fire: STR | Lightning: DEX | Holy: FTH
 Physical: STR + DEX + FTH + ARC | Magic: INT | Fire: FTH | Lightning: DEX | Holy: FTH
 Physical: STR + DEX + INT | Magic: INT | Fire: FTH | Lightning: DEX | Holy: FTH
 Physical: STR + DEX + FTH + ARC | Magic: INT | Fire: FTH | Lightning: DEX | Holy: FTH
+
 Physical/Magic/Fire/Lightning/Holy: INT
 Physical/Magic/Fire/Lightning/Holy: INT + FTH
 Physical/Magic/Fire/Lightning/Holy: FTH
@@ -173,6 +174,7 @@ Physical: STR + DEX | Magic: INT | Fire: STR + FTH | Lightning: DEX | Holy: FTH
 Physical: STR + DEX + FTH + ARC | Magic: INT | Fire: FTH | Lightning: DEX | Holy: FTH
 Physical: STR + DEX + FTH + ARC | Magic: INT | Fire: STR | Lightning: DEX | Holy: FTH
 Physical: STR + DEX | Magic: INT + FTH | Fire: FTH | Lightning: DEX | Holy: FTH
+
 Holy: FTH
 Magic: DEX
 Lighning: ARC

@@ -1440,6 +1440,19 @@ Lizard Greatsword - Attack
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 Default - Colossal Sword
 Default - Colossal Sword
 Default - Colossal Sword
@@ -7124,6 +7137,7 @@ Throwing Blade - Default Attack
 Throwing Blade - Default Attack
 Throwing Blade - Default Attack
 Throwing Blade - Default Attack
+
 Throwing Blade - Default Attack
 Throwing Blade - Default Attack
 Throwing Blade - Default Bullet
@@ -10295,6 +10309,18 @@ Gargoyle's Blackblade [AOW] Corpse Wax Cutter
 Gargoyle's Blackblade [AOW] Corpse Wax Cutter
 Gargoyle's Blackblade [AOW] Corpse Wax Cutter
 Golden Epitaph [AOW] Last Rites
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Thrusting Shield - Default Attack

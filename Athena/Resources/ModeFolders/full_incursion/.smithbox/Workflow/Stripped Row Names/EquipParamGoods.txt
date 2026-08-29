@@ -2044,6 +2044,9 @@ Battlefield Priest's Cookbook [4]
 Grave Keeper's Cookbook [1]
 St. Trina Disciple's Cookbook [2]
 Hefty Cracked Pot
+Tree Sentinel Steed
+Carian Steed
+Funereal Steed
 Scadutree Fragment
 Revered Spirit Ash
 Viridian Hidden Tear

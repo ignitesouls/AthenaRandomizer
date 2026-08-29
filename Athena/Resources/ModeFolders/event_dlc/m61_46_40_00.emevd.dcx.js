@@ -180,6 +180,11 @@ $Event(2046400600, Default, function() {
         DirectlyGivePlayerItem(ItemType.Goods, 1290, 6001, 1);
     }
     
+    //Give Torrent Skins
+    DirectlyGivePlayerItem(ItemType.Goods, 2009600, 6001, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 2009610, 6001, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 2009620, 6001, ON);
+    
     SetThisEventSlot(ON);
 });
 

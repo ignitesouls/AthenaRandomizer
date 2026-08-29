@@ -37,6 +37,19 @@ Immunizing Cured Meat
 
 
 Tarnished's Furled Finger
+DLC Golden Seeds
+DLC Sacred Tears
+Altus Sacred Tears
+
+
+
+
+
+
+
+
+
+
 Rune Arc
 Furlcalling Finger Remedy
 Rune Arc
@@ -128,9 +141,6 @@ Remembrance of a God and a Lord
 Scadutree Fragment
 Remembrance of the Impaler
 Messmer's Kindling
-
-
-
 Remembrance of Putrescence
 Remembrance of the Mother of Fingers
 Remembrance of the Lord of Frenzied Flame
@@ -204,7 +214,6 @@ Remembrance of the Twin Moon Knight
 [Sage's Cave - Black Knife Assassin] Concealing Veil
 [Goal Cave - Frenzied Duelist] Putrid Corpse Ashes
 [Dragonbarrow Cave - Beastman of Farum Azula] Flamedrake Talisman +2
-[Bernie Bingo] Flamedrake Talisman +2
 [Abandoned Cave - Cleanrot Knight Duo] Gold Scarab
 [Sellia Hideaway - Putrid Crystalians] Crystal Torrent
 [Cave of the Forlorn - Misbegotten Crusader] Golden Order Greatsword
@@ -244,8 +253,6 @@ Dragon-Hunter's Great Katana
 [Liurnia - Field - Erdtree Avatar] Magic-Shrouding Cracked Tear
 [Liurnia - Field - Erdtree Avatar] Lightning-Shrouding Cracked Tear
 [Liurnia - Field - Erdtree Avatar] Holy-Shrouding Cracked Tear
-[Bernie Bingo] Lightning-Shrouding Cracked Tear
-[Bernie Bingo] Holy-Shrouding Cracked Tear
 [Liurnia - Field - Erdtree Avatar] Cerulean Crystal Tear
 [Liurnia - Field - Erdtree Avatar] Ruptured Crystal Tear
 [Liurnia - Field - Glintstone Dragon Smarag] Dragon Heart
@@ -286,7 +293,6 @@ Dragon-Hunter's Great Katana
 [Caelid - Field - Commander O'Neil] Unalloyed Gold Needle
 [Caelid - Field - Erdtree Avatar] Greenburst Crystal Tear
 [Caelid - Field - Erdtree Avatar] Flame-Shrouding Cracked Tear
-[Bernie Bingo] Flame-Shrouding Cracked Tear
 [Caelid - Field - Putrid Avatar] Opaline Hardtear
 [Caelid - Field - Putrid Avatar] Stonebarb Cracked Tear
 [Caelid - Field - Flying Dragon Greyll] Dragon Heart
@@ -1505,7 +1511,6 @@ Flask of Wondrous Physick
 [LD - Stormveil] Smoldering Butterfly
 [LD - Stormveil] Fire Grease
 [LD - Stormveil] Claw Talisman
-[Bernie Bingo] Claw Talisman
 [LD - Stormveil] Golden Rune [2]
 [LD - Stormveil] Arteria Leaf
 [LD - Stormveil] Throwing Dagger
@@ -1586,6 +1591,7 @@ Flask of Wondrous Physick
 [LD - Stormveil] Curved Sword Talisman
 [LD - Stormveil] Somber Smithing Stone [2]
 [LD - Stormveil] Godskin Prayerbook
+
 [LD - Stormveil] Somber Smithing Stone [1]
 [LD - Stormveil] Beast Blood
 [LD - Stormveil] Old Fang
@@ -1738,6 +1744,11 @@ Flask of Wondrous Physick
 [LD - Leyndell] Golden Seed
 [LD - Leyndell] Somber Smithing Stone [7]
 [LD - Leyndell] Lord's Rune
+
+
+
+
+
 [LD - Leyndell] Raging Wolf Helm
 [LD - Leyndell] Raging Wolf Armor
 [LD - Leyndell] Raging Wolf Gauntlets
@@ -2081,7 +2092,6 @@ Flask of Wondrous Physick
 [LD - Mohgwyn] Clarifying Boluses
 [LD - Mohgwyn] Rot Grease
 [LD - Mohgwyn] Haligdrake Talisman +2
-[Bernie Bingo] Haligdrake Talisman +2
 [LD - Mohgwyn] Golden Rune [1]
 [LD - Mohgwyn] Golden Rune [1]
 [LD - Mohgwyn] Golden Rune [1]
@@ -2260,7 +2270,6 @@ Flask of Wondrous Physick
 [LD - Crumbling Farum Azula] Golden Rune [12]
 [LD - Crumbling Farum Azula]
 [LD - Crumbling Farum Azula] Boltdrake Talisman +2
-[Bernie Bingo] Boltdrake Talisman +2
 [LD - Crumbling Farum Azula] Somber Smithing Stone [7]
 [LD - Crumbling Farum Azula]
 [LD - Crumbling Farum Azula] Somberstone Miner's Bell Bearing [5]
@@ -2387,7 +2396,6 @@ Flask of Wondrous Physick
 [LD - Elphael / Miquella's Haligtree] Golden Rune [10]
 [LD - Elphael / Miquella's Haligtree] Rot Grease
 [LD - Elphael / Miquella's Haligtree] Pearldrake Talisman +2
-[Bernie Bingo] Pearldrake Talisman +2
 [LD - Elphael / Miquella's Haligtree] Smithing Stone [8]
 [LD - Elphael / Miquella's Haligtree] Golden Rune [13]
 [LD - Elphael / Miquella's Haligtree] Hefty Beast Bone
@@ -2561,6 +2569,8 @@ Black Pyrefly
 Silver Horn Tender
 Silver Horn Tender
 Somber Smithing Stone [4]
+
+
 Rada Fruit
 Rada Fruit
 Rada Fruit
@@ -3105,7 +3115,6 @@ Revered Spirit Ash
 [Forbidden Lands - Hidden Path to the Haligtree] Root Resin
 [Forbidden Lands - Hidden Path to the Haligtree] Freezing Grease
 [Forbidden Lands - Hidden Path to the Haligtree] Spelldrake Talisman +2
-[Bernie Bingo] Spelldrake Talisman +2
 [Forbidden Lands - Hidden Path to the Haligtree] Silver Scarab
 [Forbidden Lands - Hidden Path to the Haligtree] Deathroot
 [Limgrave - Murkwater Cave] Mushroom
@@ -3145,7 +3154,6 @@ Glass Shard
 [Liurnia - Lakeside Crystal Cave] Lump of Flesh
 [Liurnia - Lakeside Crystal Cave] Arteria Leaf
 [Liurnia - Lakeside Crystal Cave] Spear Talisman
-[Bernie Bingo] Spear Talisman
 [Liurnia - Academy Crystal Cave] Cuckoo Glintstone
 [Liurnia - Academy Crystal Cave] Stonesword Key
 [Liurnia - Academy Crystal Cave] Rune Arc
@@ -3839,6 +3847,7 @@ Golden Rune [3]
 Black Wolf Mask
 Memory Stone
 
+
 Snow Witch Hat
 Snow Witch Robe
 Snow Witch Skirt
@@ -4078,6 +4087,7 @@ Smoldering Butterfly
 Glintstone Craftsman's Cookbook [1]
 Glintstone Craftsman's Cookbook [2]
 Sacrificial Twig
+
 Ash of War: Gravitas
 Map: Liurnia- East
 Smithing Stone [2]
@@ -4576,6 +4586,7 @@ Golden Rune [1]
 Great Arrow
 Golden Rune [6]
 Golden Rune [2]
+
 Golden Rune [4]
 Crimson Crystal Tear
 Twiggy Cracked Tear
@@ -4690,6 +4701,7 @@ Smoldering Butterfly
 Rune Arc
 Sword of St. Trina
 Greatsword
+
 Drawstring Fire Grease
 Golden Rune [7]
 Dragonwound Grease
@@ -4869,6 +4881,7 @@ Beast Blood
 Golden Seed
 [Sorcery] Night Comet
 Imbued Sword Key
+
 Dragon Heart
 Somber Smithing Stone [7]
 Smoldering Butterfly
@@ -4992,6 +5005,11 @@ Somber Smithing Stone [7]
 Beast Blood
 Old Fang
 Haligtree Secret Medallion (Left)
+
+
+
+
+
 Golden Rune [8]
 Golden Rune [6]
 Golden Rune [3]
@@ -5070,6 +5088,7 @@ Whiteflesh Mushroom
 Sanguine Amaryllis
 Somber Smithing Stone [4]
 Smithing Stone [4]
+
 Great Arrow
 Revered Spirit Ash
 String-Seller's Bell Bearing
@@ -5299,6 +5318,7 @@ Somber Smithing Stone [9]
 Royal Magic Grease
 Black Pyrefly
 Smithing Stone [3]
+
 Somber Smithing Stone [2]
 Greater Potentate's Cookbook [3]
 Messmerfire Grease
@@ -5309,16 +5329,19 @@ Larval Tear
 Serpent Flail
 Arrow's Soaring Sting Talisman
 Smithing Stone [7]
+
 Rune Arc
 Rauh Burrow
 Rauh Burrow
 Scadutree Fragment
 Somber Smithing Stone [8]
+
 Golden Horn Tender
 Spirit Calculus
 Sacred Bloody Flesh
 Sanguine Amaryllis
 Smithing Stone [7]
+
 Shadow Realm Rune [3]
 Pearl Shield Talisman
 Grave Glovewort [9]
@@ -5375,6 +5398,7 @@ Scadutree Fragment
 Golden Vow
 Battlefield Priest's Cookbook [3]
 Somber Smithing Stone [6]
+
 Ember of Messmer
 Drawstring Messmerfire Grease
 Smithing Stone [3]
@@ -5420,6 +5444,7 @@ Shadow Realm Rune [4]
 Festive Grease
 Greater Potentate's Cookbook [7]
 Smithing Stone [6]
+
 Battlefield Priest's Cookbook [2]
 Smithing Stone [8]
 Smithing Stone [5]
@@ -5486,6 +5511,7 @@ Swollen Grape
 Silver Horn Tender
 Scadutree Fragment
 Smithing Stone [7]
+
 Smithing Stone [6]
 Scadutree Fragment
 Revered Spirit Ash
@@ -5534,6 +5560,7 @@ Stone-Sheathed Sword
 Grave Glovewort [6]
 Blessed Bone Shard
 Ghost Glovewort [7]
+
 Greater Potentate's Cookbook [6]
 Aged One's Exultation
 Swollen Grape
@@ -5560,6 +5587,7 @@ Fingerprint Nostrum
 [Incantation] Minor Erdtree
 Golden Braid
 Somber Smithing Stone [6]
+
 Shadow Realm Rune [7]
 Clarifying Boluses
 Map: Abyss

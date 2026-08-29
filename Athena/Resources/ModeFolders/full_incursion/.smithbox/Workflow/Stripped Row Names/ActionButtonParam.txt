@@ -246,6 +246,7 @@ Summon Finger Maiden Therolina
 Summon Lionel the Lionhearted
 Summon Patches
 Examine
+
 Become the Elden Lord
 Summon Ranni
 Become the Lord of Frenzied Flame

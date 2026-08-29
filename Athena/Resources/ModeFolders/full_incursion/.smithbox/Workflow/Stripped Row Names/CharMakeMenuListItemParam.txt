@@ -210,6 +210,8 @@ Class - Samurai
 Class - Prisoner
 Class - Confessor
 Class - Wretch
+
+
 Gift - None
 Gift - Crimson Amber Medallion
 Gift - Lands Between Rune

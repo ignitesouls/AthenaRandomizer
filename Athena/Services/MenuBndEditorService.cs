@@ -12,7 +12,7 @@ public class MenuBndEditorService
 {
     BND4 menuBnd;
     FMG lineHelp;
-    public static readonly int[] LineHelpClassDescriptionIDs = { 297130, 297131, 297132, 297133, 297134, 297135, 297138, 297136, 297137, 297139, };
+    public static readonly int[] LineHelpClassDescriptionIDs = { 297130, 297131, 297132, 297133, 297134, 297135, 297138, 297136, 297137, 297139, 297140, 297141 };
 
     private MenuBndEditorService(string menuBndFilePathIn) {
 

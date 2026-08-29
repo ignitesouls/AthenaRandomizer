@@ -286,6 +286,10 @@ Mimic Tear
 
 
 
+
+
+
+
 Tanith, Volcano Manor Proprietress
 White Mask Varré
 
@@ -386,11 +390,15 @@ Maureen, Second Sister
 Amy, Third Sister
 Polyanna, Youngest Sister
 Magnus the Beast Claw
+
+
 Stormhill Colosseum Silent Spirit
 Caria Manor Silent Spirit
 Dragonbarrow Silent Spirit
 
 Human
+
+
 
 
 

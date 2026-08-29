@@ -845,6 +845,19 @@ Lizard Greatsword -
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 Default - Colossal Sword
 Default - Colossal Sword
 Default - Colossal Sword
@@ -11747,6 +11760,14 @@ Golden Order Greatsword - [AOW] Establish Order
 Golden Order Greatsword - [AOW] Establish Order
 Golden Order Greatsword - [AOW] Establish Order
 Helphen's Steeple - [AOW] Ruinous Ghostflame
+
+
+
+
+
+
+
+
 Colossal Sword Category - [AOW] Spinning Wheel
 Colossal Sword Category - [AOW] Spinning Wheel
 Colossal Sword Category - [AOW] Spinning Wheel
@@ -12309,6 +12330,9 @@ Family Heads - [AOW] Familial Rancor
 Family Heads - [AOW] Familial Rancor
 Family Heads - [AOW] Familial Rancor
 Family Heads - [AOW] Familial Rancor
+
+
+
 Axe Category - [AOW] Wild Strikes
 Axe Category - [AOW] Wild Strikes
 Axe Category - [AOW] Wild Strikes

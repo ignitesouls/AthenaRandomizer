@@ -309,6 +309,11 @@ $Event(11100042, Default, function() {
     SetEventFlagID(6700, ON);
     DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
     
+    //Give Torrent Skins
+    DirectlyGivePlayerItem(ItemType.Goods, 2009600, 6001, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 2009610, 6001, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 2009620, 6001, ON);
+    
     // Some early graces were unlocked
     DisplayGenericDialog(30067, PromptType.OKCANCEL, NumberofOptions.NoButtons, 0, 5);
     

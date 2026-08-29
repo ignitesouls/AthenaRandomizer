@@ -47,6 +47,7 @@ public class RandomizerServiceBaseDlc
         var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInBaseDlc);
         var menuBndEditor = MenuBndEditorService.ReadFromMenuBndFilePath(Constants.MenuBndInBaseDlc);
 
+        //MetadataUtils.GenerateWeaponsMappings(editor);
         string seedManagerPrefix;
 
 

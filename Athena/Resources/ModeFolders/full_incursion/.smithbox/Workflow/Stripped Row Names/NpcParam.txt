@@ -6208,6 +6208,10 @@ Ancient Hero of Zamor
 Ancient Hero of Zamor (Mountaintops of the Giants) - Zamor Ruins
 Ancient Hero of Zamor (Mountaintops of the Giants) - Giant-Conquering Hero's Grave [Boss]
 Torrent
+
+
+
+
 Ballista (Base)
 Ballista (Limgrave) - Fort Haight
 Ballista (Weeping Peninsula) - Tower of Return / Forest Lookout Tower
@@ -6609,10 +6613,11 @@ Sorcerer Rogier
 Sorcerer Rogier
 Knight Bernahl
 
-Moonwalk Jay
-Omenveil Strump
-Anamnesis Fun
-Scadubingo CHAMPION
+
+
+
+
+
 Knight Bernahl
 Recusant Bernahl
 Recusant Bernahl
@@ -6864,6 +6869,7 @@ Moonrithyll, Carian Knight (Gravesite Plain - West Castle Ensis)
 
 
 
+
 Stray Mimic Tear
 Mimic Tear
 
@@ -7034,6 +7040,7 @@ Thiollier
 Thiollier (Invader) (Stone Coffin Fissure)
 
 Dryleaf Dane
+
 
 
 

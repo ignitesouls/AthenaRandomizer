@@ -8699,5 +8699,3 @@ L2:
     SendAllPhantomsHomeAndUpdateServerPvpStats(0);
     EndEvent();
 });
-
-

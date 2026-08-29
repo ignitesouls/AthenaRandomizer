@@ -939,6 +939,8 @@ Lake of Rot
 
 
 
+
+
 Forced Slow Walk/Jump (Excl. Dodge)
 Forced Slow Walk/Jump
 
@@ -5450,6 +5452,9 @@ Human-NPC Area Scaling:
 
 
 
+
+
+
 Human-NPC NG+ Scaling:
 Human-NPC NG+ Scaling:
 Human-NPC NG+ Scaling:
@@ -7108,6 +7113,24 @@ Blight - High - Innate +22
 Blight - High - Innate +23
 Blight - High - Innate +24
 Blight - High - Innate +25
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8832,6 +8855,12 @@ Blight - High - Innate +25
 
 
 
+
+
+
+
+
+
 Scadutree Fragment: 0
 Scadutree Fragment: 1
 Scadutree Fragment: 2
@@ -8853,7 +8882,7 @@ Scadutree Fragment: 17
 Scadutree Fragment: 18
 Scadutree Fragment: 19
 Scadutree Fragment: 20
-Scadutree Fragment: 5 PCR Infinite Fragments
+
 Revered Spirit Ash: 0
 Revered Spirit Ash: 1
 Revered Spirit Ash: 2

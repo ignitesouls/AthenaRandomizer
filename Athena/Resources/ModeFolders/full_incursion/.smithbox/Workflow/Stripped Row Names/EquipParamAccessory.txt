@@ -78,29 +78,29 @@ Dragoncrest Greatshield Talisman
 Spelldrake Talisman
 Spelldrake Talisman +1
 Spelldrake Talisman +2
-Bernie's Spelldrake Talisman +2
 Flamedrake Talisman
 Flamedrake Talisman +1
 Flamedrake Talisman +2
-Bernie's Flamedrake Talisman +2
 Boltdrake Talisman
 Boltdrake Talisman +1
 Boltdrake Talisman +2
-Bernie's Boltdrake Talisman +2
 Haligdrake Talisman
 Haligdrake Talisman +1
 Haligdrake Talisman +2
-Bernie's Haligdrake Talisman +2
 Pearldrake Talisman
 Pearldrake Talisman +1
 Pearldrake Talisman +2
-Bernie's Pearldrake Talisman +2
 Crucible Scale Talisman
 Crucible Feather Talisman
 Blue-Feathered Branchsword
 Ritual Shield Talisman
 Greatshield Talisman
 Crucible Knot Talisman
+Bernie's Spelldrake Talisman +2
+Bernie's Haligdrake Talisman +2
+Bernie Flamedrake Talisman +2
+Bernie's Boltdrake Talisman +2
+Bernie's Pearldrake Talisman +2
 Crimson Seed Talisman
 Cerulean Seed Talisman
 Blessed Dew Talisman

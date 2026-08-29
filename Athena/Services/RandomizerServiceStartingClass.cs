@@ -23,7 +23,7 @@ public class RandomizerServiceStartingClass
     private const int IncursionVigor = 20;
     private const int VigorIndex = 0;
 
-    private const int NumClasses = 10;
+    private const int NumClasses = 12;
 
     // vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane
     public record ClassStatAllocation(int[] Stats);

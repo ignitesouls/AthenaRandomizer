@@ -109,12 +109,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="resources\randomizationgroups\basedlc\map_guaranteed_weapons\curved_greatswords\replacements.csv" />
+	  <None Remove="resources\randomizationgroups\basedlc\map_guaranteed_weapons\curved_greatswords\targets.csv" />
+	  <None Remove="resources\randomizationgroups\base\map_guaranteed_weapons\curved_greatsword\replacements.csv" />
+	  <None Remove="resources\randomizationgroups\base\map_guaranteed_weapons\curved_greatsword\targets.csv" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CsvHelper" Version="33.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Resources\Bnd\base\" />
 	  <Folder Include="Resources\ModEngine-2.1.0.0-win64\base\msg\engus\" />
+	  <Folder Include="Resources\RandomizationGroups\basedlc\map_guaranteed_weapons\curved_greatswords\" />
+	  <Folder Include="Resources\RandomizationGroups\base\map_guaranteed_weapons\curved_greatsword\" />
 	</ItemGroup>
 
 	<ItemGroup>
