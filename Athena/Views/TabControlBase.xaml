@@ -4,7 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Athena.Converters"
+             xmlns:services="clr-namespace:Athena.Services"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="600">
+    <UserControl.Resources>
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+    </UserControl.Resources>
+
     <StackPanel Margin="8" HorizontalAlignment="Center" MaxWidth="400">
         <TextBlock Text="Base Game Equipment Randomizer"
                FontSize="20"
@@ -31,5 +37,32 @@
                 Height="40" Width="120"
                 Margin="0,8,0,0"
                 Command="{Binding LaunchCommand}" />
+
+        <GroupBox Header="Mode"
+                  Margin="0,8,0,0"
+                  Padding="5"
+                  BorderBrush="LightGray"
+                  BorderThickness="1"
+                  HorizontalAlignment="Center"
+                  Width="250">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <RadioButton Content="Original"
+                             Margin="8,3"
+                             FontSize="11"
+                             GroupName="BaseModeGroup"
+                             IsChecked="{Binding BaseMode,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter={x:Static services:BaseMode.Original}}" />
+
+                <RadioButton Content="Conquest"
+                             Margin="8,3"
+                             FontSize="11"
+                             GroupName="BaseModeGroup"
+                             IsChecked="{Binding BaseMode,
+                                                 Converter={StaticResource EnumToBooleanConverter},
+                                                 ConverterParameter={x:Static services:BaseMode.Conquest}}" />
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </UserControl>

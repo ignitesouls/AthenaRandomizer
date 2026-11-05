@@ -20,6 +20,34 @@ public class TabViewModelBase : ModeTabViewModelBase, INotifyPropertyChanged
     private readonly RandomizerServiceBase _randomizerService;
     private readonly EldenRingLauncherService _launcherService;
 
+    private BaseMode _baseMode = BaseMode.Original;
+    public BaseMode BaseMode
+    {
+        get => _baseMode;
+        set
+        {
+            if (_baseMode != value)
+            {
+                _baseMode = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private BaseMode? _randomizedBaseMode;
+    public BaseMode? RandomizedBaseMode
+    {
+        get => _randomizedBaseMode;
+        set
+        {
+            if (_randomizedBaseMode != value)
+            {
+                _randomizedBaseMode = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     private int? _baseSeed;
     public int? BaseSeed
     {
@@ -75,12 +103,15 @@ public class TabViewModelBase : ModeTabViewModelBase, INotifyPropertyChanged
         BaseSeed = _config.LastUsedSeedBase;
         BaseSeedInput = _config.LastUsedSeedBase?.ToString();
         RandomizedSeed = _config.LastRandomizedSeedBase;
+        RandomizedBaseMode = _config.LastRandomizedModeBase;
+        BaseMode = _config.LastRandomizedModeBase ?? BaseMode.Original;
 
         _randomizerService = new RandomizerServiceBase(AppVersion);
         _launcherService = new EldenRingLauncherService();
 
         RandomizeCommand = new RelayCommand(() => _randomizerService.RandomizeBase(
             ParsedBaseSeed,
+            BaseMode,
             newSeed =>
             {
                 Debug.WriteLine($"baseSeed: {newSeed}");
@@ -95,12 +126,18 @@ public class TabViewModelBase : ModeTabViewModelBase, INotifyPropertyChanged
                 RandomizedSeed = newRandomizedSeed;
                 _config.LastRandomizedSeedBase = newRandomizedSeed;
                 ConfigService.Save(_config);
+            },
+            newRandomizedMode =>
+            {
+                RandomizedBaseMode = newRandomizedMode;
+                _config.LastRandomizedModeBase = newRandomizedMode;
+                ConfigService.Save(_config);
             }),
-            () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null)));
+            () => !((BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedBaseMode == BaseMode)));
 
         LaunchCommand = new RelayCommand(
             () => _launcherService.LaunchEldenRing(LaunchMode.Base),
-            () => (BaseSeed == RandomizedSeed) && (BaseSeed != null));
+            () => (BaseSeed == RandomizedSeed) && (BaseSeed != null) && (RandomizedBaseMode == BaseMode));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

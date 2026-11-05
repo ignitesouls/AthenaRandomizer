@@ -8,11 +8,14 @@ internal partial class Constants
     // Mod Configuration
     public static string ModEngineWorkingDirectory = Path.Combine("Resources", "me3-v0.8.0");
     public static string RegulationBase = Path.Combine("Resources", "Regulation");
+    public static string ModeFolders = Path.Combine("Resources", "ModeFolders");
 
     public static string MenuBndDirectory = Path.Combine("Resources", "Bnd");
     public static string MenuBndVanilla = Path.Combine(MenuBndDirectory, "vanilla", "menu_dlc02.msgbnd.dcx");
     public static string MenuBndInBase = MenuBndVanilla;
-    public static string MenuBndInBaseDlc = Path.Combine(MenuBndDirectory, "basedlc", "menu_dlc02.msgbnd.dcx");
+    public static string ConquestFolder = Path.Combine(ModeFolders, "Conquest");
+    public static string VeilbreakFolder = Path.Combine(ModeFolders, "Veilbreak");
+    public static string SanctuaryFolder = Path.Combine(ModeFolders, "Sanctuary");
 
     public static string MenuBndOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "msg", "engus", "menu_dlc02.msgbnd.dcx");
     public static string MenuBndOutBaseDlc = Path.Combine(ModEngineWorkingDirectory, "basedlc", "msg", "engus", "menu_dlc02.msgbnd.dcx");
@@ -20,7 +23,6 @@ internal partial class Constants
 
     public static string VanillaRegulation = Path.Combine(RegulationBase, "vanilla", "regulation.bin");
     public static string RegulationInBase = Path.Combine(RegulationBase, "base", "regulation.bin");
-    public static string RegulationInBaseDlc = Path.Combine(RegulationBase, "basedlc", "regulation.bin");
     public static string RegulationInDlc = Path.Combine(RegulationBase, "dlc", "regulation.bin");
 
     public static string RegulationOutBase = Path.Combine(ModEngineWorkingDirectory, "base", "regulation.bin");
@@ -37,6 +39,7 @@ internal partial class Constants
     // Metadata
     public static string RandomizationGroups = Path.Combine("Resources", "RandomizationGroups");
     public static string RandomizationGroupsBase = Path.Combine(RandomizationGroups, "base");
+    public static string RandomizationGroupsConquest = Path.Combine(RandomizationGroups, "Conquest");
     public static string RandomizationGroupsBaseDlc = Path.Combine(RandomizationGroups, "basedlc");
     public static string RandomizationGroupsDlc = Path.Combine(RandomizationGroups, "dlc");
 
@@ -44,5 +47,4 @@ internal partial class Constants
 
     public static string Misc = Path.Combine("Resources", "Misc");
 
-    public static string ModeFolders = Path.Combine("Resources", "ModeFolders");
 }

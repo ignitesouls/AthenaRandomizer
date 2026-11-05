@@ -15,12 +15,12 @@ public class RandomizerServiceStartingClass
     private const int TotalStats = 8;
 
     private const int DefaultTotalPoints = 88;
-    private const int IncursionNonVigorTotalPoints = 80;
+    private const int VeilbreakNonVigorTotalPoints = 80;
 
     private const int MinStat = 5;
     private const int MaxStat = 16;
 
-    private const int IncursionVigor = 20;
+    private const int VeilbreakVigor = 20;
     private const int VigorIndex = 0;
 
     private const int NumClasses = 12;
@@ -82,7 +82,7 @@ public class RandomizerServiceStartingClass
 
         if (fixedVigor20WithOtherStatsTotal80)
         {
-            stats[VigorIndex] = IncursionVigor;
+            stats[VigorIndex] = VeilbreakVigor;
 
             // Only the non-vigor stats start at MinStat.
             for (int i = 0; i < TotalStats; i++)
@@ -95,7 +95,7 @@ public class RandomizerServiceStartingClass
                 stats[i] = MinStat;
             }
 
-            int remaining = IncursionNonVigorTotalPoints - stats
+            int remaining = VeilbreakNonVigorTotalPoints - stats
                 .Where((_, index) => index != VigorIndex)
                 .Sum();
 
@@ -103,7 +103,7 @@ public class RandomizerServiceStartingClass
             {
                 int index = rng.Next(TotalStats);
 
-                // Vigor is locked to 20 in Incursion.
+                // Vigor is locked to 20 in Veilbreak.
                 if (index == VigorIndex)
                 {
                     continue;

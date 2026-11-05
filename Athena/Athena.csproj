@@ -30,16 +30,6 @@
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<!--<Content Include="Resources\me3-v0.8.0\**\*.tpfbdt">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		</Content>
-		<Content Include="Resources\me3-v0.8.0\**\*.tpfbhd">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		</Content>-->
 		<Content Include="Resources\me3-v0.8.0\**\*.bat">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
@@ -117,6 +107,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CsvHelper" Version="33.1.0" />
+	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -134,7 +125,13 @@
 	  <Content Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\hi\01_common.tpf.dcx">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Update="Resources\Regulation\basedlc\regulation.bin">
+	  <Content Update="Resources\ModeFolders\Veilbreak\regulation.bin">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\ModeFolders\Sanctuary\regulation.bin">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="Resources\ModeFolders\Conquest\regulation.bin">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
@@ -142,6 +139,18 @@
 	<ItemGroup>
 	  <None Update="Resources\me3-v0.8.0\dlc\menu_anamnesis_src\05_001_title_logo.gfx">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <AutoGen>True</AutoGen>
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <DependentUpon>Settings.settings</DependentUpon>
+	  </Compile>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
 	  </None>
 	</ItemGroup>
 </Project>

@@ -1,0 +1,19 @@
+{
+  "ProjectName": "Conquest",
+  "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
+  "GameType": 8,
+  "PinnedParams": [
+    "BonfireWarpParam",
+    "WorldMapPointParam"
+  ],
+  "PinnedRows": {
+    "CharaInitParam": [
+      23268
+    ],
+    "ItemLotParam_map": []
+  },
+  "PinnedFields": {},
+  "UseLooseParams": false,
+  "PartialParams": false,
+  "LastFmgLanguageUsed": ""
+}
