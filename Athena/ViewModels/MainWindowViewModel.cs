@@ -25,8 +25,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
         },
         new TabViewModelBaseDlc 
         { 
-            Title = "Base Game + DLC", 
-            Description = "Base Game + DLC" 
+            Title = "Veilbreak",
+            Description = "Veilbreak"
         },
         new TabViewModelDlc 
         { 
@@ -60,7 +60,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
         if (_config.LastOpenedTabTitle != null)
         {
-            _selectedTab = ModeTabs.Where(t => t.Title == _config.LastOpenedTabTitle).First() ?? ModeTabs[0];
+            _selectedTab = ModeTabs.FirstOrDefault(t => t.Title == _config.LastOpenedTabTitle) ?? ModeTabs[0];
         }
         else
         {

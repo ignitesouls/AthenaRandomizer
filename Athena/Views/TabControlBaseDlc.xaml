@@ -6,7 +6,7 @@
              xmlns:converters="clr-namespace:Athena.Converters"
              xmlns:services="clr-namespace:Athena.Services"
              mc:Ignorable="d"
-             d:DesignHeight="400"
+             d:DesignHeight="450"
              d:DesignWidth="600">
 
     <UserControl.Resources>
@@ -18,7 +18,7 @@
                 HorizontalAlignment="Center"
                 MaxWidth="600">
 
-        <TextBlock Text="Base + DLC Equipment Randomizer"
+        <TextBlock Text="Base + DLC Randomizer"
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
@@ -73,55 +73,25 @@
                 Margin="0,8,0,0"
                 Command="{Binding LaunchCommand}"/>
 
-        <GroupBox Header="Base + DLC Mode"
-                  Margin="0,5,0,0"
+        <GroupBox Header="Version"
+                  Margin="0,8,0,0"
                   Padding="5"
                   BorderBrush="LightGray"
                   BorderThickness="1"
                   HorizontalAlignment="Center"
                   Width="250">
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <RadioButton Grid.Row="0"
-                             Grid.Column="0"
-                             Content="Original"
-                             Margin="3"
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <RadioButton Content="Veilbreak"
+                             Margin="8,3"
                              FontSize="11"
                              GroupName="BaseDlcModeGroup"
                              IsChecked="{Binding BaseDlcMode,
                                                  Converter={StaticResource EnumToBooleanConverter},
-                                                 ConverterParameter={x:Static services:BaseDlcMode.Default}}" />
+                                                 ConverterParameter={x:Static services:BaseDlcMode.Veilbreak}}" />
 
-                <RadioButton Grid.Row="0"
-                             Grid.Column="1"
-                             Content="VCC World Tour"
-                             Margin="3"
-                             FontSize="11"
-                             GroupName="BaseDlcModeGroup"
-                             IsChecked="{Binding BaseDlcMode,
-                                                 Converter={StaticResource EnumToBooleanConverter},
-                                                 ConverterParameter={x:Static services:BaseDlcMode.Incursion}}" />
-
-                <RadioButton Grid.Row="1"
-                             Grid.Column="2"
-                             Content="VCC"
-                             Margin="3"
-                             FontSize="11"
-                             GroupName="BaseDlcModeGroup"
-                             IsChecked="{Binding BaseDlcMode,
-                                                 Converter={StaticResource EnumToBooleanConverter},
-                                                 ConverterParameter={x:Static services:BaseDlcMode.VCC}}" />
-            </Grid>
+            </StackPanel>
         </GroupBox>
+
     </StackPanel>
 </UserControl>

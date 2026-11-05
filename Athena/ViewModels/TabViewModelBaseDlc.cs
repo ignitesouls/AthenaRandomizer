@@ -20,7 +20,7 @@ public class TabViewModelBaseDlc : ModeTabViewModelBase, INotifyPropertyChanged
     private readonly RandomizerServiceBaseDlc _randomizerService;
     private readonly EldenRingLauncherService _launcherService;
 
-    private BaseDlcMode _baseDlcMode = BaseDlcMode.Default;
+    private BaseDlcMode _baseDlcMode = BaseDlcMode.Veilbreak;
     public BaseDlcMode BaseDlcMode
     {
         get => _baseDlcMode;
@@ -134,7 +134,7 @@ public class TabViewModelBaseDlc : ModeTabViewModelBase, INotifyPropertyChanged
         RandomizedSeed = _config.LastRandomizedSeedBaseDlc;
 
         RandomizedBaseDlcMode = _config.LastRandomizedModeBaseDlc;
-        BaseDlcMode = _config.LastRandomizedModeBaseDlc ?? BaseDlcMode.Default;
+        BaseDlcMode = BaseDlcMode.Veilbreak;
 
         _randomizerService = new RandomizerServiceBaseDlc(AppVersion);
         _launcherService = new EldenRingLauncherService();

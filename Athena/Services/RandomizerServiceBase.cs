@@ -9,10 +9,17 @@ using UniversalReplacementRandomizer;
 
 namespace Athena.Services;
 
+public enum BaseMode
+{
+    Original,
+    Conquest
+}
+
 public class RandomizerServiceBase
 {
-    private string SeedManagerPrefix;
-    RandomizerServiceStartingClass randomizerServiceStartingClass = new();
+    private readonly string SeedManagerPrefix;
+    private readonly RandomizerServiceStartingClass randomizerServiceStartingClass = new();
+    private readonly ModeService modeService = new();
 
     public RandomizerServiceBase(string appVersion)
     {
@@ -20,15 +27,33 @@ public class RandomizerServiceBase
     }
 
     public void RandomizeBase(int? baseSeed,
+                              BaseMode mode,
                               Action<int?>? updateBaseSeedCallback,
-                              Action<int?>? updateRandomizedSeedCallback)
+                              Action<int?>? updateRandomizedSeedCallback,
+                              Action<BaseMode?>? updateRandomizedModeCallback)
     {
         using DebugTimer _ = new DebugTimer("RandomizeBase");
 
-        var editor = ParamsEditor.ReadFromRegulationPath(Constants.RegulationInBase);
-        var menuBndEditor = MenuBndEditorService.ReadFromMenuBndFilePath(Constants.MenuBndInBase);
+        string? modeFolder = GetModeFolder(mode);
+        string regulationPath = modeFolder == null
+            ? Constants.RegulationInBase
+            : Path.Combine(modeFolder, "regulation.bin");
+        string menuBndPath = modeFolder == null
+            ? Constants.MenuBndInBase
+            : Path.Combine(modeFolder, "msg", "engus", "menu_dlc02.msgbnd.dcx");
 
-        var urr = new OptimizedReplacementRandomizer(SeedManagerPrefix, baseSeed);
+        var editor = ParamsEditor.ReadFromRegulationPath(regulationPath);
+        var menuBndEditor = MenuBndEditorService.ReadFromMenuBndFilePath(menuBndPath);
+
+        if (mode == BaseMode.Conquest)
+        {
+            InitConquestShop(editor);
+        }
+
+        string seedManagerPrefix = mode == BaseMode.Conquest
+            ? SeedManagerPrefix + "_conquest"
+            : SeedManagerPrefix;
+        var urr = new OptimizedReplacementRandomizer(seedManagerPrefix, baseSeed);
         if (baseSeed == null)
         {
             updateBaseSeedCallback?.Invoke(urr.GetBaseSeed());
@@ -38,7 +63,7 @@ public class RandomizerServiceBase
         RandomizeStartingClassesBase(editor, menuBndEditor, urr);
 
         // Randomize weapons, spells, and incantations
-        RandomizeAllGroupsBase(editor, urr);
+        RandomizeAllGroupsBase(editor, urr, mode);
 
         // swap the solo tree sentinel's halberd with the tree sentinel duo's greatshield
         SwapTreeSentinelDrops(editor);
@@ -55,10 +80,13 @@ public class RandomizerServiceBase
         // Pidia sells magic scorpion charm
         GivePidiaMagicScorpionCharm(editor);
 
+        PrepareModeOutput(modeFolder);
+
         editor.WriteToRegulationPath(Constants.RegulationOutBase);
         menuBndEditor.WriteToMenuBndFilePath(Constants.MenuBndOutBase);
 
         updateRandomizedSeedCallback?.Invoke(urr.GetBaseSeed());
+        updateRandomizedModeCallback?.Invoke(mode);
     }
 
     private void RandomizeStartingClassesBase(ParamsEditor editor, MenuBndEditorService menuBndEditor, OptimizedReplacementRandomizer urr)
@@ -118,7 +146,7 @@ public class RandomizerServiceBase
         }
     }
 
-    public void RandomizeAllGroupsBase(ParamsEditor editor, OptimizedReplacementRandomizer urr)
+    public void RandomizeAllGroupsBase(ParamsEditor editor, OptimizedReplacementRandomizer urr, BaseMode mode)
     {
         var weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();
         var weaponIdsToItemLotEnemy = editor.GetWeaponIdsToItemLotEnemy();
@@ -128,10 +156,14 @@ public class RandomizerServiceBase
         var goodsIdsToItemLotEnemy = editor.GetGoodsIdsToItemLotEnemy();
         var goodsIdsToShopLineup = editor.GetGoodsIdsToShopLineup();
 
+        string randomizationGroupsPath = mode == BaseMode.Conquest
+            ? Constants.RandomizationGroupsConquest
+            : Constants.RandomizationGroupsBase;
+
         // incantations, dragon communion incantations, sorceries
         ReplacementUtils.Randomize<GameItemModel>(editor,
                                                   urr,
-                                                  $"{Constants.RandomizationGroupsBase}/spells",
+                                                  $"{randomizationGroupsPath}/spells",
                                                   goodsIdsToItemLotMap,
                                                   goodsIdsToItemLotEnemy,
                                                   goodsIdsToShopLineup);
@@ -139,13 +171,13 @@ public class RandomizerServiceBase
         // chance weapons (randomized within classes)
         ReplacementUtils.RandomizeItemLotEnemy<WeaponModel>(editor,
                                                             urr,
-                                                            $"{Constants.RandomizationGroupsBase}/chance_weapons",
+                                                            $"{randomizationGroupsPath}/chance_weapons",
                                                             weaponIdsToItemLotEnemy);
 
         // guaranteed and map weapons (randomized within classes)
         ReplacementUtils.Randomize<GameItemModel>(editor,
                                                   urr,
-                                                  $"{Constants.RandomizationGroupsBase}/map_guaranteed_weapons",
+                                                  $"{randomizationGroupsPath}/map_guaranteed_weapons",
                                                   weaponIdsToItemLotMap,
                                                   weaponIdsToItemLotEnemy,
                                                   weaponIdsToShopLineup);
@@ -153,26 +185,56 @@ public class RandomizerServiceBase
         // remembrance weapons
         ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
                                                                        urr,
-                                                                       $"{Constants.RandomizationGroupsBase}/remembrances/weapons.csv",
+                                                                       $"{randomizationGroupsPath}/remembrances/weapons.csv",
                                                                        weaponIdsToShopLineup);
 
         // remembrance sorceries
         ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
                                                                        urr,
-                                                                       $"{Constants.RandomizationGroupsBase}/remembrances/sorceries.csv",
+                                                                       $"{randomizationGroupsPath}/remembrances/sorceries.csv",
                                                                        goodsIdsToShopLineup);
 
         // remembrance incantations
         ReplacementUtils.RandomizeAndReplaceShopLineupFile<WeaponModel>(editor,
                                                                        urr,
-                                                                       $"{Constants.RandomizationGroupsBase}/remembrances/incantations.csv",
+                                                                       $"{randomizationGroupsPath}/remembrances/incantations.csv",
                                                                        goodsIdsToShopLineup);
 
         // shop weapons
         ReplacementUtils.RandomizeAndReplaceShopLineupDir<WeaponModel>(editor,
                                                                        urr,
-                                                                       $"{Constants.RandomizationGroupsBase}/shop_weapons",
+                                                                       $"{randomizationGroupsPath}/shop_weapons",
                                                                        weaponIdsToShopLineup);
+    }
+
+    private void InitConquestShop(ParamsEditor editor)
+    {
+        using DebugTimer _ = new DebugTimer("InitConquestShop");
+
+        List<ShopItemModel> shopItems = CsvReaderUtils.Read<ShopItemModel>($"{Constants.Misc}/Conquest/shop_talismans.csv");
+        int currentShopLineupId = 9300000;
+        uint currentEventFlagId = 1056448000;
+        const uint eventFlagStepSize = 10;
+
+        foreach (ShopItemModel shopItem in shopItems)
+        {
+            int shopLineupId = currentShopLineupId++;
+            uint eventFlagForQuantity = shopItem.EventFlagID == null
+                ? currentEventFlagId
+                : (uint)shopItem.EventFlagID;
+
+            if (shopItem.EventFlagID == null)
+            {
+                currentEventFlagId += eventFlagStepSize;
+            }
+
+            editor.CreateNewShopLineupRow(shopLineupId, $"[Conquest - {shopItem.Type}] {shopItem.Name}");
+            editor.SetShopLineupEquipId(shopLineupId, shopItem.ID);
+            editor.SetShopLineupEquipType(shopLineupId, shopItem.EquipType);
+            editor.SetShopLineupSellPrice(shopLineupId, shopItem.Cost);
+            editor.SetShopLineupEventFlagForStock(shopLineupId, eventFlagForQuantity);
+            editor.SetShopLineupSellQuantity(shopLineupId, shopItem.SellQuantity);
+        }
     }
 
     private void RandomizeRemembrancesWithWeaponsOnly(ParamsEditor editor, OptimizedReplacementRandomizer urr)
@@ -337,5 +399,19 @@ public class RandomizerServiceBase
         editor.SetEquipWeaponMaterialSetId(serpentHunterId, 0);
         editor.SetEquipWeaponReinforceTypeId(serpentHunterId, 3000);
         editor.SetEquipWeaponReinforceShopCategory(serpentHunterId, 0);
+    }
+
+    private static string? GetModeFolder(BaseMode mode) => mode switch
+    {
+        BaseMode.Original => null,
+        BaseMode.Conquest => Constants.ConquestFolder,
+        _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, "Unsupported Base mode.")
+    };
+
+    private void PrepareModeOutput(string? modeFolder)
+    {
+        string targetBasePath = Path.Combine(Constants.ModEngineWorkingDirectory, "base");
+        modeService.UpdateFolder(targetBasePath, modeFolder);
+        Directory.CreateDirectory(Path.GetDirectoryName(Constants.MenuBndOutBase)!);
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+  <Profiles />
+  <Settings>
+    <Setting Name="LastOpenedTabTitle" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastUsedSeedDlc" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastRandomizedModeDlc" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastRandomizedSeedDlc" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastUsedSeedBaseDlc" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastRandomizedSeedBaseDlc" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastRandomizedModeBaseDlc" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastUsedSeedBase" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastRandomizedSeedBase" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+    <Setting Name="LastRandomizedModeBase" Type="System.String" Scope="User"><Value Profile="(Default)" /></Setting>
+  </Settings>
+</SettingsFile>
